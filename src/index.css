@@ -11,4 +11,14 @@
 .App {
   display: flex;
   flex-direction: column;
+
+  font-family: "Montserrat";
+}
+
+label {
+  font-family: "Nunito";
+  font-size: 14px;
+  font-weight: 600;
+
+  margin-bottom: 6px;
 }
