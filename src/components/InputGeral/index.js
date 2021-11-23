@@ -1,11 +1,11 @@
 import TextField from "@material-ui/core/TextField";
 import useStyles from "./style";
 
-export default function InputGeral({ placeholder, type, onChange, mb }) {
+export default function InputGeral({ id, placeholder, type, onChange, mb }) {
   const classes = useStyles();
   return (
     <TextField
-      id="input-geral"
+      id={id}
       className={classes.root}
       placeholder={placeholder}
       size="small"
