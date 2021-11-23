@@ -24,9 +24,8 @@ export default function InputSenha({ placeholder, onChange, mb }) {
       id="input-senha"
       className={classes.root}
       placeholder={placeholder}
-      size="small"
       variant="outlined"
-      style={{ marginBottom: mb ? mb : "20px" }}
+      style={{ marginBottom: mb ? mb : "0px" }}
       onChange={onChange}
       type={showPassword ? "text" : "password"}
       InputProps={{
