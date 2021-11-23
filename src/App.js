@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/cadastro-1" element={<LayoutPaginaSenha />} />
+          <Route path="/cadastro-2" element={<LayoutPaginaSenha />} />
         </Routes>
       </Router>
     </div>
