@@ -6,6 +6,7 @@ import bolinhaVerde from "../../assets/bolinhaVerde.svg";
 import InputSenha from "../InputSenha";
 import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
+import { Link } from "react-router-dom";
 
 function PaginaSenha() {
   return (
@@ -46,7 +47,7 @@ function PaginaSenha() {
           </div>
           <button className="botao-cadastro">Cadastrar</button>
           <span>
-            Já possui uma conta? Faça seu <a href="">Login</a>
+            Já possui uma conta? Faça seu <Link to="/login">Login</Link>
           </span>
         </div>
         <div className="progresso">
