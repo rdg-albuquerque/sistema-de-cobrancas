@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import useStyles from "./style";
 import { useState } from "react";
 
-export default function InputSenha({ id, value, placeholder, onChange, mb }) {
+export default function InputSenha({ value, placeholder, onChange }) {
   const classes = useStyles();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -21,12 +21,10 @@ export default function InputSenha({ id, value, placeholder, onChange, mb }) {
 
   return (
     <TextField
-      id={id}
       className={classes.root}
       value={value}
       placeholder={placeholder}
       variant="outlined"
-      style={{ marginBottom: mb ? mb : "0px" }}
       onChange={onChange}
       type={showPassword ? "text" : "password"}
       InputProps={{
