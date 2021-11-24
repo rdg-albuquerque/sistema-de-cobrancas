@@ -1,5 +1,5 @@
-.botao_rosa{
-    all: unset;
+.botao_rosa {
+  all: unset;
   box-sizing: border-box;
   cursor: pointer;
   background: #da0175;
@@ -9,5 +9,4 @@
   font-family: "Nunito", sans-serif;
   font-size: 18px;
   line-height: 25px;
-  margin-bottom: 15px;
 }
