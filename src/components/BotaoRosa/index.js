@@ -1,8 +1,8 @@
 import "./style.css";
 
-function BotaoRosa({ className, children, onClick }) {
+function BotaoRosa({ children, onClick }) {
   return (
-    <button className={className} onClick={onClick}>
+    <button className="botao_rosa" onClick={onClick}>
       {children}
     </button>
   );
