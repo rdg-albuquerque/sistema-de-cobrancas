@@ -5,6 +5,7 @@ import footerStepCheck from "../../assets/footer-step-check.svg";
 import line from "../../assets/line-green.svg";
 import confirmationImg from "../../assets/confirmation-img.svg";
 import { useNavigate } from "react-router-dom";
+import BotaoRosa from "../../components/BotaoRosa";
 
 function ConfirmacaoCadastro() {
   const navigate = useNavigate();
@@ -38,15 +39,15 @@ function ConfirmacaoCadastro() {
           </div>
         </div>
       </div>
-      <div className="background-right">
+      <div className="background-rigth">
         <div className="container-confirmacao">
           <img src={confirmationImg} alt="check" />
           <h1>Cadastro realizado com sucesso!</h1>
         </div>
-        {/* Implementar o componente botão aqui */}
-        <button className="botao-login" onClick={handleGoToLogin}>
+
+        <BotaoRosa className="botao-login" onClick={handleGoToLogin}>
           Ir para Login
-        </button>
+        </BotaoRosa>
         <div className="progresso">
           <img src={footerStep} alt="" />
           <img src={footerStep} alt="" />

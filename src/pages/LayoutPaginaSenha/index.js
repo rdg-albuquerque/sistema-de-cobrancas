@@ -8,6 +8,7 @@ import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import BotaoRosa from "../../components/BotaoRosa";
 
 function PaginaSenha() {
   const [localSenha, setLocalSenha] = useState({
@@ -78,10 +79,9 @@ function PaginaSenha() {
               onChange={handleChangeSenhaConfirmacao}
             />
           </div>
-          {/* Substituir abaixo pelo componente botão */}
-          <button className="botao-cadastro" onClick={handleCadastrar}>
+          <BotaoRosa className="botao-cadastro" onClick={handleCadastrar}>
             Cadastrar
-          </button>
+          </BotaoRosa>
           <span>
             Já possui uma conta? Faça seu <Link to="/login">Login</Link>
           </span>
