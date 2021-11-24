@@ -1,7 +1,11 @@
 import "./style.css";
 
-function BotaoRosa({ children }) {
-  return <button className="botao_rosa">{children}</button>;
+function BotaoRosa({ className, children, onClick }) {
+  return (
+    <button className={className} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 
 export default BotaoRosa;
