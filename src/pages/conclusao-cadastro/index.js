@@ -4,9 +4,16 @@ import footerStep from "../../assets/footer-step.svg";
 import footerStepCheck from "../../assets/footer-step-check.svg";
 import line from "../../assets/line-green.svg";
 import confirmationImg from "../../assets/confirmation-img.svg";
+import { useNavigate } from "react-router-dom";
 import BotaoRosa from "../../components/BotaoRosa";
 
 function ConfirmacaoCadastro() {
+  const navigate = useNavigate();
+
+  function handleGoToLogin() {
+    navigate("/login");
+  }
+
   return (
     <div className="background">
       <div className="background-left">
@@ -38,7 +45,9 @@ function ConfirmacaoCadastro() {
           <h1>Cadastro realizado com sucesso!</h1>
         </div>
 
-        <BotaoRosa>Ir para Login</BotaoRosa>
+        <BotaoRosa className="botao-login" onClick={handleGoToLogin}>
+          Ir para Login
+        </BotaoRosa>
         <div className="progresso">
           <img src={footerStep} alt="" />
           <img src={footerStep} alt="" />
