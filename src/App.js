@@ -1,7 +1,6 @@
-import LayoutPaginaSenha from './components/LayoutPaginaSenha';
+import LayoutPaginaSenha from "./pages/LayoutPaginaSenha";
 import Cadastro from "./pages/conclusao-cadastro";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-
 
 function App() {
   return (
