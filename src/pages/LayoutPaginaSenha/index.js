@@ -3,12 +3,37 @@ import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
 import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import bolinhaBranca from "../../assets/bolinhaBranca.svg";
 import bolinhaVerde from "../../assets/bolinhaVerde.svg";
-import InputSenha from "../InputSenha";
+import InputSenha from "../../components/InputSenha";
 import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function PaginaSenha() {
+  const [localSenha, setLocalSenha] = useState({
+    senha: "",
+    senhaConfirmacao: "",
+  });
+
+  function handleChangeSenha(e) {
+    setLocalSenha({ ...localSenha, senha: e.target.value });
+  }
+
+  function handleChangeSenhaConfirmacao(e) {
+    setLocalSenha({ ...localSenha, senhaConfirmacao: e.target.value });
+  }
+
+  function handleCadastrar() {
+    if (!localSenha.senha && !localSenha.senhaConfirmacao) return;
+    if (localSenha.senha !== localSenha.senhaConfirmacao) {
+      // Disparar toastify de erro aqui
+      // Ex. Senhas não coincidem
+      return;
+    }
+
+    //Requisição de cadastro
+  }
+
   return (
     <div className="background">
       <div className="background-left">
@@ -39,13 +64,24 @@ function PaginaSenha() {
           <h1>Escolha uma senha</h1>
           <div className="senha">
             <label>Senha*</label>
-            <InputSenha placeholder="Digite sua senha" />
+            <InputSenha
+              placeholder="Digite sua senha"
+              value={localSenha.senha}
+              onChange={handleChangeSenha}
+            />
           </div>
           <div className="repetir-senha">
             <label>Repita senha*</label>
-            <InputSenha placeholder="Confirme sua senha" />
+            <InputSenha
+              placeholder="Confirme sua senha"
+              value={localSenha.senhaConfirmacao}
+              onChange={handleChangeSenhaConfirmacao}
+            />
           </div>
-          <button className="botao-cadastro">Cadastrar</button>
+          {/* Substituir abaixo pelo componente botão */}
+          <button className="botao-cadastro" onClick={handleCadastrar}>
+            Cadastrar
+          </button>
           <span>
             Já possui uma conta? Faça seu <Link to="/login">Login</Link>
           </span>
