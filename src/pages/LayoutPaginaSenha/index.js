@@ -3,10 +3,11 @@ import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
 import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import bolinhaBranca from "../../assets/bolinhaBranca.svg";
 import bolinhaVerde from "../../assets/bolinhaVerde.svg";
-import InputSenha from "../InputSenha";
+import InputSenha from "../../components/InputSenha";
 import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import { Link } from "react-router-dom";
+import BotaoRosa from "../../components/BotaoRosa";
 
 function PaginaSenha() {
   return (
@@ -45,7 +46,7 @@ function PaginaSenha() {
             <label>Repita senha*</label>
             <InputSenha placeholder="Confirme sua senha" />
           </div>
-          <button className="botao-cadastro">Cadastrar</button>
+          <BotaoRosa>Cadastrar</BotaoRosa>
           <span>
             Já possui uma conta? Faça seu <Link to="/login">Login</Link>
           </span>

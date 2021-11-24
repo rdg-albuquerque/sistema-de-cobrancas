@@ -106,7 +106,7 @@
   margin-bottom: 46px;
 }
 
-.botao-cadastro {
+/* .botao-cadastro {
   all: unset;
   box-sizing: border-box;
   cursor: pointer;
@@ -118,7 +118,7 @@
   font-size: 18px;
   line-height: 25px;
   margin-bottom: 15px;
-}
+} */
 
 .container-input span {
   font-family: "Nunito", sans-serif;
