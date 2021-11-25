@@ -1,3 +1,5 @@
+
+
 import "./style.css";
 import check from "../../assets/check.svg";
 import footerStep from "../../assets/footer-step.svg";
