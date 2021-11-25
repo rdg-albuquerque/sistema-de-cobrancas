@@ -82,7 +82,7 @@ function PaginaSenha() {
           <BotaoRosa className="botao-cadastro" onClick={handleCadastrar}>
             Cadastrar
           </BotaoRosa>
-          <span>
+          <span className="faca-login">
             Já possui uma conta? Faça seu <Link to="/login">Login</Link>
           </span>
         </div>

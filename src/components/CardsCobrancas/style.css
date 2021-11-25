@@ -1,0 +1,51 @@
+.resumo {
+  width: 360px;
+  border-radius: 30px;
+  padding: 23px 40px;
+
+  color: #3f3f55;
+
+  display: flex;
+}
+
+.resumo--img {
+  display: block;
+}
+
+.resumo--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resumo--titulo {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.resumo--valor {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.resumo-pagas {
+  background-color: #eef6f6;
+}
+
+.resumo-pagas img {
+  margin-right: 54px;
+}
+
+.resumo-vencidas {
+  background: #ffefef;
+}
+
+.resumo-previstas {
+  background: #fcf6dc;
+}
+
+.resumo-vencidas img,
+.resumo-previstas img {
+  margin-right: 46px;
+}

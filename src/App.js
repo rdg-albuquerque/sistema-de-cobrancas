@@ -1,4 +1,3 @@
-
 import LayoutPaginaSenha from "./pages/LayoutPaginaSenha";
 import Cadastro from "./pages/conclusao-cadastro";
 import {
@@ -10,7 +9,6 @@ import {
 } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthProvider";
 import { useAuth } from "./hooks/useAuth";
-import ConfirmacaoCadastro from "./pages/conclusao-cadastro";
 import LayoutLogin from "./pages/Layout-login";
 
 function App() {
