@@ -1,5 +1,3 @@
-
-
 import "./style.css";
 import check from "../../assets/check.svg";
 import footerStep from "../../assets/footer-step.svg";
@@ -41,10 +39,12 @@ function ConfirmacaoCadastro() {
           </div>
         </div>
       </div>
-      <div className="background-rigth">
+      <div className="background-right-conclusao">
         <div className="container-confirmacao">
           <img src={confirmationImg} alt="check" />
-          <h1>Cadastro realizado com sucesso!</h1>
+          <h1 className="container-confirmacao--h1">
+            Cadastro realizado com sucesso!
+          </h1>
         </div>
 
         <BotaoRosa className="botao-login" onClick={handleGoToLogin}>

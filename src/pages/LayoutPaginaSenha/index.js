@@ -60,7 +60,7 @@ function PaginaSenha() {
           </div>
         </div>
       </div>
-      <div className="background-rigth">
+      <div className="background-right-senha">
         <div className="container-input">
           <h1>Escolha uma senha</h1>
           <div className="senha">
