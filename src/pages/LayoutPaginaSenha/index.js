@@ -83,7 +83,8 @@ function PaginaSenha() {
             Cadastrar
           </BotaoRosa>
           <span className="faca-login">
-            Já possui uma conta? Faça seu <Link to="/login">Login</Link>
+            Já possui uma conta? Faça seu
+            <Link to="/login">Login</Link>
           </span>
         </div>
         <div className="progresso">

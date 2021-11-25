@@ -8,5 +8,6 @@ export default makeStyles({
         borderRadius: "8px",
       },
     },
+    backgroundColor: "white",
   },
 });

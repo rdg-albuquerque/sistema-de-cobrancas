@@ -106,6 +106,10 @@
   margin-bottom: 6px;
 }
 
+.container-input a {
+  color: #da0175;
+}
+
 .repetir-senha {
   margin-bottom: 46px;
 }
@@ -123,24 +127,15 @@
   margin-bottom: 15px;
 }
 
-.container-input span a {
-  color: #da0175;
-  margin-left: 4px;
-}
-
 .progresso {
   display: flex;
   gap: 8px;
-}
-
-.repetir-senha a {
-  color: #da0175;
 }
 .a {
   display: flex;
   justify-content: space-between;
 }
 
-.possui-conta {
+.cadastrar-text {
   margin-top: 15px;
 }
