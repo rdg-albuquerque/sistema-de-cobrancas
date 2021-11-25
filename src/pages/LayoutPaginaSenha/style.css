@@ -1,6 +1,6 @@
-
 .background {
   display: flex;
+  min-height: 100vh;
 }
 
 .background-left {
@@ -51,13 +51,12 @@
   color: #3f3f55;
 }
 
-.background-right {
+.background-rigth {
   width: 70%;
-  padding: 200px 230px 65px 230px;
+  padding: 220px 230px 65px 230px;
   background-color: #f8f8f9;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -93,6 +92,10 @@
   margin-bottom: 6px;
 }
 
+.senha {
+  margin-bottom: 20px;
+}
+
 .repetir-senha {
   margin-bottom: 46px;
 }
@@ -111,25 +114,13 @@
   margin-left: 4px;
 }
 
+.faca-login {
+  margin-top: 10px;
+}
+
 .progresso {
   display: flex;
   gap: 8px;
   position: fixed;
   bottom: 64px;
-}
-
-.container-confirmacao {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 600px;
-  height: 512px;
-  background: #f0f0f5;
-  border-radius: 30px;
-  margin-bottom: 34px;
-}
-
-.container-confirmacao img {
-  margin-bottom: 24px;
 }
