@@ -24,7 +24,9 @@ function App() {
             <Route path="/cadastro-2" element={<LayoutPaginaSenha />} />
             <Route path="/cadastro-3" element={<Cadastro />} />
             <Route path="/login" element={<LayoutLogin />} />
-            <Route element={<RotasProtegidas />}></Route>
+            <Route element={<RotasProtegidas />}>
+              <Route path="/" />
+            </Route>
           </Routes>
         </Router>
       </AuthProvider>
