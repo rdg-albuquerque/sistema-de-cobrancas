@@ -2,6 +2,7 @@ import "./style.css";
 import InputSenha from "../../components/InputSenha";
 import InputGeral from "../../components/InputGeral";
 import BotaoRosa from "../../components/BotaoRosa";
+import { Link } from "react-router-dom";
 
 function LayoutLogin() {
   return (
@@ -21,13 +22,14 @@ function LayoutLogin() {
           <div className="repetir-senha">
             <div className="a">
               <label>Senha</label>
-              Esqueceu a senha? {/* Colocar link aqui */}
+              <Link to="#">Esqueceu a senha?</Link>
             </div>
             <InputSenha placeholder="Digite sua senha" />
           </div>
           <BotaoRosa>Entrar</BotaoRosa>
-          <span className="possui-conta">
-            Ainda não possui uma conta? Cadastre-se {/* Colocar link aqui */}
+          <span className="cadastrar-text">
+            Ainda não possui uma conta?
+            <Link to="/cadastro-1">Cadastre-se</Link>
           </span>
         </div>
       </div>
