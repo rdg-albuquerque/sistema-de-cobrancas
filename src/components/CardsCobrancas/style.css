@@ -1,4 +1,4 @@
-.card {
+.resumo {
   width: 360px;
   border-radius: 30px;
   padding: 23px 40px;
@@ -8,44 +8,44 @@
   display: flex;
 }
 
-.card--img {
+.resumo--img {
   display: block;
 }
 
-.card--container {
+.resumo--container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.card--titulo {
+.resumo--titulo {
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
 }
 
-.card--valor {
+.resumo--valor {
   font-weight: bold;
   font-size: 24px;
 }
 
-.card-pagas {
+.resumo-pagas {
   background-color: #eef6f6;
 }
 
-.card-pagas img {
+.resumo-pagas img {
   margin-right: 54px;
 }
 
-.card-vencidas {
+.resumo-vencidas {
   background: #ffefef;
 }
 
-.card-previstas {
+.resumo-previstas {
   background: #fcf6dc;
 }
 
-.card-vencidas img,
-.card-previstas img {
+.resumo-vencidas img,
+.resumo-previstas img {
   margin-right: 46px;
 }

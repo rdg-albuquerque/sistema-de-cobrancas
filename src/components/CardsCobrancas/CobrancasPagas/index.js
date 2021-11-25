@@ -1,16 +1,16 @@
 import "../style.css";
-import pagasImg from "../../../assets/card-pagas-img.svg";
+import pagasImg from "../../../assets/resumo-pagas-img.svg";
 
-function CardCobrancasPagas({ valor }) {
+function ResumoCobrancasPagas({ valor }) {
   return (
-    <div className="card card-pagas">
-      <img src={pagasImg} alt="" className="card--img" />
-      <div className="card--container">
-        <h1 className="card--titulo">Cobranças pagas</h1>
-        <span className="card--valor">R$ 30.000</span>
+    <div className="resumo resumo-pagas">
+      <img src={pagasImg} alt="" className="resumo--img" />
+      <div className="resumo--container">
+        <h1 className="resumo--titulo">Cobranças pagas</h1>
+        <span className="resumo--valor">R$ 30.000</span>
       </div>
     </div>
   );
 }
 
-export default CardCobrancasPagas;
+export default ResumoCobrancasPagas;

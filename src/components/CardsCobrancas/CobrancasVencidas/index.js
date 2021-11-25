@@ -1,16 +1,16 @@
 import "../style.css";
-import vencidasImg from "../../../assets/card-vencidas-img.svg";
+import vencidasImg from "../../../assets/resumo-vencidas-img.svg";
 
-function CardCobrancasVencidas({ valor }) {
+function ResumoCobrancasVencidas({ valor }) {
   return (
-    <div className="card card-vencidas">
-      <img src={vencidasImg} alt="" className="card--img" />
-      <div className="card--container">
-        <h1 className="card--titulo">Cobranças vencidas</h1>
-        <span className="card--valor">R$ 7.000</span>
+    <div className="resumo resumo-vencidas">
+      <img src={vencidasImg} alt="" className="resumo--img" />
+      <div className="resumo--container">
+        <h1 className="resumo--titulo">Cobranças vencidas</h1>
+        <span className="resumo--valor">R$ 7.000</span>
       </div>
     </div>
   );
 }
 
-export default CardCobrancasVencidas;
+export default ResumoCobrancasVencidas;
