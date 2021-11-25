@@ -25,6 +25,7 @@ export default function InputSenha({ value, placeholder, onChange }) {
       value={value}
       placeholder={placeholder}
       variant="outlined"
+      size="small"
       onChange={onChange}
       type={showPassword ? "text" : "password"}
       InputProps={{
