@@ -10,6 +10,7 @@ import {
 import { AuthProvider } from "./contexts/AuthProvider";
 import { useAuth } from "./hooks/useAuth";
 import LayoutLogin from "./pages/Layout-login";
+import Home from "./pages/home";
 
 function App() {
   function RotasProtegidas() {
@@ -25,7 +26,7 @@ function App() {
             <Route path="/cadastro-3" element={<Cadastro />} />
             <Route path="/login" element={<LayoutLogin />} />
             <Route element={<RotasProtegidas />}>
-              <Route path="/" />
+              <Route path="/" element={<Home />} />
             </Route>
           </Routes>
         </Router>

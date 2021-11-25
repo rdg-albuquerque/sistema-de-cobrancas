@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { authContext } from "../contexts/AuthProvider";
 
 function useAuthProvider() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState("d");
   const [novoUsuario, setNovoUsuario] = useState({
     nome: "",
     email: "",
