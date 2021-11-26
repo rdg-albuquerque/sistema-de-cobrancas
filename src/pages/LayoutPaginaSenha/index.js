@@ -79,7 +79,11 @@ function PaginaSenha() {
               onChange={handleChangeSenhaConfirmacao}
             />
           </div>
-          <BotaoRosa className="botao-cadastro" onClick={handleCadastrar}>
+          <BotaoRosa
+            className="botao-cadastro"
+            onClick={handleCadastrar}
+            disabled={!localSenha.senha || !localSenha.senhaConfirmacao}
+          >
             Cadastrar
           </BotaoRosa>
           <span className="faca-login">
