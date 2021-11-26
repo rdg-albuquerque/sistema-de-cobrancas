@@ -1,9 +1,9 @@
-import { cobrancas } from "../../obj";
+import { cobrancas } from "../../objCobrancas";
 import "./style.css";
 
 function TabelaCobrancas({ pagas, vencidas, previstas }) {
   return (
-    <table>
+    <table className="cobrancas-tabela">
       <caption className="cobrancas-titulo">
         <div className="cobrancas-titulo--container">
           <span>
@@ -26,19 +26,19 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
         </div>
       </caption>
       <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>ID da cob</th>
-          <th>Valor</th>
+        <tr className="cobrancas-tr">
+          <th className="cobrancas-th">Cliente</th>
+          <th className="cobrancas-th">ID da cob.</th>
+          <th className="cobrancas-th">Valor</th>
         </tr>
       </thead>
       <tbody>
         {cobrancas.map((cobranca, index) => {
           return (
-            <tr>
-              <td>{cobranca.nome}</td>
-              <td>{cobranca.id_cobranca}</td>
-              <td>{`R$ ${cobranca.valor},00`}</td>
+            <tr className="cobrancas-tr">
+              <td className="cobrancas-td">{cobranca.nome}</td>
+              <td className="cobrancas-td">{cobranca.id_cobranca}</td>
+              <td className="cobrancas-td">{`R$ ${cobranca.valor},00`}</td>
             </tr>
           );
         })}
