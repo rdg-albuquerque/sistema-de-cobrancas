@@ -1,16 +1,16 @@
-import "./style.css";
-import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
-import linhaVerde from "../../assets/linhaVerdeVertical.svg";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import bolinhaBranca from "../../assets/bolinhaBranca.svg";
 import bolinhaVerde from "../../assets/bolinhaVerde.svg";
-import InputSenha from "../../components/InputSenha";
+import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
 import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
+import InputSenha from "../../components/InputSenha";
+import "../css/cadastro1e2.css";
 
-function PaginaSenha() {
+function Cadastro2() {
   const [localSenha, setLocalSenha] = useState({
     senha: "",
     senhaConfirmacao: "",
@@ -80,7 +80,6 @@ function PaginaSenha() {
             />
           </div>
           <BotaoRosa
-            className="botao-cadastro"
             onClick={handleCadastrar}
             disabled={!localSenha.senha || !localSenha.senhaConfirmacao}
           >
@@ -101,4 +100,4 @@ function PaginaSenha() {
   );
 }
 
-export default PaginaSenha;
+export default Cadastro2;

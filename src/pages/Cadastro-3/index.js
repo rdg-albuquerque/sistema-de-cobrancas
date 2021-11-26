@@ -1,13 +1,13 @@
-import "./style.css";
-import check from "../../assets/check.svg";
-import footerStep from "../../assets/footer-step.svg";
-import footerStepCheck from "../../assets/footer-step-check.svg";
-import line from "../../assets/line-green.svg";
-import confirmationImg from "../../assets/confirmation-img.svg";
 import { useNavigate } from "react-router-dom";
+import check from "../../assets/check.svg";
+import confirmationImg from "../../assets/confirmation-img.svg";
+import footerStepCheck from "../../assets/footer-step-check.svg";
+import footerStep from "../../assets/footer-step.svg";
+import line from "../../assets/line-green.svg";
 import BotaoRosa from "../../components/BotaoRosa";
+import "./style.css";
 
-function ConfirmacaoCadastro() {
+function Cadastro3() {
   const navigate = useNavigate();
 
   function handleGoToLogin() {
@@ -60,4 +60,4 @@ function ConfirmacaoCadastro() {
   );
 }
 
-export default ConfirmacaoCadastro;
+export default Cadastro3;

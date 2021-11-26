@@ -4,7 +4,7 @@ import InputGeral from "../../components/InputGeral";
 import BotaoRosa from "../../components/BotaoRosa";
 import { Link } from "react-router-dom";
 
-function LayoutLogin() {
+function Login() {
   return (
     <div className="background">
       <div className="background-login-img">
@@ -37,4 +37,4 @@ function LayoutLogin() {
   );
 }
 
-export default LayoutLogin;
+export default Login;
