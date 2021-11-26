@@ -30,6 +30,8 @@
 .section--1 {
   display: flex;
   justify-content: space-between;
+
+  margin-bottom: 32px;
 }
 
 .container-pagas,
@@ -40,4 +42,9 @@
   flex-direction: column;
 
   gap: 24px;
+}
+
+.section--2 {
+  display: flex;
+  justify-content: space-between;
 }

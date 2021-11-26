@@ -3,6 +3,7 @@ import ResumoCobrancasPagas from "../../components/CardsCobrancas/CobrancasPagas
 import ResumoCobrancasVencidas from "../../components/CardsCobrancas/CobrancasVencidas";
 import ResumoCobrancasPrevistas from "../../components/CardsCobrancas/CobrancasPrevistas";
 import TabelaCobrancas from "../../components/TabelaCobrancas";
+import TabelaClientes from "../../components/TabelaClientes";
 
 export default function Home() {
   return (
@@ -24,7 +25,10 @@ export default function Home() {
             <TabelaCobrancas previstas />
           </div>
         </section>
-        <section className="section--2"></section>
+        <section className="section--2">
+          <TabelaClientes emDia />
+          <TabelaClientes inadimplentes />
+        </section>
       </section>
     </div>
   );
