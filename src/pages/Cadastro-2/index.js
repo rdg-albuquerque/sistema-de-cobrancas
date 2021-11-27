@@ -25,12 +25,7 @@ function Cadastro2() {
   }
 
   function handleCadastrar() {
-    if (!localSenha.senha && !localSenha.senhaConfirmacao) return;
-    if (localSenha.senha !== localSenha.senhaConfirmacao) {
-      // Disparar toastify de erro aqui
-      // Ex. Senhas não coincidem
-      return;
-    }
+    if (!localSenha.senha || !localSenha.senhaConfirmacao) return;
 
     //Requisição de cadastro
   }
@@ -66,6 +61,7 @@ function Cadastro2() {
           <div className="senha">
             <label>Senha*</label>
             <InputSenha
+              required
               placeholder="Digite sua senha"
               value={localSenha.senha}
               onChange={handleChangeSenha}
@@ -74,14 +70,20 @@ function Cadastro2() {
           <div className="repetir-senha">
             <label>Repita senha*</label>
             <InputSenha
+              required
               placeholder="Confirme sua senha"
               value={localSenha.senhaConfirmacao}
               onChange={handleChangeSenhaConfirmacao}
+              senhaParaComparar={localSenha.senha}
             />
           </div>
           <BotaoRosa
             onClick={handleCadastrar}
-            disabled={!localSenha.senha || !localSenha.senhaConfirmacao}
+            disabled={
+              !localSenha.senha ||
+              !localSenha.senhaConfirmacao ||
+              localSenha.senha !== localSenha.senhaConfirmacao
+            }
           >
             Cadastrar
           </BotaoRosa>
