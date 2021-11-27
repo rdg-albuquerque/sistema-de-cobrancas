@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bolinhaBranca from "../../assets/bolinhaBranca.svg";
 import bolinhaVerde from "../../assets/bolinhaVerde.svg";
 import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
@@ -8,9 +8,13 @@ import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
 import InputSenha from "../../components/InputSenha";
+import { useAuth } from "../../hooks/useAuth";
+import { post } from "../../utils/requests";
 import "../css/cadastro1e2.css";
 
 function Cadastro2() {
+  const { novoUsuario, setNovoUsuario } = useAuth();
+  const navigate = useNavigate();
   const [localSenha, setLocalSenha] = useState({
     senha: "",
     senhaConfirmacao: "",
@@ -24,10 +28,23 @@ function Cadastro2() {
     setLocalSenha({ ...localSenha, senhaConfirmacao: e.target.value });
   }
 
-  function handleCadastrar() {
-    if (!localSenha.senha || !localSenha.senhaConfirmacao) return;
-
-    //Requisição de cadastro
+  function isCamposIncorretos() {
+    return (
+      !localSenha.senha ||
+      !localSenha.senhaConfirmacao ||
+      localSenha.senha !== localSenha.senhaConfirmacao
+    );
+  }
+  async function handleCadastrar() {
+    if (isCamposIncorretos()) return;
+    const body = { ...novoUsuario, senha: localSenha.senha };
+    try {
+      await post("/usuario", body);
+      setNovoUsuario({ ...novoUsuario, senha: localSenha.senha });
+      navigate("/cadastro-3");
+    } catch (error) {
+      console.log(error.response.data);
+    }
   }
 
   return (
@@ -77,14 +94,7 @@ function Cadastro2() {
               senhaParaComparar={localSenha.senha}
             />
           </div>
-          <BotaoRosa
-            onClick={handleCadastrar}
-            disabled={
-              !localSenha.senha ||
-              !localSenha.senhaConfirmacao ||
-              localSenha.senha !== localSenha.senhaConfirmacao
-            }
-          >
+          <BotaoRosa onClick={handleCadastrar} disabled={isCamposIncorretos()}>
             Cadastrar
           </BotaoRosa>
           <span className="faca-login">

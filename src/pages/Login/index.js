@@ -2,9 +2,40 @@ import "./style.css";
 import InputSenha from "../../components/InputSenha";
 import InputGeral from "../../components/InputGeral";
 import BotaoRosa from "../../components/BotaoRosa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { post } from "../../utils/requests";
+import { useAuth } from "../../hooks/useAuth";
 
 function Login() {
+  const navigate = useNavigate();
+  const { setToken, setUser } = useAuth();
+  const [localInfo, setLocalInfo] = useState({
+    email: "",
+    senha: "",
+  });
+  function handleChangeEmail(e) {
+    setLocalInfo({ ...localInfo, email: e.target.value });
+  }
+  function handleChangeSenha(e) {
+    setLocalInfo({ ...localInfo, senha: e.target.value });
+  }
+
+  function isCamposIncorretos() {
+    return !localInfo.email || !localInfo.senha;
+  }
+
+  async function handleContinuar() {
+    if (isCamposIncorretos()) return;
+    try {
+      const { data } = await post("/login", localInfo);
+      setUser(data);
+      setToken(data.token);
+      navigate("/");
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
   return (
     <div className="background">
       <div className="background-login-img">
@@ -17,16 +48,26 @@ function Login() {
           <h1>Faça seu login!</h1>
           <div className="senha">
             <label>E-mail*</label>
-            <InputGeral placeholder="Digite seu e-mail" />
+            <InputGeral
+              required
+              placeholder="Digite seu e-mail"
+              onChange={handleChangeEmail}
+            />
           </div>
           <div className="repetir-senha">
             <div className="a">
               <label>Senha</label>
               <Link to="#">Esqueceu a senha?</Link>
             </div>
-            <InputSenha placeholder="Digite sua senha" />
+            <InputSenha
+              required
+              placeholder="Digite sua senha"
+              onChange={handleChangeSenha}
+            />
           </div>
-          <BotaoRosa>Entrar</BotaoRosa>
+          <BotaoRosa disabled={isCamposIncorretos()} onClick={handleContinuar}>
+            Entrar
+          </BotaoRosa>
           <span className="cadastrar-text">
             Ainda não possui uma conta?
             <Link to="/cadastro-1">Cadastre-se</Link>

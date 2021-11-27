@@ -46,9 +46,9 @@ export function Header() {
       <TituloHome />
 
       <div className="perfil">
-        <img className="imagem-perfil" src={imagemPerfil} />
+        <img className="imagem-perfil" src={imagemPerfil} alt="" />
         <span className="nome-perfil"> Nome </span>
-        <img className="botao-down" src={down} />
+        <img className="botao-down" src={down} alt="" />
 
         {/* <img
           onClick={() => setOpenPopup(!openPopup ? true : false)}

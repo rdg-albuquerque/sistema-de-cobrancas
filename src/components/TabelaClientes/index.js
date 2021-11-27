@@ -35,9 +35,9 @@ function TabelaClientes({ emDia, inadimplentes }) {
         </tr>
       </thead>
       <tbody>
-        {clientes.map((cliente, index) => {
+        {clientes.map((cliente) => {
           return (
-            <tr className="clientes-tr">
+            <tr key={cliente.id} className="clientes-tr">
               <td className="clientes-td">{cliente.nome}</td>
               <td className="clientes-td">{cliente.data_venc}</td>
               <td className="clientes-td">{`R$ ${cliente.valor},00`}</td>

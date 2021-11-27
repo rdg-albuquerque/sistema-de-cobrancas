@@ -13,27 +13,33 @@ import "../css/cadastro1e2.css";
 
 function Cadastro1() {
   const navigate = useNavigate();
-  const { novoUsuario, setNovoUsuario } = useAuth();
+  const { setNovoUsuario } = useAuth();
   const [localInfo, setLocalInfo] = useState({
     nome: "",
     email: "",
   });
+  const [isEmailCadastrado, setIsEmailCadastrado] = useState(false);
 
   function handleChangeNome(e) {
     setLocalInfo({ ...localInfo, nome: e.target.value });
   }
 
   function handleChangeEmail(e) {
+    setIsEmailCadastrado(false);
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
 
   async function handleContinuar() {
     try {
       await post("/validador", { email: localInfo.email });
-      setNovoUsuario({ ...novoUsuario, ...localInfo });
+      setNovoUsuario({ ...localInfo });
       navigate("/cadastro-2");
     } catch (error) {
-      console.log(error.response);
+      if (error.response.data === "O e-mail informado já está em uso") {
+        setIsEmailCadastrado(true);
+        return;
+      }
+      console.log(error.response.data);
     }
   }
 
@@ -82,6 +88,7 @@ function Cadastro1() {
               value={localInfo.email}
               type="email"
               onChange={handleChangeEmail}
+              isEmailCadastrado={isEmailCadastrado}
             />
           </div>
           <BotaoRosa
