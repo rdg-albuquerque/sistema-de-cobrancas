@@ -29,6 +29,7 @@ export default function InputSenha({ value, placeholder, onChange }) {
       onChange={onChange}
       type={showPassword ? "text" : "password"}
       InputProps={{
+        className: classes.input,
         endAdornment: (
           <InputAdornment position="end">
             <IconButton

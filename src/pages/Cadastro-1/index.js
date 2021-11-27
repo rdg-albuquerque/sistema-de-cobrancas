@@ -1,39 +1,29 @@
-import "./style.css";
-import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
-import linhaVerde from "../../assets/linhaVerdeVertical.svg";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import bolinhaBranca from "../../assets/bolinhaBranca.svg";
-import bolinhaVerde from "../../assets/bolinhaVerde.svg";
-import InputSenha from "../../components/InputSenha";
+import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
 import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
+import InputGeral from "../../components/InputGeral";
+import "../css/cadastro1e2.css";
 
-function PaginaSenha() {
-  const [localSenha, setLocalSenha] = useState({
-    senha: "",
-    senhaConfirmacao: "",
+function Cadastro1() {
+  const [localInfo, setLocalInfo] = useState({
+    nome: "",
+    email: "",
   });
 
-  function handleChangeSenha(e) {
-    setLocalSenha({ ...localSenha, senha: e.target.value });
+  function handleChangeNome(e) {
+    setLocalInfo({ ...localInfo, nome: e.target.value });
   }
 
-  function handleChangeSenhaConfirmacao(e) {
-    setLocalSenha({ ...localSenha, senhaConfirmacao: e.target.value });
+  function handleChangeEmail(e) {
+    setLocalInfo({ ...localInfo, email: e.target.value });
   }
 
-  function handleCadastrar() {
-    if (!localSenha.senha && !localSenha.senhaConfirmacao) return;
-    if (localSenha.senha !== localSenha.senhaConfirmacao) {
-      // Disparar toastify de erro aqui
-      // Ex. Senhas não coincidem
-      return;
-    }
-
-    //Requisição de cadastro
-  }
+  function handleContinuar() {}
 
   return (
     <div className="background">
@@ -41,7 +31,7 @@ function PaginaSenha() {
         <div className="check">
           <img src={bolinhaVerdeComCheck} alt="" />
           <img src={linhaVerde} alt="" />
-          <img src={bolinhaVerde} alt="" />
+          <img src={bolinhaBranca} alt="" />
           <img src={linhaVerde} alt="" />
           <img src={bolinhaBranca} alt="" />
         </div>
@@ -62,25 +52,31 @@ function PaginaSenha() {
       </div>
       <div className="background-right-senha">
         <div className="container-input">
-          <h1>Escolha uma senha</h1>
+          <h1>Adicione seus dados</h1>
           <div className="senha">
-            <label>Senha*</label>
-            <InputSenha
-              placeholder="Digite sua senha"
-              value={localSenha.senha}
-              onChange={handleChangeSenha}
+            <label>Nome*</label>
+            <InputGeral
+              required
+              placeholder="Digite seu nome"
+              value={localInfo.nome}
+              onChange={handleChangeNome}
             />
           </div>
           <div className="repetir-senha">
-            <label>Repita senha*</label>
-            <InputSenha
-              placeholder="Confirme sua senha"
-              value={localSenha.senhaConfirmacao}
-              onChange={handleChangeSenhaConfirmacao}
+            <label>Email*</label>
+            <InputGeral
+              required
+              placeholder="Digite seu email"
+              value={localInfo.email}
+              type="email"
+              onChange={handleChangeEmail}
             />
           </div>
-          <BotaoRosa className="botao-cadastro" onClick={handleCadastrar}>
-            Cadastrar
+          <BotaoRosa
+            onClick={handleContinuar}
+            disabled={!localInfo.nome || !localInfo.email}
+          >
+            Continuar
           </BotaoRosa>
           <span className="faca-login">
             Já possui uma conta? Faça seu
@@ -88,8 +84,8 @@ function PaginaSenha() {
           </span>
         </div>
         <div className="progresso">
-          <img src={linhaBrancaHorizontal} alt="" />
           <img src={linhaVerdeHorizontal} alt="" />
+          <img src={linhaBrancaHorizontal} alt="" />
           <img src={linhaBrancaHorizontal} alt="" />
         </div>
       </div>
@@ -97,4 +93,4 @@ function PaginaSenha() {
   );
 }
 
-export default PaginaSenha;
+export default Cadastro1;

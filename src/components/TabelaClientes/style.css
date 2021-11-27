@@ -1,4 +1,4 @@
-.cobrancas-tabela {
+.clientes-tabela {
   text-align: center;
 
   color: #3f3f55;
@@ -6,9 +6,10 @@
   border-collapse: collapse;
 
   font-family: "Nunito";
+  width: 49%;
 }
 
-.cobrancas-titulo {
+.clientes-titulo {
   border-radius: 30px 30px 0 0;
   background-color: white;
 
@@ -17,35 +18,41 @@
   font-size: 18px;
 }
 
-.cobrancas-titulo--container {
+.clientes-titulo--container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eff0f7;
-  padding: 18px 0;
+  padding: 18px 30px;
 }
 
-.cobrancas-titulo--contagem {
+.clientes-titulo--container2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.clientes-titulo--contagem {
   font-size: 16px;
   padding: 5px 15px;
 
   border-radius: 8px;
 }
 
-.cobrancas-row {
+.clientes-row {
   border-bottom: 1px solid #eff0f7;
 }
 
-.cobrancas-th,
-.cobrancas-td {
+.clientes-th,
+.clientes-td {
   padding: 15px 0px;
 }
 
-.cobrancas-td {
+.clientes-td {
   font-size: 14px;
 }
 
-.cobrancas--footer {
+.clientes--footer {
   caption-side: bottom;
   padding: 12px 0;
 

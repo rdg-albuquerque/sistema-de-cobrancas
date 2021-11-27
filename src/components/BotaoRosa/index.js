@@ -1,10 +1,18 @@
-import "./style.css";
+import { Button } from "@material-ui/core";
+import useStyles from "./style";
 
-function BotaoRosa({ children, onClick }) {
+function BotaoRosa({ children, onClick, disabled }) {
+  const classes = useStyles();
   return (
-    <button className="botao_rosa" onClick={onClick}>
+    <Button
+      className={classes.root}
+      variant="contained"
+      onClick={onClick}
+      size="small"
+      disabled={disabled}
+    >
       {children}
-    </button>
+    </Button>
   );
 }
 

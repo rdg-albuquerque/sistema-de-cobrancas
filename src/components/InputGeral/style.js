@@ -2,12 +2,15 @@ import { makeStyles } from "@material-ui/core";
 
 export default makeStyles({
   root: {
-    width: "368px",
+    width: 368,
     "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderRadius: "8px",
+      "&.Mui-focused fieldset": {
+        borderColor: "#b20a64",
       },
     },
+  },
+  input: {
+    borderRadius: "8px",
     backgroundColor: "white",
   },
 });
