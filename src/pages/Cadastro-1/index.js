@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bolinhaBranca from "../../assets/bolinhaBranca.svg";
 import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
 import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
@@ -7,9 +7,13 @@ import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
 import InputGeral from "../../components/InputGeral";
+import { useAuth } from "../../hooks/useAuth";
+import { post } from "../../utils/requests";
 import "../css/cadastro1e2.css";
 
 function Cadastro1() {
+  const navigate = useNavigate();
+  const { novoUsuario, setNovoUsuario } = useAuth();
   const [localInfo, setLocalInfo] = useState({
     nome: "",
     email: "",
@@ -23,7 +27,15 @@ function Cadastro1() {
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
 
-  function handleContinuar() {}
+  async function handleContinuar() {
+    try {
+      await post("/validador", { email: localInfo.email });
+      setNovoUsuario({ ...novoUsuario, ...localInfo });
+      navigate("/cadastro-2");
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
 
   return (
     <div className="background">

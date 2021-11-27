@@ -14,20 +14,35 @@ import Home from "./pages/Home";
 import Cadastro1 from "./pages/Cadastro-1";
 
 function App() {
-  function RotasProtegidas() {
+  function ProtecaoAuth() {
     const { token } = useAuth();
     return token ? <Outlet /> : <Navigate to="/login" />;
+  }
+  function ProtecaoCadastro2() {
+    const { novoUsuario } = useAuth();
+    return novoUsuario.email ? <Outlet /> : <Navigate to="/cadastro-1" />;
+  }
+  function ProtecaoCadastro3() {
+    const { novoUsuario } = useAuth();
+    return novoUsuario.senha ? <Outlet /> : <Navigate to="/cadastro-1" />;
   }
   return (
     <div className="App">
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/cadastro-1" element={<Cadastro1 />} />
-            <Route path="/cadastro-2" element={<Cadastro2 />} />
-            <Route path="/cadastro-3" element={<Cadastro3 />} />
             <Route path="/login" element={<Login />} />
-            <Route element={<RotasProtegidas />}>
+            <Route path="/cadastro-1" element={<Cadastro1 />} />
+
+            <Route element={<ProtecaoCadastro2 />}>
+              <Route path="/cadastro-2" element={<Cadastro2 />} />
+            </Route>
+
+            <Route element={<ProtecaoCadastro3 />}>
+              <Route path="/cadastro-3" element={<Cadastro3 />} />
+            </Route>
+
+            <Route element={<ProtecaoAuth />}>
               <Route path="/" element={<Home />} />
             </Route>
           </Routes>

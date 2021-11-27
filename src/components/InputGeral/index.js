@@ -17,8 +17,8 @@ export default function InputGeral({
     setErro(false);
     onChange(e);
   }
-  function handleOnBlur() {
-    if (!value) {
+  function handleOnBlur(e) {
+    if (!e.target.value) {
       setErro(true);
     }
   }
@@ -36,9 +36,9 @@ export default function InputGeral({
       onBlur={required ? handleOnBlur : null}
       error={erro}
       helperText={
-        erro & !helperText
+        erro && !helperText
           ? "Este campo é obrigatório"
-          : erro & helperText
+          : erro && helperText
           ? helperText
           : ""
       }
