@@ -3,13 +3,15 @@ import ResumoCobrancasPagas from "../../components/CardsCobrancas/CobrancasPagas
 import ResumoCobrancasVencidas from "../../components/CardsCobrancas/CobrancasVencidas";
 import ResumoCobrancasPrevistas from "../../components/CardsCobrancas/CobrancasPrevistas";
 import TabelaCobrancas from "../../components/TabelaCobrancas";
+import { Header } from "../../components/Header";
 import TabelaClientes from "../../components/TabelaClientes";
 
 export default function Home() {
   return (
     <div className="home">
       <div className="menu-lateral">Substituir pelo side-menu</div>
-      <div className="header">Substituir pelo header</div>
+      {/* <div className="header">Substituir pelo header</div> */}
+      <Header />
       <section className="section">
         <section className="section--1">
           <div className="container-pagas">
