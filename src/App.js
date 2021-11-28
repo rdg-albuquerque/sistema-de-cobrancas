@@ -13,6 +13,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Cadastro1 from "./pages/Cadastro-1";
 import { GlobalProvider } from "./contexts/GlobalProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   function ProtecaoAuth() {
@@ -51,6 +53,7 @@ function App() {
           </Router>
         </AuthProvider>
       </GlobalProvider>
+      <ToastContainer />
     </div>
   );
 }

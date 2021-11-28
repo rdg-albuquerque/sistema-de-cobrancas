@@ -15,3 +15,11 @@ export async function get(rota, token) {
     },
   });
 }
+
+export async function put(rota, body, token) {
+  return await instanceAxios.put(rota, body, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+}

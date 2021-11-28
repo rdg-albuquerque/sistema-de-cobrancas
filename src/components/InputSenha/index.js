@@ -4,7 +4,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import TextField from "@material-ui/core/TextField";
 import useStyles from "./style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function InputSenha({
   value,
@@ -12,29 +12,54 @@ export default function InputSenha({
   onChange,
   required,
   senhaParaComparar,
+  editar,
 }) {
   const classes = useStyles();
 
   const [erro, setErro] = useState(false);
-  const [helperText, setHelperText] = useState();
+  const [helperText, setHelperText] = useState("");
+
+  useEffect(() => {
+    if (editar) {
+      if (senhaParaComparar === value) {
+        setErro(false);
+        setHelperText("");
+      } else {
+        setErro(true);
+        setHelperText("As senhas não coicidem");
+      }
+    }
+  }, [senhaParaComparar, value, editar]);
 
   function handleChangeObrigatorio(e) {
     setErro(false);
     onChange(e);
-    if (!e.target.value) {
-      setErro(true);
-      setHelperText("Este campo é obrigatório");
-      return;
-    }
+    if (editar) return;
     if (senhaParaComparar && senhaParaComparar !== e.target.value) {
       setErro(true);
       setHelperText("As senhas não coicidem");
       return;
     }
-  }
-  function handleOnBlur(e) {
     if (!e.target.value) {
       setErro(true);
+      setHelperText("Este campo é obrigatório");
+      return;
+    }
+  }
+  function handleOnBlur(e) {
+    if (editar) {
+      if (e.target.value !== senhaParaComparar) {
+        setErro(true);
+        setHelperText("As senhas não coicidem");
+      } else {
+        setErro(false);
+        setHelperText("");
+      }
+      return;
+    }
+    if (!e.target.value) {
+      setErro(true);
+      setHelperText("Este campo é obrigatório");
     }
   }
 
@@ -58,13 +83,7 @@ export default function InputSenha({
       onChange={required ? handleChangeObrigatorio : onChange}
       onBlur={required ? handleOnBlur : null}
       error={erro}
-      helperText={
-        erro && !helperText
-          ? "Este campo é obrigatório"
-          : erro && helperText
-          ? helperText
-          : ""
-      }
+      helperText={erro && helperText}
       type={showPassword ? "text" : "password"}
       InputProps={{
         className: classes.input,

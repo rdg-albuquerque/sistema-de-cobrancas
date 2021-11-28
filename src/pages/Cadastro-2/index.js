@@ -43,7 +43,7 @@ function Cadastro2() {
       setNovoUsuario({ ...novoUsuario, senha: localSenha.senha });
       navigate("/cadastro-3");
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response.data.mensagem);
     }
   }
 

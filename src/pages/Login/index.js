@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { post } from "../../utils/requests";
 import { useAuth } from "../../hooks/useAuth";
+import { notificacaoErro } from "../../utils/notificacao";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,7 +34,10 @@ function Login() {
       setToken(data.token);
       navigate("/");
     } catch (error) {
-      console.log(error.response.data);
+      if (error.response.status === 400 || error.response.status === 404) {
+        return notificacaoErro(error.response.data.mensagem);
+      }
+      console.log(error.response.data.mensagem);
     }
   }
   return (
