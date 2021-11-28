@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { authContext } from "../contexts/AuthProvider";
 
 function useAuthProvider() {
+  const [abrirPopup, setAbrirPopup] = useState(false);
   const [token, setToken] = useState("d");
   const [novoUsuario, setNovoUsuario] = useState({
     nome: "",
@@ -12,6 +13,8 @@ function useAuthProvider() {
   return {
     novoUsuario,
     setNovoUsuario,
+    abrirPopup,
+    setAbrirPopup,
     token,
     setToken,
   };
