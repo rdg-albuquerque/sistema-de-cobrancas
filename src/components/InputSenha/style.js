@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export default makeStyles({
   root: {
-    width: 368,
+    width: "100%",
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
         borderColor: "#b20a64",

@@ -5,6 +5,7 @@ import ResumoCobrancasPrevistas from "../../components/CardsCobrancas/CobrancasP
 import TabelaCobrancas from "../../components/TabelaCobrancas";
 import { Header } from "../../components/Header";
 import TabelaClientes from "../../components/TabelaClientes";
+import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
           <TabelaClientes inadimplentes />
         </section>
       </section>
+      <ModalEditarUsuario />
     </div>
   );
 }

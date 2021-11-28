@@ -49,26 +49,26 @@
   color: #3f3f55;
 }
 
-.background-right-senha {
+.background-right {
   width: 70%;
-  padding: 235px 230px 65px 230px;
+  padding: 235px 279px 65px 293px;
   background-color: #f8f8f9;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.container-input {
+.background-right--container {
+  width: 368px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0%;
-  width: 355px;
   margin-bottom: 100px;
 }
 
-.container-input h1 {
+.background-right--container h1 {
   font-family: "Montserrat", sans-serif;
   font-style: normal;
   font-weight: bold;
@@ -79,7 +79,7 @@
   margin-bottom: 32px;
 }
 
-.container-input label {
+.background-right--container label {
   font-family: "Nunito";
   font-style: normal;
   font-weight: 600;
@@ -88,15 +88,19 @@
   margin-bottom: 6px;
 }
 
+.nome,
 .senha {
   margin-bottom: 20px;
+  align-self: stretch;
 }
 
+.email,
 .repetir-senha {
   margin-bottom: 46px;
+  align-self: stretch;
 }
 
-.container-input span a {
+.background-right--container span a {
   color: #da0175;
   margin-left: 4px;
 }

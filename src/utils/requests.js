@@ -7,3 +7,11 @@ export async function post(rota, body, token) {
     },
   });
 }
+
+export async function get(rota, token) {
+  return await instanceAxios.get(rota, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+}

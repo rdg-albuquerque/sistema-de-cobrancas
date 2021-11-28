@@ -12,6 +12,7 @@ import { useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Cadastro1 from "./pages/Cadastro-1";
+import { GlobalProvider } from "./contexts/GlobalProvider";
 
 function App() {
   function ProtecaoAuth() {
@@ -28,26 +29,28 @@ function App() {
   }
   return (
     <div className="App">
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastro-1" element={<Cadastro1 />} />
+      <GlobalProvider>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastro-1" element={<Cadastro1 />} />
 
-            <Route element={<ProtecaoCadastro2 />}>
-              <Route path="/cadastro-2" element={<Cadastro2 />} />
-            </Route>
+              <Route element={<ProtecaoCadastro2 />}>
+                <Route path="/cadastro-2" element={<Cadastro2 />} />
+              </Route>
 
-            <Route element={<ProtecaoCadastro3 />}>
-              <Route path="/cadastro-3" element={<Cadastro3 />} />
-            </Route>
+              <Route element={<ProtecaoCadastro3 />}>
+                <Route path="/cadastro-3" element={<Cadastro3 />} />
+              </Route>
 
-            <Route element={<ProtecaoAuth />}>
-              <Route path="/" element={<Home />} />
-            </Route>
-          </Routes>
-        </Router>
-      </AuthProvider>
+              <Route element={<ProtecaoAuth />}>
+                <Route path="/" element={<Home />} />
+              </Route>
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </GlobalProvider>
     </div>
   );
 }

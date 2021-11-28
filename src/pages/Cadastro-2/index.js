@@ -72,8 +72,8 @@ function Cadastro2() {
           </div>
         </div>
       </div>
-      <div className="background-right-senha">
-        <div className="container-input">
+      <div className="background-right">
+        <div className="background-right--container">
           <h1>Escolha uma senha</h1>
           <div className="senha">
             <label>Senha*</label>

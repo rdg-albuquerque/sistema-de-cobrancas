@@ -68,10 +68,10 @@ function Cadastro1() {
           </div>
         </div>
       </div>
-      <div className="background-right-senha">
-        <div className="container-input">
+      <div className="background-right">
+        <div className="background-right--container">
           <h1>Adicione seus dados</h1>
-          <div className="senha">
+          <div className="nome">
             <label>Nome*</label>
             <InputGeral
               required
@@ -80,7 +80,7 @@ function Cadastro1() {
               onChange={handleChangeNome}
             />
           </div>
-          <div className="repetir-senha">
+          <div className="email">
             <label>Email*</label>
             <InputGeral
               required
