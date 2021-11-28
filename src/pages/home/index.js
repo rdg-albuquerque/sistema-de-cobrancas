@@ -6,10 +6,16 @@ import TabelaCobrancas from "../../components/TabelaCobrancas";
 import { Header } from "../../components/Header";
 import TabelaClientes from "../../components/TabelaClientes";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
+import { useGlobal } from "../../hooks/useGlobal";
 
 export default function Home() {
+  const { setAbrirPopup } = useGlobal();
+
+  function handleClosePopup() {
+    setAbrirPopup(false);
+  }
   return (
-    <div className="home">
+    <div className="home" onClick={handleClosePopup}>
       <div className="menu-lateral">Substituir pelo side-menu</div>
       {/* <div className="header">Substituir pelo header</div> */}
       <Header />

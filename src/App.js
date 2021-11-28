@@ -13,6 +13,8 @@ import Login from "./pages/Login";
 import Home from "./pages/home";
 import Cadastro1 from "./pages/Cadastro-1";
 import { GlobalProvider } from "./contexts/GlobalProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   function ProtecaoAuth() {
@@ -27,6 +29,7 @@ function App() {
     const { novoUsuario } = useAuth();
     return novoUsuario.senha ? <Outlet /> : <Navigate to="/cadastro-1" />;
   }
+
   return (
     <div className="App">
       <GlobalProvider>
@@ -46,11 +49,14 @@ function App() {
 
               <Route element={<ProtecaoAuth />}>
                 <Route path="/" element={<Home />} />
+                <Route path="/clientes" element={<Home />} />
+                <Route path="/cobrancas" element={<Home />} />
               </Route>
             </Routes>
           </Router>
         </AuthProvider>
       </GlobalProvider>
+      <ToastContainer />
     </div>
   );
 }

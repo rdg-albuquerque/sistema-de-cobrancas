@@ -35,11 +35,13 @@ function Cadastro1() {
       setNovoUsuario({ ...localInfo });
       navigate("/cadastro-2");
     } catch (error) {
-      if (error.response.data === "O e-mail informado já está em uso") {
+      if (
+        error.response.data.mensagem === "O e-mail informado já está em uso"
+      ) {
         setIsEmailCadastrado(true);
         return;
       }
-      console.log(error.response.data);
+      console.log(error.response.data.mensagem);
     }
   }
 
