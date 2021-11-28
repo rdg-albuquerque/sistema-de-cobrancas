@@ -4,15 +4,28 @@ import down from "../../assets/down.svg";
 import editar from "../../assets/editar.svg";
 import sair from "../../assets/sair.svg";
 import { useAuth } from "../../hooks/useAuth";
+import { useGlobal } from "../../hooks/useGlobal";
+import { useNavigate } from "react-router";
 
 const paginaAtual = window.location.pathname;
 
 const Popup = () => {
+  const { removeUser } = useAuth();
+  const { setOpenModalEditar, setAbrirPopup } = useGlobal();
+  const navigate = useNavigate();
+  function handleEditar() {
+    setOpenModalEditar(true);
+    setAbrirPopup(false);
+  }
+  function handleSair() {
+    removeUser();
+    navigate("/login");
+  }
+
   return (
-    <div className="popup">
-      <img className="popup-down" src={down} alt="" />
-      <img className="icone" src={editar} alt="" />
-      <img className="icone" src={sair} alt="" />
+    <div className="popup" onClick={(e) => e.stopPropagation()}>
+      <img className="icone" src={editar} alt="" onClick={handleEditar} />
+      <img className="icone" src={sair} alt="" onClick={handleSair} />
     </div>
   );
 };
@@ -24,7 +37,7 @@ function TituloHome() {
 
   if (paginaAtual === "/clientes") {
     return (
-      <ul className="tituto-cliente">
+      <ul className="titulo-cliente">
         <li>
           <a href="/clientes">Clientes</a>
         </li>
@@ -35,23 +48,29 @@ function TituloHome() {
   // if (paginaAtual === "/cobrancas") {
   //   return <h1>cobranças</h1>;
   // }
-
-  return <h1>Teste</h1>;
 }
 
 export function Header() {
-  const { abrirPopup, setAbrirPopup } = useAuth();
+  const { abrirPopup, setAbrirPopup } = useGlobal();
+  const { user } = useAuth();
+
+  const userName = user.dados_usuario.nome;
+  const firstName = userName.split(" ")[0];
+  console.log(firstName);
+  function handleOpenPopup(e) {
+    e.stopPropagation();
+    setAbrirPopup(!abrirPopup ? true : false);
+  }
   return (
     <div className="header">
       <TituloHome />
 
       <div className="perfil">
         <img className="imagem-perfil" src={imagemPerfil} alt="" />
-        <span className="nome-perfil"> Nome </span>
-        <img className="botao-down" src={down} alt="" />
+        <span className="nome-perfil">{firstName}</span>
 
         <img
-          onClick={() => setAbrirPopup(!abrirPopup ? true : false)}
+          onClick={handleOpenPopup}
           className="botao-down"
           src={down}
           alt=""

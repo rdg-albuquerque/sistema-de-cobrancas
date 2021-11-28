@@ -29,6 +29,7 @@ function App() {
     const { novoUsuario } = useAuth();
     return novoUsuario.senha ? <Outlet /> : <Navigate to="/cadastro-1" />;
   }
+
   return (
     <div className="App">
       <GlobalProvider>
@@ -48,6 +49,8 @@ function App() {
 
               <Route element={<ProtecaoAuth />}>
                 <Route path="/" element={<Home />} />
+                <Route path="/clientes" element={<Home />} />
+                <Route path="/cobrancas" element={<Home />} />
               </Route>
             </Routes>
           </Router>

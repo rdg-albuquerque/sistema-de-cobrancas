@@ -128,7 +128,12 @@ export default function ModalEditarUsuario() {
     >
       <Fade in={openModalEditar}>
         <div className="modal-usuario">
-          <img className="editar--close" src={close} alt="" />
+          <img
+            className="editar--close"
+            src={close}
+            alt=""
+            onClick={handleClose}
+          />
           <h1 className="editar--h1">Edite seu cadastro</h1>
           <div>
             <label>Nome*</label>

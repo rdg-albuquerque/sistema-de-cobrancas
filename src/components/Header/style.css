@@ -1,114 +1,113 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .header {
-    height: 112px;
-    margin: 0px 32px 30px 132px;
-    border-bottom: 1px solid #ACD9C5;
+  height: 112px;
+  margin: 0px 32px 30px 132px;
+  border-bottom: 1px solid #acd9c5;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .titulo-da-home {
-    margin-left: 50px;
+  margin-left: 50px;
 
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 26px;
-    line-height: 130%;
-    color: #343447;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 130%;
+  color: #343447;
 }
 
-.tituto-cliente {
-    margin: 0px 0px 4px 71px;
-    
-    list-style: none;
+.titulo-cliente {
+  margin: 0px 0px 4px 71px;
 
-    align-self: flex-end;
-    display: flex;
+  list-style: none;
+
+  align-self: flex-end;
+  display: flex;
 }
 
-.tituto-cliente li a {
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #0E8750;
+.titulo-cliente li a {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0e8750;
 }
 
 .perfil {
-    height: 48px;
+  height: 48px;
 
-    display: flex;
-    align-items: center;
-    padding-right: 132px;
+  display: flex;
+  align-items: center;
+  padding-right: 132px;
 
-    position: relative;
+  position: relative;
 }
 
 .imagem-perfil {
-    width: 48px;
-    height: 48px;
-    background: #DEDEE9;
-    border-radius: 50px;
-    margin-right: 16px;
+  width: 48px;
+  height: 48px;
+  background: #dedee9;
+  border-radius: 50px;
+  margin-right: 16px;
 }
 
 .nome-perfil {
-    font-family: 'Nunito', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
-    color: #0E8750;
+  font-family: "Nunito", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 25px;
+  color: #0e8750;
 }
 
 .botao-down {
-    width: 18px;
-    height: 13px;
-    margin-left: 8px;
+  width: 18px;
+  height: 13px;
+  margin-left: 8px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .popup {
-    width: 92px;
-    height: 51px;
-    background: #FFFFFF;
-    border-radius: 8px;
+  width: 92px;
+  height: 51px;
+  background: #ffffff;
+  border-radius: 8px;
 
-    
-    filter: drop-shadow(0px 4px 42px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0px 4px 42px rgba(0, 0, 0, 0.2));
 
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 
-    position: absolute;
-    bottom: -50px;
-    right: 122px;
+  position: absolute;
+  bottom: -50px;
+  right: 122px;
 }
 
 .popup-down {
-    width: 19px;
-    height: 8px;
+  width: 19px;
+  height: 8px;
 
-    position: absolute;
-    left: 60px;
-    top: -7px;
+  position: absolute;
+  left: 60px;
+  top: -7px;
 }
 
 .icone {
-    width: 22px;
-    height: 31px;
+  width: 22px;
+  height: 31px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
