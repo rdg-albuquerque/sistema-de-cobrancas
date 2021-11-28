@@ -6,10 +6,13 @@ function useAuthProvider() {
   const [user, setUser, removeUser] = useLocalStorage("user", {});
   const [token, setToken] = useState(user.token ?? "");
   const [novoUsuario, setNovoUsuario] = useState({});
+  const [abrirPopup, setAbrirPopup] = useState(false);
 
   return {
     novoUsuario,
     setNovoUsuario,
+    abrirPopup,
+    setAbrirPopup,
     token,
     setToken,
     user,

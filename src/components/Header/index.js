@@ -1,21 +1,21 @@
 import "./style.css";
 import imagemPerfil from "../../assets/imagemPerfil.svg";
 import down from "../../assets/down.svg";
-// import editar from "../../assets/editar.svg";
-// import sair from "../../assets/sair.svg";
-// import { useAuth } from "../../hooks/useAuth";
+import editar from "../../assets/editar.svg";
+import sair from "../../assets/sair.svg";
+import { useAuth } from "../../hooks/useAuth";
 
 const paginaAtual = window.location.pathname;
 
-// const Popup = () => {
-//   return (
-//     <div className="popup">
-//       <img className="popup-down" src={down} />
-//       <img className="icone" src={editar} />
-//       <img className="icone" src={sair} />
-//     </div>
-//   );
-// };
+const Popup = () => {
+  return (
+    <div className="popup">
+      <img className="popup-down" src={down} alt="" />
+      <img className="icone" src={editar} alt="" />
+      <img className="icone" src={sair} alt="" />
+    </div>
+  );
+};
 
 function TituloHome() {
   if (paginaAtual === "/") {
@@ -36,11 +36,11 @@ function TituloHome() {
   //   return <h1>cobranças</h1>;
   // }
 
-  return <p></p>;
+  return <h1>Teste</h1>;
 }
 
 export function Header() {
-  // const { openPopup, setOpenPopup } = useAuth();
+  const { abrirPopup, setAbrirPopup } = useAuth();
   return (
     <div className="header">
       <TituloHome />
@@ -50,13 +50,14 @@ export function Header() {
         <span className="nome-perfil"> Nome </span>
         <img className="botao-down" src={down} alt="" />
 
-        {/* <img
-          onClick={() => setOpenPopup(!openPopup ? true : false)}
+        <img
+          onClick={() => setAbrirPopup(!abrirPopup ? true : false)}
           className="botao-down"
           src={down}
-        /> */}
+          alt=""
+        />
 
-        {/* {openPopup && <Popup />} */}
+        {abrirPopup && <Popup />}
       </div>
     </div>
   );
