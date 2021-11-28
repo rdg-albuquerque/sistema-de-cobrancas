@@ -6,6 +6,7 @@ import sair from "../../assets/sair.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useNavigate } from "react-router";
+import Avatar from "@material-ui/core/Avatar";
 
 const paginaAtual = window.location.pathname;
 
@@ -56,7 +57,6 @@ export function Header() {
 
   const userName = user.dados_usuario.nome;
   const firstName = userName.split(" ")[0];
-  console.log(firstName);
   function handleOpenPopup(e) {
     e.stopPropagation();
     setAbrirPopup(!abrirPopup ? true : false);
@@ -66,7 +66,7 @@ export function Header() {
       <TituloHome />
 
       <div className="perfil">
-        <img className="imagem-perfil" src={imagemPerfil} alt="" />
+        <Avatar />
         <span className="nome-perfil">{firstName}</span>
 
         <img

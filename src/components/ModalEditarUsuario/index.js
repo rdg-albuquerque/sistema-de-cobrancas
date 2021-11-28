@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalEditarUsuario() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, user, setUser } = useAuth();
   const { openModalEditar, setOpenModalEditar } = useGlobal();
   const [localInfo, setLocalInfo] = useState({
     nome: "",
@@ -41,25 +41,28 @@ export default function ModalEditarUsuario() {
   });
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const { data } = await get("/usuario", token);
-        setLocalInfo({
-          ...localInfo,
-          ...data,
-          telefone: data.telefone ?? "",
-          cpf: data.cpf ?? "",
-        });
-      } catch (error) {
-        if (error.response.status === 401) {
-          notificacaoErro("Sua sessão expirou.");
-          navigate("/login");
-        }
-      }
-    }
     getData();
     // eslint-disable-next-line
   }, []);
+
+  async function getData() {
+    try {
+      const { data } = await get("/usuario", token);
+      const info = {
+        ...localInfo,
+        ...data,
+        telefone: data.telefone ?? "",
+        cpf: data.cpf ?? "",
+      };
+      setLocalInfo(info);
+      setUser({ ...user, dados_usuario: info });
+    } catch (error) {
+      if (error.response.status === 401) {
+        notificacaoErro("Sua sessão expirou.");
+        navigate("/login");
+      }
+    }
+  }
 
   function handleClose() {
     setOpenModalEditar(false);
@@ -100,8 +103,9 @@ export default function ModalEditarUsuario() {
       const { senhaConfirmacao, ...bodyReq } = localInfo;
       await put("/usuario", bodyReq, token);
       notificacaoSucesso("Editado com sucesso");
+      getData();
+      handleClose();
     } catch (error) {
-      console.log(error.response);
       const { mensagem } = error.response.data;
       if (
         mensagem ===
