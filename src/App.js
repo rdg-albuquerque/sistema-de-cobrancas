@@ -12,6 +12,7 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import { useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+
 import { GlobalProvider } from "./contexts/GlobalProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
