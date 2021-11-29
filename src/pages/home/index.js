@@ -5,11 +5,12 @@ import ResumoCobrancasPrevistas from "../../components/CardsCobrancas/CobrancasP
 import TabelaCobrancas from "../../components/TabelaCobrancas";
 import { Header } from "../../components/Header";
 import TabelaClientes from "../../components/TabelaClientes";
+import MenuLateral from "../../components/MenuLateral"
 
 export default function Home() {
   return (
     <div className="home">
-      <div className="menu-lateral">Substituir pelo side-menu</div>
+      <div className="menu-lateral"><MenuLateral /></div>
       {/* <div className="header">Substituir pelo header</div> */}
       <Header />
       <section className="section">

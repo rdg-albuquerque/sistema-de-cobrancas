@@ -1,3 +1,4 @@
+import Cadastro1 from "./pages/Cadastro-1";
 import Cadastro2 from "./pages/Cadastro-2";
 import Cadastro3 from "./pages/Cadastro-3";
 import {
@@ -10,8 +11,8 @@ import {
 import { AuthProvider } from "./contexts/AuthProvider";
 import { useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Cadastro1 from "./pages/Cadastro-1";
+import Home from "./pages/home";
+
 
 function App() {
   function ProtecaoAuth() {

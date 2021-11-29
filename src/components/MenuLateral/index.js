@@ -1,31 +1,38 @@
-import "./style.css";
-import FileCinza from "./assets/FileCinza.svg";
-import FileRosa from "./assets/FileRosa.svg";
-import Userscinza from "./assets/UsersCinza.svg";
-import UsersRosa from "./assets/UsersRosa.svg";
-import HomeCinza from "./assets/HomeCinza.svg";
-import HomeRosa from "./assets/HomeRosa.svg";
+
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import FileCinza from "../../assets/FileCinza.svg";
+import FileRosa from "../../assets/FileRosa.svg";
+import UsersCinza from "../../assets/UsersCinza.svg";
+import UsersRosa from "../../assets/UsersRosa.svg";
+import HomeCinza from "../../assets/HomeCinza.svg";
+import HomeRosa from "../../assets/HomeRosa.svg";
+import barraRosaMenu from "../../assets/barraRosaMenu.svg";
+
+const paginaAtual = window.location.pathname;
 
 function MenuLateral() {
     return (
+
         <div className="nav-bar">
             <div className="itens-nav">
-                <img src={HomeCinza} alt="" />
-                <p class="font-nav-bar">Home</p>
+                <div className={`home ${paginaAtual === "/" ? "novo-button" : "button-nav"}`}>
+                    <img width="29px" src={paginaAtual === "/" ? HomeRosa : HomeCinza} alt="" />
+                    <p>Home</p>
+                </div>
 
-                <img src={UsersCinza} alt="" />
-                <p class="font-nav-bar">Clientes</p>
+                <div className={`clientes ${paginaAtual === "/clientes" ? "novo-button" : "button-nav"}`}>
+                    <img width="29px" src={paginaAtual === "/clientes" ? UsersRosa : UsersCinza} alt="" />
+                    <p>Clientes</p>
+                </div>
 
-                <img src={FileCinza} alt="" />
-                <p class="font-nav-bar">Cobranças</p>
+                <div className={`cobrancas ${paginaAtual === "/cobrancas" ? "novo-button" : "button-nav"}`}>
+                    <img width="29px" src={paginaAtual === "/cobrancas" ? FileRosa : FileCinza} alt="" />
+                    <p>Cobranças</p>
+                </div>
             </div>
         </div>
     )
-}
-
-function mudarCor() {
-    document.getElementsByTagName(HomeCinza)
 }
 
 export default MenuLateral
