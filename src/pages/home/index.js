@@ -10,6 +10,7 @@ import { useGlobal } from "../../hooks/useGlobal";
 import avatar from "../../assets/cliente-section-avatar.svg";
 import BotaoRosa from "../../components/BotaoRosa";
 import InputPesquisa from "../../components/InputPesquisa";
+import MenuLateral from "../../components/MenuLateral";
 
 const paginaAtual = window.location.pathname;
 
@@ -21,7 +22,7 @@ export default function Home() {
   }
   return (
     <div className="home" onClick={handleClosePopup}>
-      <div className="menu-lateral">Substituir pelo side-menu</div>
+      <MenuLateral />
       <Header />
       <section className="section">
         {paginaAtual === "/" && (
