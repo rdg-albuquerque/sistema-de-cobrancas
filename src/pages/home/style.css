@@ -27,7 +27,7 @@
   width: 79%;
 }
 
-.section--1 {
+.home-section--1 {
   display: flex;
   justify-content: space-between;
 
@@ -44,7 +44,18 @@
   gap: 24px;
 }
 
-.section--2 {
+.home-section--2 {
   display: flex;
   justify-content: space-between;
+}
+
+.clientes-section--top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.clientes-section--top > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

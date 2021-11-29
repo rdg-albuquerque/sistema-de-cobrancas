@@ -7,6 +7,11 @@ import { Header } from "../../components/Header";
 import TabelaClientes from "../../components/TabelaClientes";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 import { useGlobal } from "../../hooks/useGlobal";
+import avatar from "../../assets/cliente-section-avatar.svg";
+import BotaoRosa from "../../components/BotaoRosa";
+import InputPesquisa from "../../components/InputPesquisa";
+
+const paginaAtual = window.location.pathname;
 
 export default function Home() {
   const { setAbrirPopup } = useGlobal();
@@ -17,27 +22,46 @@ export default function Home() {
   return (
     <div className="home" onClick={handleClosePopup}>
       <div className="menu-lateral">Substituir pelo side-menu</div>
-      {/* <div className="header">Substituir pelo header</div> */}
       <Header />
       <section className="section">
-        <section className="section--1">
-          <div className="container-pagas">
-            <ResumoCobrancasPagas />
-            <TabelaCobrancas pagas />
-          </div>
-          <div className="container-vencidas">
-            <ResumoCobrancasVencidas />
-            <TabelaCobrancas vencidas />
-          </div>
-          <div className="container-previstas">
-            <ResumoCobrancasPrevistas />
-            <TabelaCobrancas previstas />
-          </div>
-        </section>
-        <section className="section--2">
-          <TabelaClientes emDia />
-          <TabelaClientes inadimplentes />
-        </section>
+        {paginaAtual === "/" && (
+          <section className="home-section">
+            <section className="home-section--1">
+              <div className="container-pagas">
+                <ResumoCobrancasPagas />
+                <TabelaCobrancas pagas />
+              </div>
+              <div className="container-vencidas">
+                <ResumoCobrancasVencidas />
+                <TabelaCobrancas vencidas />
+              </div>
+              <div className="container-previstas">
+                <ResumoCobrancasPrevistas />
+                <TabelaCobrancas previstas />
+              </div>
+            </section>
+            <section className="home-section--2">
+              <TabelaClientes emDia />
+              <TabelaClientes inadimplentes />
+            </section>
+          </section>
+        )}
+        {paginaAtual === "/clientes" && (
+          <section className="clientes-section">
+            <div className="clientes-section--top">
+              <div>
+                <img src={avatar} alt="" />
+                <h1>Clientes</h1>
+              </div>
+              <div>
+                <div>
+                  <BotaoRosa>+ Adicionar cliente</BotaoRosa>
+                </div>
+                <InputPesquisa />
+              </div>
+            </div>
+          </section>
+        )}
       </section>
       <ModalEditarUsuario />
     </div>

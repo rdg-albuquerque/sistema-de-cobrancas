@@ -33,17 +33,11 @@ const Popup = () => {
 
 function TituloHome() {
   if (paginaAtual === "/") {
-    return <h1 className="titulo-da-home">Resumo das cobranças</h1>;
+    return <h1 className="header--titulo">Resumo das cobranças</h1>;
   }
 
   if (paginaAtual === "/clientes") {
-    return (
-      <ul className="titulo-cliente">
-        <li>
-          <a href="/clientes">Clientes</a>
-        </li>
-      </ul>
-    );
+    return <h1 className="header--titulo">Clientes</h1>;
   }
 
   // if (paginaAtual === "/cobrancas") {

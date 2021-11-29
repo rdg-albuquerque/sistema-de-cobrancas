@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.titulo-da-home {
+.header--titulo {
   margin-left: 50px;
 
   font-family: "Montserrat";
@@ -24,24 +24,6 @@
   font-size: 26px;
   line-height: 130%;
   color: #343447;
-}
-
-.titulo-cliente {
-  margin: 0px 0px 4px 71px;
-
-  list-style: none;
-
-  align-self: flex-end;
-  display: flex;
-}
-
-.titulo-cliente li a {
-  font-family: "Inter", sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #0e8750;
 }
 
 .perfil {

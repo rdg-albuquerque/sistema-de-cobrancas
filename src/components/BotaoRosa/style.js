@@ -7,10 +7,11 @@ export default makeStyles({
     fontSize: 18,
     backgroundColor: "#da0175",
     borderRadius: 10,
-    width: 160,
+    minWidth: 160,
     color: "#f8f8f9",
     "&:hover": {
       backgroundColor: "#b60162",
     },
+    whiteSpace: "nowrap",
   },
 });
