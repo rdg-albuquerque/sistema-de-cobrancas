@@ -34,10 +34,8 @@ function Login() {
       setToken(data.token);
       navigate("/");
     } catch (error) {
-      if (error.response.status === 400 || error.response.status === 404) {
-        return notificacaoErro(error.response.data.mensagem);
-      }
-      console.log(error.response.data.mensagem);
+
+
     }
   }
   return (
