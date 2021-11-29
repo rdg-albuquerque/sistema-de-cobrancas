@@ -1,12 +1,11 @@
-import "./style.css";
-import imagemPerfil from "../../assets/imagemPerfil.svg";
+import Avatar from "@material-ui/core/Avatar";
+import { useNavigate } from "react-router";
 import down from "../../assets/down.svg";
 import editar from "../../assets/editar.svg";
 import sair from "../../assets/sair.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
-import { useNavigate } from "react-router";
-import Avatar from "@material-ui/core/Avatar";
+import "./style.css";
 
 const paginaAtual = window.location.pathname;
 

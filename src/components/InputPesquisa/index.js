@@ -1,11 +1,8 @@
-import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
-import useStyles from "./style";
-import { useEffect, useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
+import useStyles from "./style";
 
 export default function InputPesquisa({ value }) {
   const classes = useStyles();
