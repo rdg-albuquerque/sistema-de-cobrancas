@@ -6,15 +6,13 @@
 .menu-lateral {
   background-color:#F0F0F5;
   color: #343447;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 108px;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
 }
+
 .itens-nav{
   margin-top: 54.5px;
 }
@@ -28,7 +26,7 @@
 }
 
 .button-nav:hover{
-  cursor: pointer;
+  cursor:pointer;
 }
 
 .novo-button{
@@ -38,14 +36,12 @@
   font-weight:600;
   text-align: center;
   color:#DA0175;
-  border: 2px #DA0175;
+  border-right: 2px solid #DA0175;
 }
 
 .novo-button:hover{
   cursor: pointer;
 }
-
-
 
 .header {
   height: 72px;

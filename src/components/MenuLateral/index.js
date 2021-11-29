@@ -13,20 +13,19 @@ const paginaAtual = window.location.pathname;
 
 function MenuLateral() {
     return (
-
         <div className="nav-bar">
             <div className="itens-nav">
-                <div className={`home ${paginaAtual === "/" ? "novo-button" : "button-nav"}`}>
+                <div className={`${paginaAtual === "/" ? "novo-button" : "button-nav"}`}>
                     <img width="29px" src={paginaAtual === "/" ? HomeRosa : HomeCinza} alt="" />
                     <p>Home</p>
                 </div>
 
-                <div className={`clientes ${paginaAtual === "/clientes" ? "novo-button" : "button-nav"}`}>
+                <div className={`${paginaAtual === "/clientes" ? "novo-button" : "button-nav"}`}>
                     <img width="29px" src={paginaAtual === "/clientes" ? UsersRosa : UsersCinza} alt="" />
                     <p>Clientes</p>
                 </div>
 
-                <div className={`cobrancas ${paginaAtual === "/cobrancas" ? "novo-button" : "button-nav"}`}>
+                <div className={`${paginaAtual === "/cobrancas" ? "novo-button" : "button-nav"}`}>
                     <img width="29px" src={paginaAtual === "/cobrancas" ? FileRosa : FileCinza} alt="" />
                     <p>Cobranças</p>
                 </div>
