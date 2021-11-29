@@ -7,8 +7,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import "./style.css";
 
-const paginaAtual = window.location.pathname;
-
 const Popup = () => {
   const { removeUser } = useAuth();
   const { setOpenModalEditar, setAbrirPopup } = useGlobal();
@@ -31,6 +29,7 @@ const Popup = () => {
 };
 
 function TituloHome() {
+  const paginaAtual = window.location.pathname;
   if (paginaAtual === "/") {
     return <h1 className="header--titulo">Resumo das cobranças</h1>;
   }
@@ -39,9 +38,7 @@ function TituloHome() {
     return <h1 className="header--titulo">Clientes</h1>;
   }
 
-  // if (paginaAtual === "/cobrancas") {
-  //   return <h1>cobranças</h1>;
-  // }
+  return <h1 className="header--titulo">Cobranças</h1>;
 }
 
 export function Header() {
@@ -58,16 +55,11 @@ export function Header() {
     <div className="header">
       <TituloHome />
 
-      <div className="perfil">
+      <div className="perfil" onClick={handleOpenPopup}>
         <Avatar />
         <span className="nome-perfil">{firstName}</span>
 
-        <img
-          onClick={handleOpenPopup}
-          className="botao-down"
-          src={down}
-          alt=""
-        />
+        <img className="botao-down" src={down} alt="" />
 
         {abrirPopup && <Popup />}
       </div>

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import FileCinza from "../../assets/FileCinza.svg";
 import FileRosa from "../../assets/FileRosa.svg";
 import HomeCinza from "../../assets/HomeCinza.svg";
@@ -6,14 +8,16 @@ import UsersCinza from "../../assets/UsersCinza.svg";
 import UsersRosa from "../../assets/UsersRosa.svg";
 import "./style.css";
 
-const paginaAtual = window.location.pathname;
-
 function MenuLateral() {
+  const paginaAtual = window.location.pathname;
+
+  const navigate = useNavigate();
   return (
     <div className="menu-lateral nav-bar">
       <div className="itens-nav">
         <div
           className={`${paginaAtual === "/" ? "novo-button" : "button-nav"}`}
+          onClick={() => navigate("/")}
         >
           <img
             width="29px"
@@ -27,6 +31,7 @@ function MenuLateral() {
           className={`${
             paginaAtual === "/clientes" ? "novo-button" : "button-nav"
           }`}
+          onClick={() => navigate("/clientes")}
         >
           <img
             width="29px"
@@ -40,6 +45,7 @@ function MenuLateral() {
           className={`${
             paginaAtual === "/cobrancas" ? "novo-button" : "button-nav"
           }`}
+          onClick={() => navigate("/cobrancas")}
         >
           <img
             width="29px"

@@ -12,9 +12,9 @@ import BotaoRosa from "../../components/BotaoRosa";
 import InputPesquisa from "../../components/InputPesquisa";
 import MenuLateral from "../../components/MenuLateral";
 
-const paginaAtual = window.location.pathname;
-
 export default function Home() {
+  const paginaAtual = window.location.pathname;
+
   const { setAbrirPopup } = useGlobal();
 
   function handleClosePopup() {
@@ -62,6 +62,9 @@ export default function Home() {
               </div>
             </div>
           </section>
+        )}
+        {paginaAtual === "/cobrancas" && (
+          <section className="cobrancas-section"></section>
         )}
       </section>
       <ModalEditarUsuario />

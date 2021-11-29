@@ -8,6 +8,7 @@
   height: 112px;
   margin: 0px 32px 30px 132px;
   border-bottom: 1px solid #acd9c5;
+  padding-right: 132px;
 
   display: flex;
   flex-direction: row;
@@ -31,9 +32,9 @@
 
   display: flex;
   align-items: center;
-  padding-right: 132px;
 
   position: relative;
+  cursor: pointer;
 }
 
 .imagem-perfil {
@@ -58,8 +59,6 @@
   width: 18px;
   height: 13px;
   margin-left: 8px;
-
-  cursor: pointer;
 }
 
 .popup {
@@ -75,8 +74,8 @@
   justify-content: space-evenly;
 
   position: absolute;
-  bottom: -50px;
-  right: 122px;
+  bottom: -40px;
+  right: -80px;
 }
 
 .popup-down {
