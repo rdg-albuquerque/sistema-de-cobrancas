@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import FileCinza from "../../assets/FileCinza.svg";
 import FileRosa from "../../assets/FileRosa.svg";

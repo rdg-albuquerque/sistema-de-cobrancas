@@ -28,6 +28,14 @@ export default function InputSenha({
         setErro(true);
         setHelperText("As senhas não coicidem");
       }
+    } else if (senhaParaComparar) {
+      if (senhaParaComparar === value) {
+        setErro(false);
+        setHelperText("");
+      } else {
+        setErro(true);
+        setHelperText("As senhas não coicidem");
+      }
     }
   }, [senhaParaComparar, value, editar]);
 
@@ -35,12 +43,8 @@ export default function InputSenha({
     setErro(false);
     onChange(e);
     if (editar) return;
-    if (senhaParaComparar && senhaParaComparar !== e.target.value) {
-      setErro(true);
-      setHelperText("As senhas não coicidem");
-      return;
-    }
     if (!e.target.value) {
+      //add if required
       setErro(true);
       setHelperText("Este campo é obrigatório");
       return;

@@ -2,21 +2,16 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
+import avatarCliente from "../../assets/cadastro-cliente-avatar.svg";
 import close from "../../assets/close.svg";
-import BotaoRosa from "../../components/BotaoRosa";
-import InputGeral from "../../components/InputGeral";
-import InputSenha from "../../components/InputSenha";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
-import { get, put } from "../../utils/requests";
-
-
+import { post } from "../../utils/requests";
+import BotaoRosa from "../BotaoRosa";
+import InputGeral from "../InputGeral";
 import "./style.css";
-
-const conexao = require("../conexao");
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ModalCadastrarCliente() {
   const classes = useStyles();
-  const navigate = useNavigate();
-  const { token, user, setUser } = useAuth();
-  const { openModalEditar, setOpenModalEditar } = useGlobal();
+  const { token } = useAuth();
+  const { openCadastrarCliente, setOpenCadastrarCliente } = useGlobal();
   const [localInfo, setLocalInfo] = useState({
     nome: "",
     email: "",
@@ -48,29 +42,8 @@ export default function ModalCadastrarCliente() {
     cpf: false,
   });
 
-
-
-  async function getData() {
-    try {
-      const { data } = await get("/usuario", token);
-      const info = {
-        ...localInfo,
-        ...data,
-        telefone: data.telefone ?? "",
-        cpf: data.cpf ?? "",
-      };
-      setLocalInfo(info);
-      setUser({ ...user, dados_usuario: info });
-    } catch (error) {
-      if (error.response.status === 401) {
-        notificacaoErro("Sua sessão expirou.");
-        navigate("/login");
-      }
-    }
-  }
-
   function handleClose() {
-    setOpenModalEditar(false);
+    setOpenCadastrarCliente(false);
   }
 
   function handleChangeNome(e) {
@@ -124,29 +97,28 @@ export default function ModalCadastrarCliente() {
   async function handleCadastrar() {
     if (isCamposIncorretos()) return;
     try {
-      const { senhaConfirmacao, ...bodyReq } = localInfo;
-      await put("/usuario", bodyReq, token);
-      notificacaoSucesso("Editado com sucesso");
-      getData();
+      await post("/cliente", localInfo, token);
+      notificacaoSucesso("Cliente cadastrado com sucesso");
       handleClose();
     } catch (error) {
+      console.log(error.response);
       const { mensagem } = error.response.data;
-      if (
-        mensagem ===
-        "O e-mail informado já está sendo utilizado por outro usuário."
-      ) {
+      if (mensagem === "O email informado já foi cadastrado") {
         setIscadastrado({ ...isCadastrado, email: true });
+        return;
       }
-      if (mensagem === "CPF já cadastrado") {
+      if (mensagem === "O cpf informado já foi cadastrado") {
         setIscadastrado((prev) => ({ ...prev, cpf: true }));
+        return;
       }
+      notificacaoErro("Houve um erro ao cadastrar o cliente");
     }
   }
 
   return (
     <Modal
       className={classes.modal}
-      open={openModalEditar}
+      open={openCadastrarCliente}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -154,15 +126,18 @@ export default function ModalCadastrarCliente() {
         timeout: 500,
       }}
     >
-      <Fade in={openModalEditar}>
-        <div className="modal-usuario">
+      <Fade in={openCadastrarCliente}>
+        <div className="modal-cadastrar-cliente">
           <img
             className="editar--close"
             src={close}
             alt=""
             onClick={handleClose}
           />
-          <h1 className="editar--h1">Cadastro de Cliente</h1>
+          <div className="modal-cadastrar-cliente--top">
+            <img src={avatarCliente} alt="" />
+            <h1 className="modal-cadastrar-cliente--h1">Cadastro de Cliente</h1>
+          </div>
           <div>
             <label>Nome*</label>
             <InputGeral
@@ -175,41 +150,42 @@ export default function ModalCadastrarCliente() {
           <div>
             <label>Email*</label>
             <InputGeral
-              required
               placeholder="Digite o email"
               value={localInfo.email}
               onChange={handleChangeEmail}
               isEmailCadastrado={isCadastrado.email}
+              required
             />
           </div>
-          <div className="modal-usuario--container">
+          <div className="modal-cadastrar-cliente--container">
             <div>
-              <label>CPF</label>
+              <label>CPF*</label>
               <InputGeral
                 placeholder="Digite o CPF"
                 type="number"
                 value={localInfo.cpf}
                 onChange={handleChangeCPF}
                 isCpfCadastrado={isCadastrado.cpf}
+                required
               />
-              <div>
-                <label>Telefone</label>
-                <InputGeral
-                  placeholder="Digite o telefone"
-                  type="text"
-                  value={localInfo.telefone}
-                  onChange={handleChangeTelefone}
-                />
-              </div>
             </div>
-
+            <div>
+              <label>Telefone*</label>
+              <InputGeral
+                placeholder="Digite o telefone"
+                type="number"
+                value={localInfo.telefone}
+                onChange={handleChangeTelefone}
+                required
+              />
+            </div>
           </div>
           <div>
             <label>Endereço</label>
             <InputGeral
               placeholder="Digite o endereço"
               type="text"
-              value={localInfo.telefone}
+              value={localInfo.endereco}
               onChange={handleChangeEndereco}
             />
           </div>
@@ -218,37 +194,39 @@ export default function ModalCadastrarCliente() {
             <InputGeral
               placeholder="Digite o complemento"
               type="text"
-              value={localInfo.telefone}
+              value={localInfo.complemento}
               onChange={handleChangeComplemento}
             />
           </div>
-          <div>
-            <label>CEP</label>
-            <InputGeral
-              placeholder="Digite o CEP"
-              type="number"
-              value={localInfo.cep}
-              onChange={handleChangeCEP}
-            />
-            <label>Bairro</label>
-            <InputGeral
-              placeholder="Digite o bairro"
-              type="text"
-              value={localInfo.bairro}
-              onChange={handleChangeBairro}
-            />
-          </div>
-
-          <div>
+          <div className="modal-cadastrar-cliente--container">
             <div>
+              <label>CEP</label>
+              <InputGeral
+                placeholder="Digite o CEP"
+                type="number"
+                value={localInfo.cep}
+                onChange={handleChangeCEP}
+              />
+            </div>
+            <div>
+              <label>Bairro</label>
+              <InputGeral
+                placeholder="Digite o bairro"
+                type="text"
+                value={localInfo.bairro}
+                onChange={handleChangeBairro}
+              />
+            </div>
+          </div>
+          <div className="cliente--cidade-uf">
+            <div className="cidade">
               <label>Cidade</label>
               <InputGeral
                 placeholder="Digite a cidade"
-                type="number"
+                type="text"
                 value={localInfo.cidade}
                 onChange={handleChangeCidade}
               />
-
             </div>
             <div>
               <label>UF</label>
@@ -260,10 +238,17 @@ export default function ModalCadastrarCliente() {
               />
             </div>
           </div>
-
-          <BotaoRosa disabled={isCamposIncorretos()} onClick={handleCadastrar}>
-            Aplicar
-          </BotaoRosa>
+          <div className="btn-container">
+            <button className="btn-cancelar" onClick={handleClose}>
+              Cancelar
+            </button>
+            <BotaoRosa
+              disabled={isCamposIncorretos()}
+              onClick={handleCadastrar}
+            >
+              Aplicar
+            </BotaoRosa>
+          </div>
         </div>
       </Fade>
     </Modal>

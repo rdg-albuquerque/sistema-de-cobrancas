@@ -1,10 +1,10 @@
-.modal-usuario {
+.modal-cadastrar-cliente {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 
-  width: 480px;
+  width: 580px;
   gap: 20px;
   padding: 40px 56px;
   border-radius: 30px;
@@ -14,19 +14,31 @@
   background-color: #fff;
 }
 
-.modal-usuario > div {
+.modal-cadastrar-cliente--top {
+  display: flex;
+  gap: 15px;
+}
+
+.modal-cadastrar-cliente > div {
   align-self: stretch;
 }
 
-.modal-usuario--container {
+.modal-cadastrar-cliente--container {
   display: flex;
   gap: 10px;
 }
 
-.modal-usuario--container div {
+.modal-cadastrar-cliente--container div {
   flex-grow: 1;
 }
 
+.cliente--cidade-uf {
+  display: flex;
+  gap: 10px;
+}
+.cidade {
+  width: 80%;
+}
 .editar--close {
   position: absolute;
   top: 30px;
@@ -34,9 +46,32 @@
   cursor: pointer;
 }
 
-.editar--h1 {
+.modal-cadastrar-cliente--h1 {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: bold;
   align-self: center;
+}
+
+.btn-container {
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-cancelar {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  background: #f8f8f9;
+
+  border: 1px solid #dedee9;
+  border-radius: 10px;
+
+  text-align: center;
+  font-family: "Nunito";
+  font-size: 18px;
+  color: #0e8750;
+  width: 160px;
 }

@@ -11,11 +11,12 @@ import avatar from "../../assets/cliente-section-avatar.svg";
 import BotaoRosa from "../../components/BotaoRosa";
 import InputPesquisa from "../../components/InputPesquisa";
 import MenuLateral from "../../components/MenuLateral";
+import ModalCadastrarCliente from "../../components/ModalCadastrarCliente";
 
 export default function Home() {
   const paginaAtual = window.location.pathname;
 
-  const { setAbrirPopup } = useGlobal();
+  const { setAbrirPopup, setOpenCadastrarCliente } = useGlobal();
 
   function handleClosePopup() {
     setAbrirPopup(false);
@@ -52,11 +53,17 @@ export default function Home() {
             <div className="clientes-section--top">
               <div>
                 <img src={avatar} alt="" />
-                <h1>Clientes</h1>
+                <h1 className="clientes-section--h1">Clientes</h1>
               </div>
               <div>
                 <div>
-                  <BotaoRosa>+ Adicionar cliente</BotaoRosa>
+                  <BotaoRosa
+                    onClick={() => {
+                      setOpenCadastrarCliente(true);
+                    }}
+                  >
+                    + Adicionar cliente
+                  </BotaoRosa>
                 </div>
                 <InputPesquisa />
               </div>
@@ -68,6 +75,7 @@ export default function Home() {
         )}
       </section>
       <ModalEditarUsuario />
+      <ModalCadastrarCliente />
     </div>
   );
 }

@@ -1,12 +1,12 @@
-import "./style.css";
-import InputSenha from "../../components/InputSenha";
-import InputGeral from "../../components/InputGeral";
-import BotaoRosa from "../../components/BotaoRosa";
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { post } from "../../utils/requests";
+import { Link, useNavigate } from "react-router-dom";
+import BotaoRosa from "../../components/BotaoRosa";
+import InputGeral from "../../components/InputGeral";
+import InputSenha from "../../components/InputSenha";
 import { useAuth } from "../../hooks/useAuth";
+import { post } from "../../utils/requests";
 import { notificacaoErro } from "../../utils/notificacao";
+import "./style.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -34,8 +34,8 @@ function Login() {
       setToken(data.token);
       navigate("/");
     } catch (error) {
-
-
+      const { mensagem } = error.response.data;
+      notificacaoErro(mensagem);
     }
   }
   return (
