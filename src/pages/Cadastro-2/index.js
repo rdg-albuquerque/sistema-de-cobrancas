@@ -94,6 +94,7 @@ function Cadastro2() {
               placeholder="Confirme sua senha"
               value={localSenha.senhaConfirmacao}
               onChange={handleChangeSenhaConfirmacao}
+              inputVerificacao
               senhaParaComparar={localSenha.senha}
             />
           </div>

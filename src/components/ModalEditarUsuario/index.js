@@ -41,18 +41,21 @@ export default function ModalEditarUsuario() {
   });
 
   useEffect(() => {
-    getData();
+    if (!openModalEditar) {
+      getData();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [openModalEditar]);
 
   async function getData() {
     try {
       const { data } = await get("/usuario", token);
       const info = {
-        ...localInfo,
         ...data,
         telefone: data.telefone ?? "",
         cpf: data.cpf ?? "",
+        senha: "",
+        senhaConfirmacao: "",
       };
       setLocalInfo(info);
       setUser({ ...user, dados_usuario: info });
@@ -62,10 +65,6 @@ export default function ModalEditarUsuario() {
         navigate("/login");
       }
     }
-  }
-
-  function handleClose() {
-    setOpenModalEditar(false);
   }
 
   function handleChangeNome(e) {
@@ -85,6 +84,11 @@ export default function ModalEditarUsuario() {
   function handleChangeSenha(e) {
     setLocalInfo({ ...localInfo, senha: e.target.value });
   }
+
+  function handleClose() {
+    setOpenModalEditar(false);
+  }
+
   function handleChangeSenhaConfirmacao(e) {
     setLocalInfo({ ...localInfo, senhaConfirmacao: e.target.value });
   }
@@ -193,8 +197,7 @@ export default function ModalEditarUsuario() {
               placeholder="Repita sua senha"
               value={localInfo.senhaConfirmacao}
               onChange={handleChangeSenhaConfirmacao}
-              required
-              editar
+              inputVerificacao
               senhaParaComparar={localInfo.senha}
             />
           </div>

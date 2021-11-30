@@ -39,12 +39,12 @@ export default function InputGeral({
     }
   }
 
-  function handleOnBlur(e) {
-    if (!e.target.value) {
+  /* function handleOnBlur(e) {
+    if (required && !e.target.value) {
       setErro(true);
       setHelperText("Este campo é obrigatório");
     }
-  }
+  } */
 
   return (
     <TextField
@@ -56,7 +56,6 @@ export default function InputGeral({
       variant="outlined"
       type={type ? type : "text"}
       onChange={handleChange}
-      onBlur={required ? handleOnBlur : null}
       error={erro}
       helperText={erro && helperText}
     />

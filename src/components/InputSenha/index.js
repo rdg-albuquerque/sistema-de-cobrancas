@@ -11,8 +11,8 @@ export default function InputSenha({
   placeholder,
   onChange,
   required,
+  inputVerificacao,
   senhaParaComparar,
-  editar,
 }) {
   const classes = useStyles();
 
@@ -20,7 +20,7 @@ export default function InputSenha({
   const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
-    if (editar) {
+    if (inputVerificacao) {
       if (senhaParaComparar === value) {
         setErro(false);
         setHelperText("");
@@ -28,44 +28,27 @@ export default function InputSenha({
         setErro(true);
         setHelperText("As senhas não coicidem");
       }
-    } else if (senhaParaComparar) {
-      if (senhaParaComparar === value) {
-        setErro(false);
-        setHelperText("");
-      } else {
-        setErro(true);
-        setHelperText("As senhas não coicidem");
-      }
-    }
-  }, [senhaParaComparar, value, editar]);
+    } // eslint-disable-next-line
+  }, [senhaParaComparar, value]);
 
-  function handleChangeObrigatorio(e) {
-    setErro(false);
+  function handleChange(e) {
     onChange(e);
-    if (editar) return;
-    if (!e.target.value) {
-      //add if required
-      setErro(true);
-      setHelperText("Este campo é obrigatório");
-      return;
-    }
-  }
-  function handleOnBlur(e) {
-    if (editar) {
-      if (e.target.value !== senhaParaComparar) {
-        setErro(true);
-        setHelperText("As senhas não coicidem");
-      } else {
-        setErro(false);
-        setHelperText("");
-      }
-      return;
-    }
-    if (!e.target.value) {
+
+    setErro(false);
+    setHelperText("");
+
+    if (required && !e.target.value) {
       setErro(true);
       setHelperText("Este campo é obrigatório");
     }
   }
+
+  /* function handleOnBlur(e) {
+    if (required && !e.target.value) {
+      setErro(true);
+      setHelperText("Este campo é obrigatório");
+    }
+  } */
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -84,8 +67,7 @@ export default function InputSenha({
       placeholder={placeholder}
       variant="outlined"
       size="small"
-      onChange={required ? handleChangeObrigatorio : onChange}
-      onBlur={required ? handleOnBlur : null}
+      onChange={handleChange}
       error={erro}
       helperText={erro && helperText}
       type={showPassword ? "text" : "password"}
