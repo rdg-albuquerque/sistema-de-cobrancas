@@ -3,6 +3,7 @@ import Cadastro2 from "./pages/Cadastro-2";
 import Cadastro3 from "./pages/Cadastro-3";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 import {
   Route,
   BrowserRouter as Router,
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/clientes" element={<Home />} />
                 <Route path="/cobrancas" element={<Home />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
           </Router>
