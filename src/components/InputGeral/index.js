@@ -8,43 +8,41 @@ export default function InputGeral({
   type,
   onChange,
   required,
-  isEmailCadastrado,
-  isCpfCadastrado,
+  emailErro,
+  cpfErro,
 }) {
   const classes = useStyles();
   const [erro, setErro] = useState(false);
-  const [helperText, setHelperText] = useState("Este campo é obrigatório");
+  const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
-    if (isEmailCadastrado) {
+    if (emailErro) {
       setErro(true);
-      setHelperText("E-mail já cadastrado");
+      setHelperText(emailErro);
       return;
     }
-    if (isCpfCadastrado) {
+    if (cpfErro) {
       setErro(true);
-      setHelperText("CPF já cadastrado");
+      setHelperText(cpfErro);
     }
-  }, [isEmailCadastrado, isCpfCadastrado]);
-
-  function handleChangeRequired(e) {
-    setErro(false);
-    onChange(e);
-    if (!e.target.value) {
-      setErro(true);
-      setHelperText("Este campo é obrigatório");
-      return;
-    }
-  }
+  }, [emailErro, cpfErro]);
 
   function handleChange(e) {
-    setErro(false);
     onChange(e);
+
+    setErro(false);
+    setHelperText("");
+
+    if (required && !e.target.value) {
+      setErro(true);
+      setHelperText("Este campo é obrigatório");
+    }
   }
 
   function handleOnBlur(e) {
     if (!e.target.value) {
       setErro(true);
+      setHelperText("Este campo é obrigatório");
     }
   }
 
@@ -57,7 +55,7 @@ export default function InputGeral({
       size="small"
       variant="outlined"
       type={type ? type : "text"}
-      onChange={required ? handleChangeRequired : handleChange}
+      onChange={handleChange}
       onBlur={required ? handleOnBlur : null}
       error={erro}
       helperText={erro && helperText}

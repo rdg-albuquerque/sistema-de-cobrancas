@@ -34,6 +34,7 @@ function Login() {
       setToken(data.token);
       navigate("/");
     } catch (error) {
+      console.log(error);
       const { mensagem } = error.response.data;
       notificacaoErro(mensagem);
     }
@@ -52,6 +53,7 @@ function Login() {
             <label>E-mail*</label>
             <InputGeral
               required
+              value={localInfo.email}
               placeholder="Digite seu e-mail"
               onChange={handleChangeEmail}
             />
@@ -63,6 +65,7 @@ function Login() {
             </div>
             <InputSenha
               required
+              value={localInfo.senha}
               placeholder="Digite sua senha"
               onChange={handleChangeSenha}
             />

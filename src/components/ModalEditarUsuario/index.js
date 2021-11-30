@@ -35,9 +35,9 @@ export default function ModalEditarUsuario() {
     senha: "",
     senhaConfirmacao: "",
   });
-  const [isCadastrado, setIscadastrado] = useState({
-    email: false,
-    cpf: false,
+  const [localErro, setLocalErro] = useState({
+    email: "",
+    cpf: "",
   });
 
   useEffect(() => {
@@ -72,11 +72,11 @@ export default function ModalEditarUsuario() {
     setLocalInfo({ ...localInfo, nome: e.target.value });
   }
   function handleChangeEmail(e) {
-    setIscadastrado({ ...isCadastrado, email: false });
+    setLocalErro({ ...localErro, email: "" });
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
   function handleChangeCPF(e) {
-    setIscadastrado({ ...isCadastrado, cpf: false });
+    setLocalErro({ ...localErro, cpf: "" });
     setLocalInfo({ ...localInfo, cpf: e.target.value });
   }
   function handleChangeTelefone(e) {
@@ -111,10 +111,10 @@ export default function ModalEditarUsuario() {
         mensagem ===
         "O e-mail informado já está sendo utilizado por outro usuário."
       ) {
-        setIscadastrado({ ...isCadastrado, email: true });
+        setLocalErro({ ...localErro, email: "E-mail em uso" });
       }
       if (mensagem === "CPF já cadastrado") {
-        setIscadastrado((prev) => ({ ...prev, cpf: true }));
+        setLocalErro((prev) => ({ ...prev, cpf: mensagem }));
       }
     }
   }
@@ -155,7 +155,7 @@ export default function ModalEditarUsuario() {
               placeholder="Digite seu email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              isEmailCadastrado={isCadastrado.email}
+              emailErro={localErro.email}
             />
           </div>
           <div className="modal-usuario--container">
@@ -166,7 +166,7 @@ export default function ModalEditarUsuario() {
                 type="number"
                 value={localInfo.cpf}
                 onChange={handleChangeCPF}
-                isCpfCadastrado={isCadastrado.cpf}
+                cpfErro={localErro.cpf}
               />
             </div>
             <div>

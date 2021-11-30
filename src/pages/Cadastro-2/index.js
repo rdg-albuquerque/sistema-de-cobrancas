@@ -9,6 +9,7 @@ import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
 import InputSenha from "../../components/InputSenha";
 import { useAuth } from "../../hooks/useAuth";
+import { notificacaoErro } from "../../utils/notificacao";
 import { post } from "../../utils/requests";
 import "../css/cadastro1e2.css";
 
@@ -43,7 +44,9 @@ function Cadastro2() {
       setNovoUsuario({ ...novoUsuario, senha: localSenha.senha });
       navigate("/cadastro-3");
     } catch (error) {
-      console.log(error.response.data.mensagem);
+      const { mensagem } = error.response.data;
+      console.log(mensagem);
+      notificacaoErro(mensagem);
     }
   }
 
