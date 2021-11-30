@@ -25,7 +25,7 @@ export default function ModalCadastrarCliente() {
   const classes = useStyles();
   const { token } = useAuth();
   const { openCadastrarCliente, setOpenCadastrarCliente } = useGlobal();
-  const [localInfo, setLocalInfo] = useState({
+  const initialLocalInfo = {
     nome: "",
     email: "",
     cpf: "",
@@ -36,52 +36,49 @@ export default function ModalCadastrarCliente() {
     bairro: "",
     cidade: "",
     uf: "",
-  });
-  const [isCadastrado, setIscadastrado] = useState({
-    email: false,
-    cpf: false,
+  };
+  const [localInfo, setLocalInfo] = useState(initialLocalInfo);
+  const [localErro, setLocalErro] = useState({
+    email: "",
+    cpf: "",
   });
 
   function handleClose() {
     setOpenCadastrarCliente(false);
+    setLocalInfo(initialLocalInfo);
   }
 
   function handleChangeNome(e) {
     setLocalInfo({ ...localInfo, nome: e.target.value });
   }
   function handleChangeEmail(e) {
-    setIscadastrado({ ...isCadastrado, email: false });
+    setLocalErro({ ...localErro, email: "" });
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
   function handleChangeCPF(e) {
-    setIscadastrado({ ...isCadastrado, cpf: false });
+    setLocalErro({ ...localErro, cpf: "" });
     setLocalInfo({ ...localInfo, cpf: e.target.value });
   }
   function handleChangeTelefone(e) {
+    setLocalErro({ ...localErro, telefone: "" });
     setLocalInfo({ ...localInfo, telefone: e.target.value });
   }
   function handleChangeEndereco(e) {
-    setIscadastrado({ ...isCadastrado, endereco: false });
     setLocalInfo({ ...localInfo, endereco: e.target.value });
   }
   function handleChangeComplemento(e) {
-    setIscadastrado({ ...isCadastrado, complemento: false });
     setLocalInfo({ ...localInfo, complemento: e.target.value });
   }
   function handleChangeCEP(e) {
-    setIscadastrado({ ...isCadastrado, cep: false });
     setLocalInfo({ ...localInfo, cep: e.target.value });
   }
   function handleChangeBairro(e) {
-    setIscadastrado({ ...isCadastrado, bairro: false });
     setLocalInfo({ ...localInfo, bairro: e.target.value });
   }
   function handleChangeCidade(e) {
-    setIscadastrado({ ...isCadastrado, cidade: false });
     setLocalInfo({ ...localInfo, cidade: e.target.value });
   }
   function handleChangeUF(e) {
-    setIscadastrado({ ...isCadastrado, uf: false });
     setLocalInfo({ ...localInfo, uf: e.target.value });
   }
 
@@ -100,15 +97,20 @@ export default function ModalCadastrarCliente() {
       await post("/cliente", localInfo, token);
       notificacaoSucesso("Cliente cadastrado com sucesso");
       handleClose();
+      setLocalInfo(initialLocalInfo);
     } catch (error) {
       console.log(error.response);
       const { mensagem } = error.response.data;
       if (mensagem === "O email informado já foi cadastrado") {
-        setIscadastrado({ ...isCadastrado, email: true });
+        setLocalErro({ ...localErro, email: "E-mail já cadastrado" });
+        return;
+      }
+      if (mensagem === "email deve ser um email válido") {
+        setLocalErro((prev) => ({ ...prev, email: "E-mail não válido" }));
         return;
       }
       if (mensagem === "O cpf informado já foi cadastrado") {
-        setIscadastrado((prev) => ({ ...prev, cpf: true }));
+        setLocalErro((prev) => ({ ...prev, cpf: "CPF já cadastrado" }));
         return;
       }
       notificacaoErro("Houve um erro ao cadastrar o cliente");
@@ -153,7 +155,7 @@ export default function ModalCadastrarCliente() {
               placeholder="Digite o email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              isEmailCadastrado={isCadastrado.email}
+              emailErro={localErro.email}
               required
             />
           </div>
@@ -165,7 +167,7 @@ export default function ModalCadastrarCliente() {
                 type="number"
                 value={localInfo.cpf}
                 onChange={handleChangeCPF}
-                isCpfCadastrado={isCadastrado.cpf}
+                cpfErro={localErro.cpf}
                 required
               />
             </div>
