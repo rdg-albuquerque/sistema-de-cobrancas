@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./style.css";
 
 export default function NotFound() {
@@ -383,7 +384,9 @@ export default function NotFound() {
         </div>
       </div>
       <div className="not-found--container">
-        <button className="not-found--btn">Voltar</button>
+        <Link to="/" className="not-found--btn">
+          Voltar
+        </Link>
       </div>
     </div>
   );
