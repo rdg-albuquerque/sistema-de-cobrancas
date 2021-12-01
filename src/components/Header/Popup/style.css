@@ -1,0 +1,34 @@
+.popup {
+  width: 92px;
+  height: 51px;
+  background: #ffffff;
+  border-radius: 8px;
+
+  filter: drop-shadow(0px 4px 42px rgba(0, 0, 0, 0.2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  position: absolute;
+  bottom: -45px;
+  right: -55px;
+}
+
+.popup-top {
+  display: block;
+  position: absolute;
+  top: -8px;
+  left: 15px;
+}
+
+.popup-top img {
+  display: block;
+}
+
+.icone {
+  width: 22px;
+  height: 31px;
+
+  cursor: pointer;
+}

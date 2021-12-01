@@ -110,6 +110,7 @@ export default function ModalEditarUsuario() {
       getData();
       handleClose();
     } catch (error) {
+      console.log(error.response);
       const { mensagem } = error.response.data;
       if (
         mensagem ===
