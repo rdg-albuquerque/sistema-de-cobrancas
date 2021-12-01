@@ -1,18 +1,4 @@
-.clientes-section--container {
+.clientes-section {
   margin-left: 188px;
   width: 79%;
-}
-
-.clientes-section--top {
-  margin-bottom: 20px;
-}
-
-.filtro-input {
-  background-color: white;
-  padding: 8px;
-  border-radius: 10px;
-}
-
-.filtro-input img {
-  display: block;
 }
