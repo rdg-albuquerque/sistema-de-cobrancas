@@ -1,4 +1,4 @@
-.cobrancas-tabela {
+.cobrancas-resumo {
   text-align: center;
 
   color: #3f3f55;
@@ -8,7 +8,7 @@
   font-family: "Nunito";
 }
 
-.cobrancas-titulo {
+.cobrancas-resumo--titulo {
   border-radius: 30px 30px 0 0;
   background-color: white;
 
@@ -17,7 +17,7 @@
   font-size: 18px;
 }
 
-.cobrancas-titulo--container {
+.cobrancas-resumo--container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -25,27 +25,27 @@
   padding: 18px 0;
 }
 
-.cobrancas-titulo--contagem {
+.cobrancas-resumo--contagem {
   font-size: 16px;
   padding: 5px 15px;
 
   border-radius: 8px;
 }
 
-.cobrancas-row {
+.cobrancas-resumo--tr {
   border-bottom: 1px solid #eff0f7;
 }
 
-.cobrancas-th,
-.cobrancas-td {
+.cobrancas-resumo--th,
+.cobrancas-resumo--td {
   padding: 15px 0px;
 }
 
-.cobrancas-td {
+.cobrancas-resumo--td {
   font-size: 14px;
 }
 
-.cobrancas--footer {
+.cobrancas-resumo--footer {
   caption-side: bottom;
   padding: 12px 0;
 

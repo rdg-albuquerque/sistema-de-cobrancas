@@ -3,16 +3,16 @@ import "./style.css";
 
 function TabelaCobrancas({ pagas, vencidas, previstas }) {
   return (
-    <table className="cobrancas-tabela">
-      <caption className="cobrancas-titulo">
-        <div className="cobrancas-titulo--container">
+    <table className="cobrancas-resumo">
+      <caption className="cobrancas-resumo--titulo">
+        <div className="cobrancas-resumo--container">
           <span>
             {pagas && "Cobranças pagas"}
             {vencidas && "Cobranças vencidas"}
             {previstas && "Cobranças previstas"}
           </span>
           <span
-            className="cobrancas-titulo--contagem"
+            className="cobrancas-resumo--contagem"
             style={
               pagas
                 ? { background: "#EEF6F6", color: "#1FA7AF" }
@@ -26,24 +26,24 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
         </div>
       </caption>
       <thead>
-        <tr className="cobrancas-tr">
-          <th className="cobrancas-th">Cliente</th>
-          <th className="cobrancas-th">ID da cob.</th>
-          <th className="cobrancas-th">Valor</th>
+        <tr className="cobrancas-resumo--tr">
+          <th className="cobrancas-resumo--th">Cliente</th>
+          <th className="cobrancas-resumo--th">ID da cob.</th>
+          <th className="cobrancas-resumo--th">Valor</th>
         </tr>
       </thead>
       <tbody>
         {cobrancas.map((cobranca) => {
           return (
-            <tr key={cobranca.id} className="cobrancas-tr">
-              <td className="cobrancas-td">{cobranca.nome}</td>
-              <td className="cobrancas-td">{cobranca.id_cobranca}</td>
-              <td className="cobrancas-td">{`R$ ${cobranca.valor},00`}</td>
+            <tr key={cobranca.id} className="cobrancas-resumo--tr">
+              <td className="cobrancas-resumo--td">{cobranca.nome}</td>
+              <td className="cobrancas-resumo--td">{cobranca.id_cobranca}</td>
+              <td className="cobrancas-resumo--td">{`R$ ${cobranca.valor},00`}</td>
             </tr>
           );
         })}
       </tbody>
-      <caption className="cobrancas--footer">Ver todos</caption>
+      <caption className="cobrancas-resumo--footer">Ver todos</caption>
     </table>
   );
 }

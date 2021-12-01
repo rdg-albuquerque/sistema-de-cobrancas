@@ -5,7 +5,9 @@ import InputPesquisa from "../../components/InputPesquisa";
 import MenuLateral from "../../components/MenuLateral";
 import ModalCadastrarCliente from "../../components/ModalCadastrarCliente";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
+import TabelaClientes from "../../components/TabelaClientes";
 import { useGlobal } from "../../hooks/useGlobal";
+import filtro from "D:/Workspace/jscubos/modulo05-desafio/front-integral-m05-desafio/src/assets/filtro-pesquisa.svg";
 import "./style.css";
 
 function Clientes() {
@@ -25,6 +27,7 @@ function Clientes() {
             <div>
               <div>
                 <BotaoRosa
+                  comprido
                   onClick={() => {
                     setOpenCadastrarCliente(true);
                   }}
@@ -32,9 +35,13 @@ function Clientes() {
                   + Adicionar cliente
                 </BotaoRosa>
               </div>
+              <div className="filtro-input">
+                <img src={filtro} alt="" />
+              </div>
               <InputPesquisa />
             </div>
           </div>
+          <TabelaClientes />
         </section>
       </div>
       <ModalEditarUsuario />

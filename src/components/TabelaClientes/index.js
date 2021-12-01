@@ -1,51 +1,50 @@
 import { clientes } from "../../objClientes";
 import "./style.css";
-import emDiaAvatar from "../../assets/clientes-em-dia.svg";
-import inadimplentesAvatar from "../../assets/clientes-inadimplentes.svg";
+import novaCobranca from "../../assets/nova-cobranca.svg";
+import clienteOrdenacao from "../../assets/clientes-ordenacao.svg";
 
-function TabelaClientes({ emDia, inadimplentes }) {
+function TabelaClientes() {
   return (
     <table className="clientes-tabela">
-      <caption className="clientes-titulo">
-        <div className="clientes-titulo--container">
-          <div className="clientes-titulo--container2">
-            <img src={emDia ? emDiaAvatar : inadimplentesAvatar} alt="" />
-            <span>
-              {emDia && "Clientes em dia"}
-              {inadimplentes && "Clientes inadimplentes"}
-            </span>
-          </div>
-          <span
-            className="clientes-titulo--contagem"
-            style={
-              emDia
-                ? { background: "#EEF6F6", color: "#1FA7AF" }
-                : { background: "#FFEFEF", color: "#971D1D" }
-            }
-          >
-            {clientes.length}
-          </span>
-        </div>
-      </caption>
       <thead>
-        <tr className="clientes-tr">
-          <th className="clientes-th">Cliente</th>
-          <th className="clientes-th">Data de venc.</th>
-          <th className="clientes-th">Valor</th>
+        <tr className="clientes--tr">
+          <th className="clientes--th cliente--th">
+            <img src={clienteOrdenacao} alt="" />
+            <span>Cliente</span>
+          </th>
+          <th className="clientes--th">CPF</th>
+          <th className="clientes--th">E-mail</th>
+          <th className="clientes--th">Telefone</th>
+          <th className="clientes--th">Status</th>
+          <th className="clientes--th">Criar cobrança</th>
         </tr>
       </thead>
       <tbody>
         {clientes.map((cliente) => {
           return (
-            <tr key={cliente.id} className="clientes-tr">
-              <td className="clientes-td">{cliente.nome}</td>
-              <td className="clientes-td">{cliente.data_venc}</td>
-              <td className="clientes-td">{`R$ ${cliente.valor},00`}</td>
+            <tr key={cliente.id} className="clientes--tr">
+              <td className="clientes--td">{cliente.nome}</td>
+              <td className="clientes--td">{cliente.cpf}</td>
+              <td className="clientes--td">{cliente.email}</td>
+              <td className="clientes--td">{cliente.telefone}</td>
+              <td className="clientes--td">
+                {cliente.inadimplencia === true ? (
+                  <span className="inadimplente--td">Inadimplente</span>
+                ) : (
+                  <span className="emdia--td">Em dia</span>
+                )}
+              </td>
+              <td className="clientes--td">
+                <img
+                  style={{ display: "inline-block" }}
+                  src={novaCobranca}
+                  alt=""
+                />
+              </td>
             </tr>
           );
         })}
       </tbody>
-      <caption className="clientes--footer">Ver todos</caption>
     </table>
   );
 }
