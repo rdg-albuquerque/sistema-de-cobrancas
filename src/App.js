@@ -1,22 +1,24 @@
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./contexts/AuthProvider";
+import { GlobalProvider } from "./contexts/GlobalProvider";
+import { useAuth } from "./hooks/useAuth";
 import Cadastro1 from "./pages/Cadastro-1";
 import Cadastro2 from "./pages/Cadastro-2";
 import Cadastro3 from "./pages/Cadastro-3";
-import Login from "./pages/Login";
+import Clientes from "./pages/Clientes";
+import Cobrancas from "./pages/Cobrancas";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthProvider";
-import { useAuth } from "./hooks/useAuth";
-
-import { GlobalProvider } from "./contexts/GlobalProvider";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   function ProtecaoAuth() {
@@ -30,6 +32,15 @@ function App() {
   function ProtecaoCadastro3() {
     const { novoUsuario } = useAuth();
     return novoUsuario.senha ? <Outlet /> : <Navigate to="/cadastro-1" />;
+  }
+
+  function RedirectHome() {
+    const { path } = useParams();
+    return path === "dashboard" || path === "home" ? (
+      <Navigate to="/" />
+    ) : (
+      <Navigate to="*" />
+    );
   }
 
   return (
@@ -51,8 +62,10 @@ function App() {
 
               <Route element={<ProtecaoAuth />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/clientes" element={<Home />} />
-                <Route path="/cobrancas" element={<Home />} />
+                <Route path="/clientes" element={<Clientes />} />
+                <Route path="/clientes/:user_id" element={<Clientes />} />
+                <Route path="/cobrancas" element={<Cobrancas />} />
+                <Route path="/:path" element={<RedirectHome />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
