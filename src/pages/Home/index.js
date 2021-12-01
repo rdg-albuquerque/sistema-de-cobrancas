@@ -4,8 +4,8 @@ import ResumoCobrancasVencidas from "../../components/CardsCobrancas/CobrancasVe
 import { Header } from "../../components/Header";
 import MenuLateral from "../../components/MenuLateral";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
-import TabelaClientes from "../../components/TabelaClientes";
-import TabelaCobrancas from "../../components/TabelaCobrancas";
+import TabelaResumoClientes from "../../components/TabelaResumoClientes";
+import TabelaResumoCobrancas from "../../components/TabelaResumoCobrancas";
 import { useGlobal } from "../../hooks/useGlobal";
 import "./style.css";
 
@@ -24,20 +24,20 @@ export default function Home() {
           <section className="home-section--1">
             <div className="container-pagas">
               <ResumoCobrancasPagas />
-              <TabelaCobrancas pagas />
+              <TabelaResumoCobrancas pagas />
             </div>
             <div className="container-vencidas">
               <ResumoCobrancasVencidas />
-              <TabelaCobrancas vencidas />
+              <TabelaResumoCobrancas vencidas />
             </div>
             <div className="container-previstas">
               <ResumoCobrancasPrevistas />
-              <TabelaCobrancas previstas />
+              <TabelaResumoCobrancas previstas />
             </div>
           </section>
           <section className="home-section--2">
-            <TabelaClientes emDia />
-            <TabelaClientes inadimplentes />
+            <TabelaResumoClientes emDia />
+            <TabelaResumoClientes inadimplentes />
           </section>
         </section>
       </section>
