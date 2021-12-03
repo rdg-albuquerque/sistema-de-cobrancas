@@ -36,8 +36,8 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
         {cobrancas.map((cobranca) => {
           return (
             <tr key={cobranca.id} className="cobrancas-resumo--tr">
-              <td className="cobrancas-resumo--td">{cobranca.nome}</td>
-              <td className="cobrancas-resumo--td">{cobranca.id_cobranca}</td>
+              <td className="cobrancas-resumo--td">{cobranca.cliente_nome}</td>
+              <td className="cobrancas-resumo--td">{cobranca.id}</td>
               <td className="cobrancas-resumo--td">{`R$ ${cobranca.valor},00`}</td>
             </tr>
           );

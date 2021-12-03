@@ -28,13 +28,13 @@ function MenuLateral() {
 
         <div
           className={`${
-            paginaAtual === "/clientes" ? "novo-button" : "button-nav"
+            paginaAtual.includes("/clientes") ? "novo-button" : "button-nav"
           }`}
           onClick={() => navigate("/clientes")}
         >
           <img
             width="29px"
-            src={paginaAtual === "/clientes" ? UsersRosa : UsersCinza}
+            src={paginaAtual.includes("/clientes") ? UsersRosa : UsersCinza}
             alt=""
           />
           <p>Clientes</p>

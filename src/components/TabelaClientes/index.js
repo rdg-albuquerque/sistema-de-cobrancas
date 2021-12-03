@@ -1,7 +1,7 @@
 import { clientes } from "../../objClientes";
 import "./style.css";
 import novaCobranca from "../../assets/nova-cobranca.svg";
-import clienteOrdenacao from "../../assets/clientes-ordenacao.svg";
+import clienteOrdenacao from "../../assets/ordenacao.svg";
 
 function TabelaClientes() {
   return (
@@ -20,9 +20,15 @@ function TabelaClientes() {
         </tr>
       </thead>
       <tbody>
-        {clientes.map((cliente) => {
+        {clientes.map((cliente, index) => {
           return (
-            <tr key={cliente.id} className="clientes--tr">
+            <tr
+              style={
+                index === clientes.length - 1 ? { borderBottom: "none" } : {}
+              }
+              key={cliente.id}
+              className="clientes--tr"
+            >
               <td className="clientes--td">{cliente.nome}</td>
               <td className="clientes--td">{cliente.cpf}</td>
               <td className="clientes--td">{cliente.email}</td>
