@@ -4,10 +4,10 @@ import InputPesquisa from "../../components/InputPesquisa";
 import TabelaClientes from "../../components/TabelaClientes";
 import { useGlobal } from "../../hooks/useGlobal";
 import "./style.css";
-import filtro from "D:/Workspace/jscubos/modulo05-desafio/front-integral-m05-desafio/src/assets/filtro-pesquisa.svg";
+import filtro from "../../../src/assets/filtro-pesquisa.svg";
 
 function ContainerClientes() {
-  const { setAbrirPopup, setOpenCadastrarCliente } = useGlobal();
+  const { setOpenCadastrarCliente } = useGlobal();
   return (
     <div className="clientes--container">
       <div className="clientes--top">

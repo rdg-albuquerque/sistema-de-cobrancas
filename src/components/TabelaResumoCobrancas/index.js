@@ -1,7 +1,25 @@
+import { useEffect, useState } from "react";
+import { useGlobal } from "../../hooks/useGlobal";
 import { cobrancas } from "../../objCobrancas";
 import "./style.css";
 
 function TabelaCobrancas({ pagas, vencidas, previstas }) {
+  const { listaClientes: listaCobrancas } = useGlobal();
+  const [localCobrancas, setLocalCobrancas] = useState([]);
+
+  function filtrarCobrancas(status) {
+    return listaCobrancas.filter((cliente) => cliente.status === status);
+  }
+
+  useEffect(() => {
+    if (listaCobrancas) {
+      if (pagas) return setLocalCobrancas(filtrarCobrancas("Pagas"));
+      if (vencidas) return setLocalCobrancas(filtrarCobrancas("Vencidas"));
+      if (previstas) return setLocalCobrancas(filtrarCobrancas("Previstas"));
+    }
+    //eslint-disable-next-line
+  }, [listaCobrancas]);
+
   return (
     <table className="cobrancas-resumo">
       <caption className="cobrancas-resumo--titulo">
@@ -21,7 +39,7 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
                 : { background: "#FCF6DC", color: "#C5A605" }
             }
           >
-            {cobrancas.length}
+            {localCobrancas.length}
           </span>
         </div>
       </caption>
@@ -33,9 +51,9 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
         </tr>
       </thead>
       <tbody>
-        {cobrancas.map((cobranca) => {
+        {cobrancas.map((cobranca, index) => {
           return (
-            <tr key={cobranca.id} className="cobrancas-resumo--tr">
+            <tr key={index} className="cobrancas-resumo--tr">
               <td className="cobrancas-resumo--td">{cobranca.cliente_nome}</td>
               <td className="cobrancas-resumo--td">{cobranca.id}</td>
               <td className="cobrancas-resumo--td">{`R$ ${cobranca.valor},00`}</td>

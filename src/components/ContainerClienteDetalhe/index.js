@@ -1,12 +1,10 @@
 import avatar from "../../assets/cliente-section-avatar.svg";
-import { useGlobal } from "../../hooks/useGlobal";
 import BotaoCinza from "../BotaoCinza";
 import BotaoRosa from "../BotaoRosa";
 import TabelaCobrancas from "../TabelaCobrancas";
 import "./style.css";
 
 function ContainerClienteDetalhe() {
-  const { setAbrirPopup, setOpenCadastrarCliente } = useGlobal();
   return (
     <div className="cliente-detalhe--container">
       <div className="cliente-detalhe--top">

@@ -1,9 +1,36 @@
-import { clientes } from "../../objClientes";
 import "./style.css";
 import emDiaAvatar from "../../assets/clientes-em-dia.svg";
 import inadimplentesAvatar from "../../assets/clientes-inadimplentes.svg";
+import { useGlobal } from "../../hooks/useGlobal";
+import { useEffect, useState } from "react";
 
 function TabelaResumoClientes({ emDia, inadimplentes }) {
+  const { getClientes } = useGlobal();
+  const [localClientes, setLocalClientes] = useState([]);
+
+  function filtrarClientes(lista, status) {
+    return lista.filter((cliente) => cliente.status === status);
+  }
+
+  useEffect(() => {
+    async function getData() {
+      const listaClientes = await getClientes();
+      if (emDia) {
+        const clientesEmDia = filtrarClientes(listaClientes, "Em dia");
+        return setLocalClientes(clientesEmDia);
+      }
+      if (inadimplentes) {
+        const clientesInadimplentes = filtrarClientes(
+          listaClientes,
+          "Inadimplente"
+        );
+        return setLocalClientes(clientesInadimplentes);
+      }
+    }
+    getData();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <table className="clientes-resumo">
       <caption className="clientes-resumo--titulo">
@@ -23,7 +50,7 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
                 : { background: "#FFEFEF", color: "#971D1D" }
             }
           >
-            {clientes.length}
+            {localClientes.length}
           </span>
         </div>
       </caption>
@@ -35,15 +62,16 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
         </tr>
       </thead>
       <tbody>
-        {clientes.map((cliente) => {
-          return (
-            <tr key={cliente.id} className="clientes-resumo--tr">
-              <td className="clientes-resumo--td">{cliente.nome}</td>
-              <td className="clientes-resumo--td">{cliente.data_venc}</td>
-              <td className="clientes-resumo--td">{`R$ ${cliente.valor},00`}</td>
-            </tr>
-          );
-        })}
+        {!!localClientes &&
+          localClientes.map((cliente) => {
+            return (
+              <tr key={cliente.id} className="clientes-resumo--tr">
+                <td className="clientes-resumo--td">{cliente.nome}</td>
+                <td className="clientes-resumo--td">{cliente.data_venc}</td>
+                <td className="clientes-resumo--td">{`R$ ${cliente.valor},00`}</td>
+              </tr>
+            );
+          })}
       </tbody>
       <caption className="clientes-resumo--footer">Ver todos</caption>
     </table>

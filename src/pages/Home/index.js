@@ -10,7 +10,7 @@ import { useGlobal } from "../../hooks/useGlobal";
 import "./style.css";
 
 export default function Home() {
-  const { setAbrirPopup, setOpenCadastrarCliente } = useGlobal();
+  const { setAbrirPopup } = useGlobal();
 
   function handleClosePopup() {
     setAbrirPopup(false);

@@ -41,6 +41,7 @@ export default function ModalCadastrarCliente() {
   const [localErro, setLocalErro] = useState({
     email: "",
     cpf: "",
+    telefone: "",
   });
 
   function handleClose() {

@@ -45,8 +45,8 @@ function App() {
 
   return (
     <div className="App">
-      <GlobalProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <GlobalProvider>
           <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
@@ -70,8 +70,8 @@ function App() {
               </Route>
             </Routes>
           </Router>
-        </AuthProvider>
-      </GlobalProvider>
+        </GlobalProvider>
+      </AuthProvider>
       <ToastContainer />
     </div>
   );

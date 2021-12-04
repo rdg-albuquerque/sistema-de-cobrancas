@@ -28,7 +28,11 @@ function TituloHeader() {
       </div>
     );
   }
-  return "";
+  return (
+    <div className="titulo-header--container">
+      <span className="titulo-header--prev">Cobranças</span>
+    </div>
+  );
 }
 
 export default TituloHeader;

@@ -44,7 +44,7 @@ function TabelaCobrancas() {
               style={
                 index === cobrancas.length - 1 ? { borderBottom: "none" } : {}
               }
-              key={cobranca.id}
+              key={index}
               className="cobrancas--tr"
             >
               {!user_id && (
