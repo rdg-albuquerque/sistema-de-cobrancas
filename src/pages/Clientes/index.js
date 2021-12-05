@@ -7,7 +7,7 @@ import ModalCadastrarCliente from "../../components/ModalCadastrarCliente";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 import TabelaClientes from "../../components/TabelaClientes";
 import { useGlobal } from "../../hooks/useGlobal";
-import filtro from "D:/Workspace/jscubos/modulo05-desafio/front-integral-m05-desafio/src/assets/filtro-pesquisa.svg";
+import filtro from "../../assets/filtro-pesquisa.svg";
 import "./style.css";
 
 function Clientes() {
