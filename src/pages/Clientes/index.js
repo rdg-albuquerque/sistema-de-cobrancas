@@ -9,6 +9,7 @@ import TabelaClientes from "../../components/TabelaClientes";
 import { useGlobal } from "../../hooks/useGlobal";
 import filtro from "../../assets/filtro-pesquisa.svg";
 import "./style.css";
+import ModalCadastrarCobranca from "../../components/ModalCadastrarCobranca";
 
 function Clientes() {
   const { setAbrirPopup, setOpenCadastrarCliente } = useGlobal();
@@ -46,6 +47,7 @@ function Clientes() {
       </div>
       <ModalEditarUsuario />
       <ModalCadastrarCliente />
+      <ModalCadastrarCobranca />
     </div>
   );
 }

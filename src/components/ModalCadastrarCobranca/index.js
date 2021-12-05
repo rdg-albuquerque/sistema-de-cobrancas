@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalCadastrarCobranca() {
   const classes = useStyles();
   const { token } = useAuth();
-  const { openCadastrarCobranca, openCadastrarCobranca } = useGlobal();
+  const { openCadastrarCobranca, setOpenCadastrarCobranca } = useGlobal();
   const initialLocalInfo = {
     nome: "",
     vencimento: "",
@@ -38,7 +38,7 @@ export default function ModalCadastrarCobranca() {
   });
 
   function handleClose() {
-    openCadastrarCobranca(false);
+    setOpenCadastrarCobranca(false);
     setLocalInfo(initialLocalInfo);
   }
 

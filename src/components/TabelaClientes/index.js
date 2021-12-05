@@ -2,8 +2,13 @@ import { clientes } from "../../objClientes";
 import "./style.css";
 import novaCobranca from "../../assets/nova-cobranca.svg";
 import clienteOrdenacao from "../../assets/clientes-ordenacao.svg";
+import ModalCadastrarCobranca from "../ModalCadastrarCobranca";
+import BotaoNovaCobranca from "../../components/BotaoNovaCobranca"
+import { useGlobal } from "../../hooks/useGlobal";
+import BotaoRosa from "../BotaoRosa";
 
 function TabelaClientes() {
+  const { setAbrirPopup, setOpenCadastrarCobranca } = useGlobal();
   return (
     <table className="clientes-tabela">
       <thead>
@@ -35,10 +40,10 @@ function TabelaClientes() {
                 )}
               </td>
               <td className="clientes--td">
-                <img
-                  style={{ display: "inline-block" }}
-                  src={novaCobranca}
-                  alt=""
+                <BotaoNovaCobranca
+                  onClick={() => {
+                    setOpenCadastrarCobranca(true);
+                  }}
                 />
               </td>
             </tr>
