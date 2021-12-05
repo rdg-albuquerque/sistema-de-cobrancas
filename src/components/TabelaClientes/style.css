@@ -28,6 +28,17 @@
   padding: 3px 0px;
 }
 
+.clientes--td a {
+  text-decoration: none;
+  color: #3f3f55;
+  padding: 5px;
+  border-radius: 8px 12px;
+}
+
+.clientes--td a:hover {
+  background-color: rgba(0, 0, 0, 0.034);
+  text-decoration: underline;
+}
 .inadimplente--td,
 .emdia--td {
   font-family: "Nunito";

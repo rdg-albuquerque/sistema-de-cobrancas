@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { globalContext } from "../contexts/GlobalProvider";
 import { useAuth } from "./useAuth";
 import { get } from "../utils/requests";
@@ -9,23 +9,32 @@ function useGlobalProvider() {
 
   const [openModalEditar, setOpenModalEditar] = useState(false);
   const [abrirPopup, setAbrirPopup] = useState(false);
-  const [openCadastrarCliente, setOpenCadastrarCliente] = useState(false);
+  const [openModalCliente, setOpenModalCliente] = useState(false);
   const [listaClientes, setListaClientes] = useState([]);
   const [listaCobrancas, setListaCobrancas] = useState([]);
-
-  async function getClientes() {
+  const [clienteAtual, setClienteAtual] = useState({});
+  async function atualizarClientes() {
     try {
       const { data } = await get("/cliente", token);
-      return data;
+      setListaClientes(data);
     } catch (error) {
       console.log(error.response.data);
       notificacaoErro("Houve um erro ao atualizar os clientes");
     }
   }
-  async function getCobrancas() {
+  async function atualizarCliente(id) {
+    try {
+      const { data } = await get(`/cliente/${id}`, token);
+      setClienteAtual(data);
+    } catch (error) {
+      console.log(error.response.data);
+      notificacaoErro("Houve um erro ao atualizar o cliente");
+    }
+  }
+  async function atualizarCobrancas() {
     try {
       const { data } = await get("/cobrancas", token);
-      return data;
+      setListaCobrancas(data);
     } catch (error) {
       console.log(error.response.data);
       notificacaoErro("Houve um erro ao atualizar as cobrancas");
@@ -37,14 +46,17 @@ function useGlobalProvider() {
     setOpenModalEditar,
     abrirPopup,
     setAbrirPopup,
-    openCadastrarCliente,
-    setOpenCadastrarCliente,
+    openModalCliente,
+    setOpenModalCliente,
     listaClientes,
     setListaClientes,
     listaCobrancas,
     setListaCobrancas,
-    getClientes,
-    getCobrancas,
+    atualizarClientes,
+    atualizarCliente,
+    atualizarCobrancas,
+    clienteAtual,
+    setClienteAtual,
   };
 }
 

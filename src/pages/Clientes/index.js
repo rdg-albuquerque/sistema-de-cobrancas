@@ -3,7 +3,6 @@ import ContainerClienteDetalhe from "../../components/ContainerClienteDetalhe";
 import ContainerClientes from "../../components/ContainerClientes";
 import { Header } from "../../components/Header";
 import MenuLateral from "../../components/MenuLateral";
-import ModalCadastrarCliente from "../../components/ModalCadastrarCliente";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 import "./style.css";
 
@@ -17,7 +16,6 @@ function Clientes() {
         {!user_id ? <ContainerClientes /> : <ContainerClienteDetalhe />}
       </section>
       <ModalEditarUsuario />
-      <ModalCadastrarCliente />
     </div>
   );
 }

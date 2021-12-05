@@ -3,12 +3,13 @@ import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import avatarCliente from "../../assets/cadastro-cliente-avatar.svg";
 import close from "../../assets/close.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
-import { post } from "../../utils/requests";
+import { post, put } from "../../utils/requests";
 import BotaoRosa from "../BotaoRosa";
 import InputGeral from "../InputGeral";
 import "./style.css";
@@ -21,23 +22,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalCadastrarCliente() {
+export default function ModalClientes() {
   const classes = useStyles();
+  const { user_id } = useParams();
   const { token } = useAuth();
-  const { openCadastrarCliente, setOpenCadastrarCliente } = useGlobal();
+  const {
+    openModalCliente,
+    setOpenModalCliente,
+    clienteAtual,
+    atualizarCliente,
+    atualizarClientes,
+  } = useGlobal();
+
   const initialLocalInfo = {
-    nome: "",
-    email: "",
-    cpf: "",
-    telefone: "",
-    endereco: "",
-    complemento: "",
-    cep: "",
-    bairro: "",
-    cidade: "",
-    uf: "",
+    nome: !user_id ? "" : clienteAtual.nome,
+    email: !user_id ? "" : clienteAtual.email,
+    cpf: !user_id ? "" : clienteAtual.cpf,
+    telefone: !user_id ? "" : clienteAtual.telefone,
+    endereco: !user_id ? "" : clienteAtual.endereco,
+    complemento: !user_id ? "" : clienteAtual.complemento,
+    cep: !user_id ? "" : clienteAtual.cep,
+    bairro: !user_id ? "" : clienteAtual.bairro,
+    cidade: !user_id ? "" : clienteAtual.cidade,
+    uf: !user_id ? "" : clienteAtual.uf,
   };
-  const [localInfo, setLocalInfo] = useState(initialLocalInfo);
+
+  const [localInfo, setLocalInfo] = useState({ ...initialLocalInfo });
   const [localErro, setLocalErro] = useState({
     email: "",
     cpf: "",
@@ -45,8 +55,8 @@ export default function ModalCadastrarCliente() {
   });
 
   function handleClose() {
-    setOpenCadastrarCliente(false);
-    setLocalInfo(initialLocalInfo);
+    setOpenModalCliente(false);
+    setLocalInfo({ ...initialLocalInfo });
   }
 
   function handleChangeNome(e) {
@@ -92,13 +102,19 @@ export default function ModalCadastrarCliente() {
     );
   }
 
-  async function handleCadastrar() {
+  async function handleButtonClick() {
     if (isCamposIncorretos()) return;
     try {
-      await post("/cliente", localInfo, token);
-      notificacaoSucesso("Cliente cadastrado com sucesso");
+      if (!user_id) {
+        await post("/cliente", localInfo, token);
+        notificacaoSucesso("Cliente cadastrado com sucesso");
+        atualizarClientes();
+      } else {
+        await put(`/cliente/${user_id}`, localInfo, token);
+        notificacaoSucesso("Cliente editado com sucesso");
+        atualizarCliente(user_id);
+      }
       handleClose();
-      setLocalInfo(initialLocalInfo);
     } catch (error) {
       console.log(error.response);
       const { mensagem } = error.response.data;
@@ -114,14 +130,16 @@ export default function ModalCadastrarCliente() {
         setLocalErro((prev) => ({ ...prev, cpf: "CPF já cadastrado" }));
         return;
       }
-      notificacaoErro("Houve um erro ao cadastrar o cliente");
+      !user_id
+        ? notificacaoErro("Houve um erro ao cadastrar o cliente")
+        : notificacaoErro("Houve um erro ao editar o cliente");
     }
   }
 
   return (
     <Modal
       className={classes.modal}
-      open={openCadastrarCliente}
+      open={openModalCliente}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -129,7 +147,7 @@ export default function ModalCadastrarCliente() {
         timeout: 500,
       }}
     >
-      <Fade in={openCadastrarCliente}>
+      <Fade in={openModalCliente}>
         <div className="modal-cadastrar-cliente">
           <img
             className="editar--close"
@@ -139,7 +157,9 @@ export default function ModalCadastrarCliente() {
           />
           <div className="modal-cadastrar-cliente--top">
             <img src={avatarCliente} alt="" />
-            <h1 className="modal-cadastrar-cliente--h1">Cadastro de Cliente</h1>
+            <h1 className="modal-cadastrar-cliente--h1">
+              {!user_id ? "Cadastro de cliente" : "Editar cliente"}
+            </h1>
           </div>
           <div>
             <label>Nome*</label>
@@ -247,7 +267,7 @@ export default function ModalCadastrarCliente() {
             </button>
             <BotaoRosa
               disabled={isCamposIncorretos()}
-              onClick={handleCadastrar}
+              onClick={handleButtonClick}
             >
               Aplicar
             </BotaoRosa>

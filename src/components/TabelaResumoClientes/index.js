@@ -1,11 +1,13 @@
 import "./style.css";
 import emDiaAvatar from "../../assets/clientes-em-dia.svg";
 import inadimplentesAvatar from "../../assets/clientes-inadimplentes.svg";
-import { useGlobal } from "../../hooks/useGlobal";
 import { useEffect, useState } from "react";
+import { get } from "../../utils/requests";
+import { notificacaoErro } from "../../utils/notificacao";
+import { useAuth } from "../../hooks/useAuth";
 
 function TabelaResumoClientes({ emDia, inadimplentes }) {
-  const { getClientes } = useGlobal();
+  const { token } = useAuth();
   const [localClientes, setLocalClientes] = useState([]);
 
   function filtrarClientes(lista, status) {
@@ -14,17 +16,22 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
 
   useEffect(() => {
     async function getData() {
-      const listaClientes = await getClientes();
-      if (emDia) {
-        const clientesEmDia = filtrarClientes(listaClientes, "Em dia");
-        return setLocalClientes(clientesEmDia);
-      }
-      if (inadimplentes) {
-        const clientesInadimplentes = filtrarClientes(
-          listaClientes,
-          "Inadimplente"
-        );
-        return setLocalClientes(clientesInadimplentes);
+      try {
+        const { data: listaClientes } = await get("/cliente", token);
+        if (emDia) {
+          const clientesEmDia = filtrarClientes(listaClientes, "Em dia");
+          return setLocalClientes(clientesEmDia);
+        }
+        if (inadimplentes) {
+          const clientesInadimplentes = filtrarClientes(
+            listaClientes,
+            "Inadimplente"
+          );
+          return setLocalClientes(clientesInadimplentes);
+        }
+      } catch (error) {
+        console.log(error.response.data);
+        notificacaoErro("Houve um erro ao atualizar as cobrancas");
       }
     }
     getData();

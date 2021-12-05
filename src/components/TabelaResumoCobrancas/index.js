@@ -1,24 +1,44 @@
 import { useEffect, useState } from "react";
-import { useGlobal } from "../../hooks/useGlobal";
-import { cobrancas } from "../../objCobrancas";
+import { useAuth } from "../../hooks/useAuth";
+import { get } from "../../utils/requests";
 import "./style.css";
 
 function TabelaCobrancas({ pagas, vencidas, previstas }) {
-  const { listaClientes: listaCobrancas } = useGlobal();
+  const { token } = useAuth();
   const [localCobrancas, setLocalCobrancas] = useState([]);
 
-  function filtrarCobrancas(status) {
-    return listaCobrancas.filter((cliente) => cliente.status === status);
+  function filtrarCobrancas(lista, status) {
+    return lista.filter((cobranca) => cobranca.status === status);
   }
 
   useEffect(() => {
-    if (listaCobrancas) {
-      if (pagas) return setLocalCobrancas(filtrarCobrancas("Pagas"));
-      if (vencidas) return setLocalCobrancas(filtrarCobrancas("Vencidas"));
-      if (previstas) return setLocalCobrancas(filtrarCobrancas("Previstas"));
+    async function getData() {
+      try {
+        const { data: cobrancasAtualizadas } = await get("/cobrancas", token);
+        if (pagas) {
+          const cobrancasPagas = filtrarCobrancas(cobrancasAtualizadas, "Paga");
+          return setLocalCobrancas(cobrancasPagas);
+        }
+        if (vencidas) {
+          const cobrancasVencidas = filtrarCobrancas(
+            cobrancasAtualizadas,
+            "Vencida"
+          );
+          return setLocalCobrancas(cobrancasVencidas);
+        }
+        if (previstas) {
+          const cobrancasPrevistas = filtrarCobrancas(
+            cobrancasAtualizadas,
+            "Pendente"
+          );
+          return setLocalCobrancas(cobrancasPrevistas);
+        }
+      } catch (error) {}
     }
+    getData();
+
     //eslint-disable-next-line
-  }, [listaCobrancas]);
+  }, []);
 
   return (
     <table className="cobrancas-resumo">
@@ -51,7 +71,7 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
         </tr>
       </thead>
       <tbody>
-        {cobrancas.map((cobranca, index) => {
+        {localCobrancas.map((cobranca, index) => {
           return (
             <tr key={index} className="cobrancas-resumo--tr">
               <td className="cobrancas-resumo--td">{cobranca.cliente_nome}</td>

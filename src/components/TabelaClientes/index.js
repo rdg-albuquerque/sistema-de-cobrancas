@@ -1,9 +1,19 @@
-import { clientes } from "../../objClientes";
-import "./style.css";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import novaCobranca from "../../assets/nova-cobranca.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
+import { useGlobal } from "../../hooks/useGlobal";
+import { clientes } from "../../objClientes";
+import "./style.css";
 
 function TabelaClientes() {
+  const { atualizarClientes, listaClientes } = useGlobal();
+
+  useEffect(() => {
+    atualizarClientes();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <table className="clientes-tabela">
       <thead>
@@ -20,36 +30,43 @@ function TabelaClientes() {
         </tr>
       </thead>
       <tbody>
-        {clientes.map((cliente, index) => {
-          return (
-            <tr
-              style={
-                index === clientes.length - 1 ? { borderBottom: "none" } : {}
-              }
-              key={cliente.id}
-              className="clientes--tr"
-            >
-              <td className="clientes--td">{cliente.nome}</td>
-              <td className="clientes--td">{cliente.cpf}</td>
-              <td className="clientes--td">{cliente.email}</td>
-              <td className="clientes--td">{cliente.telefone}</td>
-              <td className="clientes--td">
-                {cliente.inadimplencia === true ? (
-                  <span className="inadimplente--td">Inadimplente</span>
-                ) : (
-                  <span className="emdia--td">Em dia</span>
-                )}
-              </td>
-              <td className="clientes--td">
-                <img
-                  style={{ display: "inline-block" }}
-                  src={novaCobranca}
-                  alt=""
-                />
-              </td>
-            </tr>
-          );
-        })}
+        {!!listaClientes &&
+          listaClientes.map((cliente, index) => {
+            return (
+              <tr
+                style={
+                  index === clientes.length - 1 ? { borderBottom: "none" } : {}
+                }
+                key={cliente.id}
+                className="clientes--tr"
+              >
+                <td className="clientes--td">
+                  <Link to={`/clientes/${cliente.id}`}>{cliente.nome}</Link>
+                </td>
+                <td className="clientes--td">{cliente.cpf}</td>
+                <td className="clientes--td">{cliente.email}</td>
+                <td className="clientes--td">{cliente.telefone}</td>
+                <td className="clientes--td">
+                  <span
+                    className={
+                      cliente.status === "Inadimplente"
+                        ? "inadimplente--td"
+                        : "emdia--td"
+                    }
+                  >
+                    {cliente.status}
+                  </span>
+                </td>
+                <td className="clientes--td">
+                  <img
+                    style={{ display: "inline-block" }}
+                    src={novaCobranca}
+                    alt=""
+                  />
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );

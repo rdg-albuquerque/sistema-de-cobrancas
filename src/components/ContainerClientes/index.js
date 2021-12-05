@@ -5,9 +5,10 @@ import TabelaClientes from "../../components/TabelaClientes";
 import { useGlobal } from "../../hooks/useGlobal";
 import "./style.css";
 import filtro from "../../../src/assets/filtro-pesquisa.svg";
+import ModalClientes from "../ModalClientes";
 
 function ContainerClientes() {
-  const { setOpenCadastrarCliente } = useGlobal();
+  const { setOpenModalCliente } = useGlobal();
   return (
     <div className="clientes--container">
       <div className="clientes--top">
@@ -20,7 +21,7 @@ function ContainerClientes() {
             <BotaoRosa
               comprido
               onClick={() => {
-                setOpenCadastrarCliente(true);
+                setOpenModalCliente(true);
               }}
             >
               + Adicionar cliente
@@ -33,6 +34,7 @@ function ContainerClientes() {
         </div>
       </div>
       <TabelaClientes />
+      <ModalClientes />
     </div>
   );
 }
