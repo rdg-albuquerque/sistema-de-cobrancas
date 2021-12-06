@@ -4,6 +4,7 @@ import novaCobranca from "../../assets/nova-cobranca.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
 import { useGlobal } from "../../hooks/useGlobal";
 import { clientes } from "../../objClientes";
+import { formatarCpf, formatarTel } from "../../utils/formatarCampos";
 import "./style.css";
 
 function TabelaClientes() {
@@ -48,9 +49,11 @@ function TabelaClientes() {
                 <td className="clientes--td">
                   <Link to={`/clientes/${cliente.id}`}>{cliente.nome}</Link>
                 </td>
-                <td className="clientes--td">{cliente.cpf}</td>
+                <td className="clientes--td">{formatarCpf(cliente.cpf)}</td>
                 <td className="clientes--td">{cliente.email}</td>
-                <td className="clientes--td">{cliente.telefone}</td>
+                <td className="clientes--td">
+                  {formatarTel(cliente.telefone)}
+                </td>
                 <td className="clientes--td">
                   <span
                     className={

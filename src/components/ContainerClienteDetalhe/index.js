@@ -3,6 +3,11 @@ import { useParams } from "react-router";
 import avatar from "../../assets/cliente-section-avatar.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
+import {
+  formatarCep,
+  formatarCpf,
+  formatarTel,
+} from "../../utils/formatarCampos";
 import isNull from "../../utils/isNull";
 import { notificacaoErro } from "../../utils/notificacao";
 import { get } from "../../utils/requests";
@@ -78,8 +83,8 @@ function ContainerClienteDetalhe() {
           </tr>
           <tr>
             <td>{clienteAtual.email}</td>
-            <td>{clienteAtual.telefone}</td>
-            <td>{clienteAtual.cpf}</td>
+            <td>{formatarTel(clienteAtual.telefone)}</td>
+            <td>{formatarCpf(clienteAtual.cpf)}</td>
           </tr>
         </table>
         <table className="cliente-detalhe--t2">
@@ -95,7 +100,7 @@ function ContainerClienteDetalhe() {
             <td>{clienteAtual.endereco}</td>
             <td>{clienteAtual.bairro}</td>
             <td>{clienteAtual.complemento}</td>
-            <td>{clienteAtual.cep}</td>
+            <td>{formatarCep(clienteAtual.cep)}</td>
             <td>{clienteAtual.cidade}</td>
             <td>{clienteAtual.uf}</td>
           </tr>
