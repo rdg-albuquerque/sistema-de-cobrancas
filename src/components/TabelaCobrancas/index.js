@@ -5,7 +5,7 @@ import editar from "../../assets/editar.svg";
 import excluir from "../../assets/excluir.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
 import { useGlobal } from "../../hooks/useGlobal";
-import formatarData from "../../utils/formatar-data";
+import { formatarData } from "../../utils/formatarCampos";
 import "./style.css";
 
 function TabelaCobrancas() {

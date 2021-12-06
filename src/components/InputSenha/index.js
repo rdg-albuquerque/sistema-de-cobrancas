@@ -11,34 +11,40 @@ export default function InputSenha({
   placeholder,
   onChange,
   required,
+  erro,
   inputVerificacao,
   senhaParaComparar,
 }) {
   const classes = useStyles();
 
-  const [erro, setErro] = useState(false);
+  const [localErro, setLocalErro] = useState(false);
   const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
     if (inputVerificacao) {
       if (senhaParaComparar === value) {
-        setErro(false);
+        setLocalErro(false);
         setHelperText("");
       } else {
-        setErro(true);
+        setLocalErro(true);
         setHelperText("As senhas não coicidem");
       }
-    } // eslint-disable-next-line
-  }, [senhaParaComparar, value]);
+    }
+    if (erro) {
+      setLocalErro(true);
+      setHelperText(erro);
+    }
+    // eslint-disable-next-line
+  }, [senhaParaComparar, value, erro]);
 
   function handleChange(e) {
     onChange(e);
 
-    setErro(false);
+    setLocalErro(false);
     setHelperText("");
 
     if (required && !e.target.value) {
-      setErro(true);
+      setLocalErro(true);
       setHelperText("Este campo é obrigatório");
     }
   }
@@ -68,8 +74,8 @@ export default function InputSenha({
       variant="outlined"
       size="small"
       onChange={handleChange}
-      error={erro}
-      helperText={erro && helperText}
+      error={localErro}
+      helperText={localErro && helperText}
       type={showPassword ? "text" : "password"}
       InputProps={{
         className: classes.input,

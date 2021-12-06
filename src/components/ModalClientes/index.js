@@ -10,8 +10,13 @@ import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
 import { post, put } from "../../utils/requests";
+import {
+  isCepInvalid,
+  isCpfOrTelRequiredInvalid,
+} from "../../utils/validarDados";
 import BotaoRosa from "../BotaoRosa";
 import InputGeral from "../InputGeral";
+import MaskedInput from "../MaskedInput";
 import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +57,7 @@ export default function ModalClientes() {
     email: "",
     cpf: "",
     telefone: "",
+    cep: "",
   });
 
   function handleClose() {
@@ -81,6 +87,7 @@ export default function ModalClientes() {
     setLocalInfo({ ...localInfo, complemento: e.target.value });
   }
   function handleChangeCEP(e) {
+    setLocalErro({ ...localErro, cep: "" });
     setLocalInfo({ ...localInfo, cep: e.target.value });
   }
   function handleChangeBairro(e) {
@@ -104,6 +111,15 @@ export default function ModalClientes() {
 
   async function handleButtonClick() {
     if (isCamposIncorretos()) return;
+    if (isCpfOrTelRequiredInvalid(localInfo.cpf)) {
+      return setLocalErro({ ...localErro, cpf: "CPF inválido" });
+    }
+    if (isCpfOrTelRequiredInvalid(localInfo.telefone)) {
+      return setLocalErro({ ...localErro, telefone: "Telefone inválido" });
+    }
+    if (isCepInvalid(localInfo.cep)) {
+      return setLocalErro({ ...localErro, cep: "Cep inválido" });
+    }
     try {
       if (!user_id) {
         await post("/cliente", localInfo, token);
@@ -183,22 +199,24 @@ export default function ModalClientes() {
           <div className="modal-cadastrar-cliente--container">
             <div>
               <label>CPF*</label>
-              <InputGeral
+              <MaskedInput
+                mask="999.999.999-99"
                 placeholder="Digite o CPF"
-                type="number"
                 value={localInfo.cpf}
                 onChange={handleChangeCPF}
-                cpfErro={localErro.cpf}
+                erro={localErro.cpf}
                 required
               />
             </div>
             <div>
               <label>Telefone*</label>
-              <InputGeral
+              <MaskedInput
+                mask="(99)9 9999-9999"
                 placeholder="Digite o telefone"
                 type="number"
                 value={localInfo.telefone}
                 onChange={handleChangeTelefone}
+                erro={localErro.telefone}
                 required
               />
             </div>
@@ -224,11 +242,12 @@ export default function ModalClientes() {
           <div className="modal-cadastrar-cliente--container">
             <div>
               <label>CEP</label>
-              <InputGeral
+              <MaskedInput
+                mask="99.999-999"
                 placeholder="Digite o CEP"
-                type="number"
                 value={localInfo.cep}
                 onChange={handleChangeCEP}
+                erro={localErro.cep}
               />
             </div>
             <div>

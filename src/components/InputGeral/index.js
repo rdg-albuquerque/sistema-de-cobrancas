@@ -9,7 +9,6 @@ export default function InputGeral({
   onChange,
   required,
   emailErro,
-  cpfErro,
   isStatic,
 }) {
   const classes = useStyles();
@@ -22,11 +21,7 @@ export default function InputGeral({
       setHelperText(emailErro);
       return;
     }
-    if (cpfErro) {
-      setErro(true);
-      setHelperText(cpfErro);
-    }
-  }, [emailErro, cpfErro]);
+  }, [emailErro]);
 
   function handleChange(e) {
     onChange(e);

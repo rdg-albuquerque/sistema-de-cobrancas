@@ -12,6 +12,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
 import { get, put } from "../../utils/requests";
+import { isCpfOrTelInvalid } from "../../utils/validarDados";
+import MaskedInput from "../MaskedInput";
 import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +40,8 @@ export default function ModalEditarUsuario() {
   const [localErro, setLocalErro] = useState({
     email: "",
     cpf: "",
+    telefone: "",
+    senha: "",
   });
 
   useEffect(() => {
@@ -79,18 +83,25 @@ export default function ModalEditarUsuario() {
     setLocalInfo({ ...localInfo, cpf: e.target.value });
   }
   function handleChangeTelefone(e) {
+    setLocalErro({ ...localErro, telefone: "" });
     setLocalInfo({ ...localInfo, telefone: e.target.value });
   }
   function handleChangeSenha(e) {
+    setLocalErro({ ...localErro, senha: "" });
     setLocalInfo({ ...localInfo, senha: e.target.value });
+  }
+  function handleChangeSenhaConfirmacao(e) {
+    setLocalErro({ ...localErro, senha: "" });
+    setLocalInfo({ ...localInfo, senhaConfirmacao: e.target.value });
   }
 
   function handleClose() {
     setOpenModalEditar(false);
-  }
-
-  function handleChangeSenhaConfirmacao(e) {
-    setLocalInfo({ ...localInfo, senhaConfirmacao: e.target.value });
+    setLocalErro({
+      email: "",
+      cpf: "",
+      telefone: "",
+    });
   }
 
   function isCamposIncorretos() {
@@ -103,6 +114,15 @@ export default function ModalEditarUsuario() {
 
   async function handleEditar() {
     if (isCamposIncorretos()) return;
+    if (isCpfOrTelInvalid(localInfo.cpf)) {
+      return setLocalErro({ ...localErro, cpf: "Digite um CPF válido" });
+    }
+    if (isCpfOrTelInvalid(localInfo.telefone)) {
+      return setLocalErro({
+        ...localErro,
+        telefone: "Digite um telefone válido",
+      });
+    }
     try {
       const { senhaConfirmacao, ...bodyReq } = localInfo;
       await put("/usuario", bodyReq, token);
@@ -121,6 +141,13 @@ export default function ModalEditarUsuario() {
       if (mensagem === "CPF já cadastrado") {
         setLocalErro((prev) => ({ ...prev, cpf: mensagem }));
       }
+      if (mensagem === "senha deve ser pelo menos 5 caracteres") {
+        setLocalErro((prev) => ({
+          ...prev,
+          senha: "A senha deve ter no mínimo 5 caracteres",
+        }));
+      }
+      notificacaoErro(mensagem);
     }
   }
 
@@ -166,21 +193,22 @@ export default function ModalEditarUsuario() {
           <div className="modal-usuario--container">
             <div>
               <label>CPF</label>
-              <InputGeral
+              <MaskedInput
+                mask="999.999.999-99"
                 placeholder="Digite seu CPF"
-                type="number"
                 value={localInfo.cpf}
                 onChange={handleChangeCPF}
-                cpfErro={localErro.cpf}
+                erro={localErro.cpf}
               />
             </div>
             <div>
               <label>Telefone</label>
-              <InputGeral
+              <MaskedInput
+                mask="(99)9 9999-9999"
                 placeholder="Digite seu telefone"
-                type="text"
                 value={localInfo.telefone}
                 onChange={handleChangeTelefone}
+                erro={localErro.telefone}
               />
             </div>
           </div>
@@ -190,6 +218,7 @@ export default function ModalEditarUsuario() {
               placeholder="Digite sua senha"
               value={localInfo.senha}
               onChange={handleChangeSenha}
+              erro={localErro.senha}
             />
           </div>
           <div>
@@ -200,6 +229,7 @@ export default function ModalEditarUsuario() {
               onChange={handleChangeSenhaConfirmacao}
               inputVerificacao
               senhaParaComparar={localInfo.senha}
+              erro={localErro.senha}
             />
           </div>
           <BotaoRosa disabled={isCamposIncorretos()} onClick={handleEditar}>
