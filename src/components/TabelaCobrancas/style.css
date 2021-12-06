@@ -22,14 +22,27 @@
   border-bottom: 1px solid #eff0f7;
 }
 
-.cobrancas--td,
-th {
+.cobrancas--th,
+.cobrancas--td {
   font-size: 14px;
-  padding: 15px 0px;
 }
 
 .cobrancas--td {
   color: #6e6e85;
+  height: 48px;
+}
+
+.cobrancas--td a {
+  text-decoration: none;
+  color: #6e6e85;
+}
+
+.cobrancas--td.nome > a:hover {
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background-color: #b6016213;
+  text-decoration: underline;
 }
 
 .cobrancas--td-emdia,
