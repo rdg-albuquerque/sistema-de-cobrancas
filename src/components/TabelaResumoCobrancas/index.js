@@ -71,7 +71,7 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
         </tr>
       </thead>
       <tbody>
-        {localCobrancas.map((cobranca, index) => {
+        {localCobrancas.slice(0, 5).map((cobranca, index) => {
           return (
             <tr key={index} className="cobrancas-resumo--tr">
               <td className="cobrancas-resumo--td">{cobranca.cliente_nome}</td>

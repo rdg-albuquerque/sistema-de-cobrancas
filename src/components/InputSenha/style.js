@@ -12,5 +12,7 @@ export default makeStyles({
   input: {
     borderRadius: "8px",
     backgroundColor: "white",
+    fontFamily: "Nunito",
+    fontSize: 16,
   },
 });

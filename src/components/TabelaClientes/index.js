@@ -7,8 +7,12 @@ import { clientes } from "../../objClientes";
 import "./style.css";
 
 function TabelaClientes() {
-  const { atualizarClientes, listaClientes, setOpenCadastrarCobranca } =
-    useGlobal();
+  const {
+    atualizarClientes,
+    listaClientes,
+    setClienteAtual,
+    setOpenCadastrarCobranca,
+  } = useGlobal();
 
   useEffect(() => {
     atualizarClientes();
@@ -60,8 +64,11 @@ function TabelaClientes() {
                 </td>
                 <td className="clientes--td">
                   <img
-                    onClick={() => setOpenCadastrarCobranca(true)}
-                    style={{ display: "inline-block" }}
+                    onClick={() => {
+                      setClienteAtual(cliente);
+                      setOpenCadastrarCobranca(true);
+                    }}
+                    style={{ display: "inline-block", cursor: "pointer" }}
                     src={novaCobranca}
                     alt=""
                   />

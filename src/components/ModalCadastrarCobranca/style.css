@@ -40,22 +40,25 @@
   width: 80%;
 }
 
-.text-desc:focus{
+.text-desc:focus {
   outline-color: #b20a64;
 }
 
-.text-desc{
+.text-desc {
   height: 10vh;
   border-radius: 8px;
-  background-color:white;
-  color: #747488;
+  background-color: white;
   border-color: #ababb8;
   width: 100%;
   resize: none;
   padding: 10px;
-  font-size: 18px;
+  font-size: 16px;
   font-family: "Nunito";
-  font-weight: 300;
+  font-weight: 400;
+}
+
+.text-desc::placeholder {
+  opacity: 0.6;
 }
 .editar--close {
   position: absolute;

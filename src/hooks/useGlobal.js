@@ -1,8 +1,8 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { globalContext } from "../contexts/GlobalProvider";
-import { useAuth } from "./useAuth";
-import { get } from "../utils/requests";
 import { notificacaoErro } from "../utils/notificacao";
+import { get } from "../utils/requests";
+import { useAuth } from "./useAuth";
 
 function useGlobalProvider() {
   const { token } = useAuth();

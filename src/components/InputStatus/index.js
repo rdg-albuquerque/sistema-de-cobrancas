@@ -1,25 +1,34 @@
-import TextField from "@material-ui/core/TextField";
-import { useEffect, useState } from "react";
-import useStyles from "./style.css";
-import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg"
-import bolinhaNormalCinza from "../../assets/bolinhaNormalCinza.svg"
+import bolinhaNormalCinza from "../../assets/bolinhaNormalCinza.svg";
+import bolinhaVerdeComCheck from "../../assets/bolinhaVerdeComCheck.svg";
+import "./style.css";
 
-
-export default function InputStatus() {
-    const [selecionado, setSelecionado] = useState({
-        paga: false,
-        pendente: false,
-    });
-    return (
-        <div className="input-status">
-            <div onClick={() => setSelecionado({ paga: true, pendente: false })} className="input-option">
-                <img src={selecionado.paga ? bolinhaVerdeComCheck : bolinhaNormalCinza} alt="" className="bolinha" />
-                Cobrança Paga
-            </div>
-            <div onClick={() => setSelecionado({ paga: false, pendente: true })} className="input-option">
-                <img src={selecionado.pendente ? bolinhaVerdeComCheck : bolinhaNormalCinza} alt="" className="bolinha" />
-                Cobrança Pendente
-            </div>
-        </div>
-    );
+export default function InputStatus({ localInfo, setLocalInfo }) {
+  return (
+    <div className="input-status">
+      <div
+        onClick={() => setLocalInfo({ ...localInfo, paga: true })}
+        className="input-option"
+      >
+        <img
+          src={localInfo.paga ? bolinhaVerdeComCheck : bolinhaNormalCinza}
+          alt=""
+          className="bolinha"
+        />
+        Cobrança Paga
+      </div>
+      <div
+        onClick={() => setLocalInfo({ ...localInfo, paga: false })}
+        className="input-option"
+      >
+        <img
+          src={
+            localInfo.paga === false ? bolinhaVerdeComCheck : bolinhaNormalCinza
+          }
+          alt=""
+          className="bolinha"
+        />
+        Cobrança Pendente
+      </div>
+    </div>
+  );
 }

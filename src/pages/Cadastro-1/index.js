@@ -36,6 +36,7 @@ function Cadastro1() {
       setNovoUsuario({ ...localInfo });
       navigate("/cadastro-2");
     } catch (error) {
+      console.log(error.response);
       const { mensagem } = error.response.data;
       if (mensagem === "O e-mail informado já está em uso") {
         setEmailErro(mensagem);
@@ -45,7 +46,6 @@ function Cadastro1() {
         setEmailErro("O email deve ser um email válido");
         return;
       }
-      console.log(mensagem);
       notificacaoErro(mensagem);
     }
   }

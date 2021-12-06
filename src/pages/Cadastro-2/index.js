@@ -44,8 +44,8 @@ function Cadastro2() {
       setNovoUsuario({ ...novoUsuario, senha: localSenha.senha });
       navigate("/cadastro-3");
     } catch (error) {
+      console.log(error.response);
       const { mensagem } = error.response.data;
-      console.log(mensagem);
       notificacaoErro(mensagem);
     }
   }

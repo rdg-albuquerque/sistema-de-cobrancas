@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import avatar from "../../assets/cliente-section-avatar.svg";
-import isNull from "../../utils/isNull";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
+import isNull from "../../utils/isNull";
 import { notificacaoErro } from "../../utils/notificacao";
 import { get } from "../../utils/requests";
 import BotaoCinza from "../BotaoCinza";

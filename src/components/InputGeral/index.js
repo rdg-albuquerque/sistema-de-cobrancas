@@ -10,6 +10,7 @@ export default function InputGeral({
   required,
   emailErro,
   cpfErro,
+  isStatic,
 }) {
   const classes = useStyles();
   const [erro, setErro] = useState(false);
@@ -55,7 +56,7 @@ export default function InputGeral({
       size="small"
       variant="outlined"
       type={type ? type : "text"}
-      onChange={handleChange}
+      onChange={!isStatic ? handleChange : null}
       error={erro}
       helperText={erro && helperText}
     />

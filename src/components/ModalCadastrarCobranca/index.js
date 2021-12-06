@@ -4,15 +4,15 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import close from "../../assets/close.svg";
+import fileCinza from "../../assets/FileCinza.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
 import { post } from "../../utils/requests";
 import BotaoRosa from "../BotaoRosa";
 import InputGeral from "../InputGeral";
-import fileCinza from "../../assets/FileCinza.svg";
-import "./style.css";
 import InputStatus from "../InputStatus";
+import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,54 +25,51 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalCadastrarCobranca() {
   const classes = useStyles();
   const { token } = useAuth();
-  const { openCadastrarCobranca, setOpenCadastrarCobranca } = useGlobal();
+  const { openCadastrarCobranca, setOpenCadastrarCobranca, clienteAtual } =
+    useGlobal();
+
   const initialLocalInfo = {
-    nome: "",
-    vencimento: "",
+    descricao: "",
+    data_vencimento: "",
     valor: "",
-
+    paga: null,
   };
-  const [localInfo, setLocalInfo] = useState(initialLocalInfo);
-  const [localErro, setLocalErro] = useState({
-
-  });
+  const [localInfo, setLocalInfo] = useState({ ...initialLocalInfo });
 
   function handleClose() {
     setOpenCadastrarCobranca(false);
     setLocalInfo(initialLocalInfo);
   }
 
-  function handleChangeNome(e) {
-    setLocalInfo({ ...localInfo, nome: e.target.value });
+  function handleChangeDesc(e) {
+    setLocalInfo({ ...localInfo, descricao: e.target.value });
   }
   function handleChangeVencimento(e) {
-    setLocalErro({ ...localErro, vencimento: "" });
-    setLocalInfo({ ...localInfo, vencimento: e.target.value });
+    setLocalInfo({ ...localInfo, data_vencimento: e.target.value });
   }
   function handleChangeValor(e) {
-    setLocalErro({ ...localErro, valor: "" });
     setLocalInfo({ ...localInfo, valor: e.target.value });
   }
 
-
   function isCamposIncorretos() {
     return (
-      !localInfo.nome ||
-      !localInfo.vencimento ||
-      !localInfo.valor
+      !localInfo.descricao ||
+      !localInfo.data_vencimento ||
+      !localInfo.valor ||
+      localInfo.paga === null
     );
   }
 
   async function handleCadastrar() {
     if (isCamposIncorretos()) return;
     try {
-      await post("/cobranca", localInfo, token);
-      notificacaoSucesso("Cobrança cadastrada com sucesso");
+      const body = { ...localInfo, cliente_id: clienteAtual.id };
+      await post(`/cobrancas/${clienteAtual.id}`, body, token);
       handleClose();
+      notificacaoSucesso("Cobrança cadastrada com sucesso");
       setLocalInfo(initialLocalInfo);
     } catch (error) {
       console.log(error.response);
-      const { mensagem } = error.response.data;
       notificacaoErro("Houve um erro ao cadastrar a Cobrança");
     }
   }
@@ -98,30 +95,31 @@ export default function ModalCadastrarCobranca() {
           />
           <div className="modal-cadastrar-cobranca--top">
             <img src={fileCinza} alt="" />
-            <h1 className="modal-cadastrar-cobranca--h1">Cadastro de Cobrança</h1>
+            <h1 className="modal-cadastrar-cobranca--h1">
+              Cadastro de Cobrança
+            </h1>
           </div>
           <div>
             <label>Nome*</label>
-            <InputGeral
-              required
-              placeholder="Digite o nome"
-              value={localInfo.nome}
-              onChange={handleChangeNome}
-            />
+            <InputGeral value={clienteAtual.nome} isStatic />
           </div>
           <div className="desc">
-            <label>Descrição*</label>   {/** Está estático, não guarda dados */}
-            <textarea className="text-desc" placeholder="Digite a descrição"></textarea>
+            <label>Descrição*</label>
+            <textarea
+              className="text-desc"
+              placeholder="Digite a descrição"
+              value={localInfo.descricao}
+              onChange={handleChangeDesc}
+            ></textarea>
           </div>
           <div className="modal-cadastrar-cobranca--container">
             <div>
               <label>Vencimento*</label>
               <InputGeral
                 placeholder="Data de vencimento"
-                type="number"
-                value={localInfo.vencimento}
+                type="date"
+                value={localInfo.data_vencimento}
                 onChange={handleChangeVencimento}
-                vencimentoErro={localErro.vencimento} /** Não existe no input geral ainda */
                 required
               />
             </div>
@@ -135,12 +133,12 @@ export default function ModalCadastrarCobranca() {
                 required
               />
             </div>
-
           </div>
           <div className="status">
             <label>Status*</label>
-            <div> <InputStatus /></div>
-
+            <div>
+              <InputStatus localInfo={localInfo} setLocalInfo={setLocalInfo} />
+            </div>
           </div>
           <div className="btn-container">
             <button className="btn-cancelar" onClick={handleClose}>
