@@ -7,6 +7,7 @@ import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
+import BotaoCinza from "../../components/BotaoCinza";
 import InputSenha from "../../components/InputSenha";
 import { useAuth } from "../../hooks/useAuth";
 import { notificacaoErro } from "../../utils/notificacao";
@@ -98,9 +99,17 @@ function Cadastro2() {
               senhaParaComparar={localSenha.senha}
             />
           </div>
-          <BotaoRosa onClick={handleCadastrar} disabled={isCamposIncorretos()}>
-            Cadastrar
-          </BotaoRosa>
+          <div className="background-right--botoes">
+            <BotaoCinza width={160} onClick={() => navigate("/cadastro-1")}>
+              Voltar
+            </BotaoCinza>
+            <BotaoRosa
+              onClick={handleCadastrar}
+              disabled={isCamposIncorretos()}
+            >
+              Cadastrar
+            </BotaoRosa>
+          </div>
           <span className="faca-login">
             Já possui uma conta? Faça seu
             <Link to="/login">Login</Link>
