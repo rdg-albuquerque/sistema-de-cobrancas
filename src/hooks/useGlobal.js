@@ -10,6 +10,8 @@ function useGlobalProvider() {
   const [openModalEditar, setOpenModalEditar] = useState(false);
   const [abrirPopup, setAbrirPopup] = useState(false);
   const [openModalCliente, setOpenModalCliente] = useState(false);
+  const [openCadastrarCobranca, setOpenCadastrarCobranca] = useState(false);
+
   const [listaClientes, setListaClientes] = useState([]);
   const [clienteAtual, setClienteAtual] = useState({});
   const [listaCobrancas, setListaCobrancas] = useState([]);
@@ -63,6 +65,8 @@ function useGlobalProvider() {
     setAbrirPopup,
     openModalCliente,
     setOpenModalCliente,
+    openCadastrarCobranca,
+    setOpenCadastrarCobranca,
     listaClientes,
     setListaClientes,
     listaCobrancas,

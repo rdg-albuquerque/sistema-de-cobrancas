@@ -49,6 +49,7 @@ function App() {
         <GlobalProvider>
           <Router>
             <Routes>
+
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro-1" element={<Cadastro1 />} />
 
