@@ -19,6 +19,7 @@ function ContainerClienteDetalhe() {
     clienteAtual,
     setClienteAtual,
     setOpenModalCliente,
+    setOpenCadastrarCobranca,
     openModalCliente,
   } = useGlobal();
 
@@ -103,7 +104,9 @@ function ContainerClienteDetalhe() {
       <div className="cliente-detalhe--tabela-container">
         <div>
           <h2 className="cliente-detalhe--h2">Cobranças do cliente</h2>
-          <BotaoRosa comprido>+ Nova Cobrança</BotaoRosa>
+          <BotaoRosa comprido onClick={() => setOpenCadastrarCobranca(true)}>
+            + Nova Cobrança
+          </BotaoRosa>
         </div>
         <TabelaCobrancas />
       </div>
