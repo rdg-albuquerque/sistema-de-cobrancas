@@ -3,7 +3,6 @@ import ResumoCobrancasPrevistas from "../../components/CardsCobrancas/CobrancasP
 import ResumoCobrancasVencidas from "../../components/CardsCobrancas/CobrancasVencidas";
 import { Header } from "../../components/Header";
 import MenuLateral from "../../components/MenuLateral";
-import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 import TabelaResumoClientes from "../../components/TabelaResumoClientes";
 import TabelaResumoCobrancas from "../../components/TabelaResumoCobrancas";
 import "./style.css";
@@ -35,7 +34,6 @@ export default function Home() {
           </section>
         </section>
       </section>
-      <ModalEditarUsuario />
     </div>
   );
 }
