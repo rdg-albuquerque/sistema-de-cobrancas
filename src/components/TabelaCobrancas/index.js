@@ -1,49 +1,96 @@
-import { cobrancas } from "../../objCobrancas";
+import { useEffect } from "react";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import editar from "../../assets/editar.svg";
+import excluir from "../../assets/excluir.svg";
+import clienteOrdenacao from "../../assets/ordenacao.svg";
+import { useGlobal } from "../../hooks/useGlobal";
+import { formatarData } from "../../utils/formatarCampos";
 import "./style.css";
 
-function TabelaCobrancas({ pagas, vencidas, previstas }) {
+function TabelaCobrancas() {
+  const { user_id } = useParams();
+  const { listaCobrancas, atualizarCobrancas, atualizarCobrancasPorCliente } =
+    useGlobal();
+
+  useEffect(() => {
+    !user_id ? atualizarCobrancas() : atualizarCobrancasPorCliente(user_id);
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <table className="cobrancas-tabela">
-      <caption className="cobrancas-titulo">
-        <div className="cobrancas-titulo--container">
-          <span>
-            {pagas && "Cobranças pagas"}
-            {vencidas && "Cobranças vencidas"}
-            {previstas && "Cobranças previstas"}
-          </span>
-          <span
-            className="cobrancas-titulo--contagem"
-            style={
-              pagas
-                ? { background: "#EEF6F6", color: "#1FA7AF" }
-                : vencidas
-                ? { background: "#FFEFEF", color: "#971D1D" }
-                : { background: "#FCF6DC", color: "#C5A605" }
-            }
-          >
-            {cobrancas.length}
-          </span>
-        </div>
-      </caption>
       <thead>
-        <tr className="cobrancas-tr">
-          <th className="cobrancas-th">Cliente</th>
-          <th className="cobrancas-th">ID da cob.</th>
-          <th className="cobrancas-th">Valor</th>
+        <tr className="cobrancas--tr">
+          {!user_id && (
+            <th className="cobrancas--th">
+              <div>
+                <img src={clienteOrdenacao} alt="" />
+                <span>Cliente</span>
+              </div>
+            </th>
+          )}
+          <th className="cobrancas--th">ID Cob.</th>
+          <th className="cobrancas--th">
+            <div>
+              <img src={clienteOrdenacao} alt="" />
+              <span>Valor</span>
+            </div>
+          </th>
+          <th className="cobrancas--th">
+            <div>
+              <img src={clienteOrdenacao} alt="" />
+              <span>Data de venc.</span>
+            </div>
+          </th>
+          <th className="cobrancas--th">Status</th>
+          <th className="cobrancas--th">Descrição</th>
+          <th className="cobrancas--th"></th>
         </tr>
       </thead>
       <tbody>
-        {cobrancas.map((cobranca) => {
-          return (
-            <tr key={cobranca.id} className="cobrancas-tr">
-              <td className="cobrancas-td">{cobranca.nome}</td>
-              <td className="cobrancas-td">{cobranca.id_cobranca}</td>
-              <td className="cobrancas-td">{`R$ ${cobranca.valor},00`}</td>
-            </tr>
-          );
-        })}
+        {!!listaCobrancas &&
+          listaCobrancas.map((cobranca, index) => {
+            return (
+              <tr
+                style={
+                  index === listaCobrancas.length - 1
+                    ? { borderBottom: "none" }
+                    : {}
+                }
+                key={index}
+                className="cobrancas--tr"
+              >
+                {!user_id && (
+                  <td className="cobrancas--td nome">
+                    <Link to="">{cobranca.cliente_nome}</Link>
+                  </td>
+                )}
+                <td className="cobrancas--td">{cobranca.id}</td>
+                <td className="cobrancas--td">{cobranca.valor}</td>
+                <td className="cobrancas--td">
+                  {formatarData(cobranca.data_vencimento)}
+                </td>
+                <td className="cobrancas--td">
+                  {cobranca.status === "Vencida" ? (
+                    <span className="vencida--td">Vencida</span>
+                  ) : cobranca.status === "Paga" ? (
+                    <span className="cobrancas--td-emdia">Paga</span>
+                  ) : (
+                    <span className="pendente--td">Pendente</span>
+                  )}
+                </td>
+                <td className="cobrancas--td">{cobranca.descricao}</td>
+                <td className="cobrancas--td-imgs">
+                  <div>
+                    <img src={editar} alt="" />
+                    <img src={excluir} alt="" />
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
-      <caption className="cobrancas--footer">Ver todos</caption>
     </table>
   );
 }

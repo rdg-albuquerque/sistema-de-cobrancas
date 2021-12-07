@@ -15,11 +15,18 @@ function Login() {
     email: "",
     senha: "",
   });
+  const [localErro, setLocalErro] = useState({
+    email: "",
+    senha: "",
+  });
+
   function handleChangeEmail(e) {
+    setLocalErro({ ...localErro, email: "" });
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
   function handleChangeSenha(e) {
     setLocalInfo({ ...localInfo, senha: e.target.value });
+    setLocalErro({ ...localErro, senha: "" });
   }
 
   function isCamposIncorretos() {
@@ -34,7 +41,17 @@ function Login() {
       setToken(data.token);
       navigate("/");
     } catch (error) {
+      console.log(error.response);
       const { mensagem } = error.response.data;
+      if (mensagem === "email deve ser um email válido") {
+        return setLocalErro({ ...localErro, email: mensagem });
+      }
+      if (mensagem === "senha deve ser pelo menos 5 caracteres") {
+        return setLocalErro({
+          ...localErro,
+          senha: "A senha deve ter pelo menos 5 catacteres",
+        });
+      }
       notificacaoErro(mensagem);
     }
   }
@@ -52,8 +69,10 @@ function Login() {
             <label>E-mail*</label>
             <InputGeral
               required
+              value={localInfo.email}
               placeholder="Digite seu e-mail"
               onChange={handleChangeEmail}
+              emailErro={localErro.email}
             />
           </div>
           <div className="repetir-senha">
@@ -63,8 +82,10 @@ function Login() {
             </div>
             <InputSenha
               required
+              value={localInfo.senha}
               placeholder="Digite sua senha"
               onChange={handleChangeSenha}
+              erro={localErro.senha}
             />
           </div>
           <BotaoRosa disabled={isCamposIncorretos()} onClick={handleContinuar}>

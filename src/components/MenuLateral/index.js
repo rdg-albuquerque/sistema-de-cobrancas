@@ -19,7 +19,7 @@ function MenuLateral() {
           onClick={() => navigate("/")}
         >
           <img
-            width="29px"
+            width="42px"
             src={paginaAtual === "/" ? HomeRosa : HomeCinza}
             alt=""
           />
@@ -28,13 +28,13 @@ function MenuLateral() {
 
         <div
           className={`${
-            paginaAtual === "/clientes" ? "novo-button" : "button-nav"
+            paginaAtual.includes("/clientes") ? "novo-button" : "button-nav"
           }`}
           onClick={() => navigate("/clientes")}
         >
           <img
-            width="29px"
-            src={paginaAtual === "/clientes" ? UsersRosa : UsersCinza}
+            width="42px"
+            src={paginaAtual.includes("/clientes") ? UsersRosa : UsersCinza}
             alt=""
           />
           <p>Clientes</p>
@@ -47,7 +47,7 @@ function MenuLateral() {
           onClick={() => navigate("/cobrancas")}
         >
           <img
-            width="29px"
+            width="42px"
             src={paginaAtual === "/cobrancas" ? FileRosa : FileCinza}
             alt=""
           />

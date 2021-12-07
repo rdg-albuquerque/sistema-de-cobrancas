@@ -1,18 +1,4 @@
-.home {
-  min-height: 100vh;
-  padding: 40px 0px;
-}
-
-.header {
-  height: 72px;
-  /* background-color: blue; */
-  color: white;
-  margin-left: 140px;
-  margin-right: 32px;
-  margin-bottom: 19px;
-}
-
-.section {
+.home-section {
   margin-left: 188px;
   width: 79%;
 }
@@ -37,20 +23,5 @@
 .home-section--2 {
   display: flex;
   justify-content: space-between;
-}
-
-.clientes-section--top {
-  display: flex;
-  justify-content: space-between;
-}
-
-.clientes-section--top > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.clientes-section--h1 {
-  font-weight: 600;
-  color: #343447;
+  align-items: flex-start;
 }

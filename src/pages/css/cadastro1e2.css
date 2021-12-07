@@ -100,6 +100,11 @@
   align-self: stretch;
 }
 
+.background-right--botoes {
+  display: flex;
+  gap: 15px;
+}
+
 .background-right--container span a {
   color: #da0175;
   margin-left: 4px;
