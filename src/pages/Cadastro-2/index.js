@@ -7,8 +7,10 @@ import linhaBrancaHorizontal from "../../assets/linhaBrancaHorizontal.svg";
 import linhaVerdeHorizontal from "../../assets/linhaVerdeHorizontal.svg";
 import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
+import BotaoCinza from "../../components/BotaoCinza";
 import InputSenha from "../../components/InputSenha";
 import { useAuth } from "../../hooks/useAuth";
+import { notificacaoErro } from "../../utils/notificacao";
 import { post } from "../../utils/requests";
 import "../css/cadastro1e2.css";
 
@@ -20,11 +22,15 @@ function Cadastro2() {
     senhaConfirmacao: "",
   });
 
+  const [localErro, setLocalErro] = useState("");
+
   function handleChangeSenha(e) {
+    setLocalErro("");
     setLocalSenha({ ...localSenha, senha: e.target.value });
   }
 
   function handleChangeSenhaConfirmacao(e) {
+    setLocalErro("");
     setLocalSenha({ ...localSenha, senhaConfirmacao: e.target.value });
   }
 
@@ -43,7 +49,12 @@ function Cadastro2() {
       setNovoUsuario({ ...novoUsuario, senha: localSenha.senha });
       navigate("/cadastro-3");
     } catch (error) {
-      console.log(error.response.data.mensagem);
+      console.log(error.response);
+      const { mensagem } = error.response.data;
+      if (mensagem === "senha deve ser pelo menos 5 caracteres") {
+        return setLocalErro("A senha deve ter pelo menos 5 catacteres");
+      }
+      notificacaoErro(mensagem);
     }
   }
 
@@ -82,6 +93,7 @@ function Cadastro2() {
               placeholder="Digite sua senha"
               value={localSenha.senha}
               onChange={handleChangeSenha}
+              erro={localErro}
             />
           </div>
           <div className="repetir-senha">
@@ -91,12 +103,22 @@ function Cadastro2() {
               placeholder="Confirme sua senha"
               value={localSenha.senhaConfirmacao}
               onChange={handleChangeSenhaConfirmacao}
+              inputVerificacao
               senhaParaComparar={localSenha.senha}
+              erro={localErro}
             />
           </div>
-          <BotaoRosa onClick={handleCadastrar} disabled={isCamposIncorretos()}>
-            Cadastrar
-          </BotaoRosa>
+          <div className="background-right--botoes">
+            <BotaoCinza width={160} onClick={() => navigate("/cadastro-1")}>
+              Voltar
+            </BotaoCinza>
+            <BotaoRosa
+              onClick={handleCadastrar}
+              disabled={isCamposIncorretos()}
+            >
+              Cadastrar
+            </BotaoRosa>
+          </div>
           <span className="faca-login">
             Já possui uma conta? Faça seu
             <Link to="/login">Login</Link>

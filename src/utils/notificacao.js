@@ -8,7 +8,6 @@ const options = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  theme: "colored",
 };
 
 export function notificacaoErro(mensagem) {

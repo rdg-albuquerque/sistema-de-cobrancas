@@ -12,6 +12,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
 import { get, put } from "../../utils/requests";
+import { isCpfOrTelInvalid } from "../../utils/validarDados";
+import MaskedInput from "../MaskedInput";
 import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,24 +37,29 @@ export default function ModalEditarUsuario() {
     senha: "",
     senhaConfirmacao: "",
   });
-  const [isCadastrado, setIscadastrado] = useState({
-    email: false,
-    cpf: false,
+  const [localErro, setLocalErro] = useState({
+    email: "",
+    cpf: "",
+    telefone: "",
+    senha: "",
   });
 
   useEffect(() => {
-    getData();
+    if (!openModalEditar) {
+      getData();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [openModalEditar]);
 
   async function getData() {
     try {
       const { data } = await get("/usuario", token);
       const info = {
-        ...localInfo,
         ...data,
         telefone: data.telefone ?? "",
         cpf: data.cpf ?? "",
+        senha: "",
+        senhaConfirmacao: "",
       };
       setLocalInfo(info);
       setUser({ ...user, dados_usuario: info });
@@ -64,29 +71,37 @@ export default function ModalEditarUsuario() {
     }
   }
 
-  function handleClose() {
-    setOpenModalEditar(false);
-  }
-
   function handleChangeNome(e) {
     setLocalInfo({ ...localInfo, nome: e.target.value });
   }
   function handleChangeEmail(e) {
-    setIscadastrado({ ...isCadastrado, email: false });
+    setLocalErro({ ...localErro, email: "" });
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
   function handleChangeCPF(e) {
-    setIscadastrado({ ...isCadastrado, cpf: false });
+    setLocalErro({ ...localErro, cpf: "" });
     setLocalInfo({ ...localInfo, cpf: e.target.value });
   }
   function handleChangeTelefone(e) {
+    setLocalErro({ ...localErro, telefone: "" });
     setLocalInfo({ ...localInfo, telefone: e.target.value });
   }
   function handleChangeSenha(e) {
+    setLocalErro({ ...localErro, senha: "" });
     setLocalInfo({ ...localInfo, senha: e.target.value });
   }
   function handleChangeSenhaConfirmacao(e) {
+    setLocalErro({ ...localErro, senha: "" });
     setLocalInfo({ ...localInfo, senhaConfirmacao: e.target.value });
+  }
+
+  function handleClose() {
+    setOpenModalEditar(false);
+    setLocalErro({
+      email: "",
+      cpf: "",
+      telefone: "",
+    });
   }
 
   function isCamposIncorretos() {
@@ -99,6 +114,15 @@ export default function ModalEditarUsuario() {
 
   async function handleEditar() {
     if (isCamposIncorretos()) return;
+    if (isCpfOrTelInvalid(localInfo.cpf)) {
+      return setLocalErro({ ...localErro, cpf: "Digite um CPF válido" });
+    }
+    if (isCpfOrTelInvalid(localInfo.telefone)) {
+      return setLocalErro({
+        ...localErro,
+        telefone: "Digite um telefone válido",
+      });
+    }
     try {
       const { senhaConfirmacao, ...bodyReq } = localInfo;
       await put("/usuario", bodyReq, token);
@@ -106,16 +130,27 @@ export default function ModalEditarUsuario() {
       getData();
       handleClose();
     } catch (error) {
+      console.log(error.response);
       const { mensagem } = error.response.data;
       if (
         mensagem ===
         "O e-mail informado já está sendo utilizado por outro usuário."
       ) {
-        setIscadastrado({ ...isCadastrado, email: true });
+        return setLocalErro({ ...localErro, email: "E-mail em uso" });
+      }
+      if (mensagem === "email deve ser um email válido") {
+        return setLocalErro((prev) => ({ ...prev, email: "O " + mensagem }));
       }
       if (mensagem === "CPF já cadastrado") {
-        setIscadastrado((prev) => ({ ...prev, cpf: true }));
+        return setLocalErro((prev) => ({ ...prev, cpf: mensagem }));
       }
+      if (mensagem === "senha deve ser pelo menos 5 caracteres") {
+        return setLocalErro((prev) => ({
+          ...prev,
+          senha: "A senha deve ter no mínimo 5 caracteres",
+        }));
+      }
+      notificacaoErro(mensagem);
     }
   }
 
@@ -155,27 +190,28 @@ export default function ModalEditarUsuario() {
               placeholder="Digite seu email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              isEmailCadastrado={isCadastrado.email}
+              emailErro={localErro.email}
             />
           </div>
           <div className="modal-usuario--container">
             <div>
               <label>CPF</label>
-              <InputGeral
+              <MaskedInput
+                mask="999.999.999-99"
                 placeholder="Digite seu CPF"
-                type="number"
                 value={localInfo.cpf}
                 onChange={handleChangeCPF}
-                isCpfCadastrado={isCadastrado.cpf}
+                erro={localErro.cpf}
               />
             </div>
             <div>
               <label>Telefone</label>
-              <InputGeral
+              <MaskedInput
+                mask="(99)9 9999-9999"
                 placeholder="Digite seu telefone"
-                type="text"
                 value={localInfo.telefone}
                 onChange={handleChangeTelefone}
+                erro={localErro.telefone}
               />
             </div>
           </div>
@@ -185,6 +221,7 @@ export default function ModalEditarUsuario() {
               placeholder="Digite sua senha"
               value={localInfo.senha}
               onChange={handleChangeSenha}
+              erro={localErro.senha}
             />
           </div>
           <div>
@@ -193,9 +230,9 @@ export default function ModalEditarUsuario() {
               placeholder="Repita sua senha"
               value={localInfo.senhaConfirmacao}
               onChange={handleChangeSenhaConfirmacao}
-              required
-              editar
+              inputVerificacao
               senhaParaComparar={localInfo.senha}
+              erro={localErro.senha}
             />
           </div>
           <BotaoRosa disabled={isCamposIncorretos()} onClick={handleEditar}>

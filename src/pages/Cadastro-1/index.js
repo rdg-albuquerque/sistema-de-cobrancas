@@ -8,6 +8,7 @@ import linhaVerde from "../../assets/linhaVerdeVertical.svg";
 import BotaoRosa from "../../components/BotaoRosa";
 import InputGeral from "../../components/InputGeral";
 import { useAuth } from "../../hooks/useAuth";
+import { notificacaoErro } from "../../utils/notificacao";
 import { post } from "../../utils/requests";
 import "../css/cadastro1e2.css";
 
@@ -18,14 +19,14 @@ function Cadastro1() {
     nome: "",
     email: "",
   });
-  const [isEmailCadastrado, setIsEmailCadastrado] = useState(false);
+  const [emailErro, setEmailErro] = useState("");
 
   function handleChangeNome(e) {
     setLocalInfo({ ...localInfo, nome: e.target.value });
   }
 
   function handleChangeEmail(e) {
-    setIsEmailCadastrado(false);
+    setEmailErro("");
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
 
@@ -35,13 +36,17 @@ function Cadastro1() {
       setNovoUsuario({ ...localInfo });
       navigate("/cadastro-2");
     } catch (error) {
-      if (
-        error.response.data.mensagem === "O e-mail informado já está em uso"
-      ) {
-        setIsEmailCadastrado(true);
+      console.log(error.response);
+      const { mensagem } = error.response.data;
+      if (mensagem === "O e-mail informado já está em uso") {
+        setEmailErro(mensagem);
         return;
       }
-      console.log(error.response.data.mensagem);
+      if (mensagem === "email deve ser um email válido") {
+        setEmailErro("O email deve ser um email válido");
+        return;
+      }
+      notificacaoErro(mensagem);
     }
   }
 
@@ -90,7 +95,7 @@ function Cadastro1() {
               value={localInfo.email}
               type="email"
               onChange={handleChangeEmail}
-              isEmailCadastrado={isEmailCadastrado}
+              emailErro={emailErro}
             />
           </div>
           <BotaoRosa
