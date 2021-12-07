@@ -2,6 +2,7 @@ import Avatar from "@material-ui/core/Avatar";
 import down from "../../assets/down.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
+import ModalEditarUsuario from "../ModalEditarUsuario";
 import Popup from "./Popup";
 import "./style.css";
 import TituloHeader from "./TituloHeader/TituloHeader";
@@ -28,6 +29,7 @@ export function Header() {
         <img className="botao-down" src={down} alt="" />
         {abrirPopup && <Popup />}
       </div>
+      <ModalEditarUsuario />
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { Header } from "../../components/Header";
 import MenuLateral from "../../components/MenuLateral";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 import "./style.css";
-import ModalCadastrarCobranca from "../../components/ModalCadastrarCobranca";
 
 function Clientes() {
   const { user_id } = useParams();
@@ -17,7 +16,6 @@ function Clientes() {
         {!user_id ? <ContainerClientes /> : <ContainerClienteDetalhe />}
       </section>
       <ModalEditarUsuario />
-      <ModalCadastrarCobranca />
     </div>
   );
 }
