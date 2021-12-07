@@ -19,7 +19,7 @@ function MenuLateral() {
           onClick={() => navigate("/")}
         >
           <img
-            width="29px"
+            width="42px"
             src={paginaAtual === "/" ? HomeRosa : HomeCinza}
             alt=""
           />
@@ -33,7 +33,7 @@ function MenuLateral() {
           onClick={() => navigate("/clientes")}
         >
           <img
-            width="29px"
+            width="42px"
             src={paginaAtual.includes("/clientes") ? UsersRosa : UsersCinza}
             alt=""
           />
@@ -47,7 +47,7 @@ function MenuLateral() {
           onClick={() => navigate("/cobrancas")}
         >
           <img
-            width="29px"
+            width="42px"
             src={paginaAtual === "/cobrancas" ? FileRosa : FileCinza}
             alt=""
           />
