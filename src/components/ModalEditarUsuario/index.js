@@ -136,13 +136,16 @@ export default function ModalEditarUsuario() {
         mensagem ===
         "O e-mail informado já está sendo utilizado por outro usuário."
       ) {
-        setLocalErro({ ...localErro, email: "E-mail em uso" });
+        return setLocalErro({ ...localErro, email: "E-mail em uso" });
+      }
+      if (mensagem === "email deve ser um email válido") {
+        return setLocalErro((prev) => ({ ...prev, email: "O " + mensagem }));
       }
       if (mensagem === "CPF já cadastrado") {
-        setLocalErro((prev) => ({ ...prev, cpf: mensagem }));
+        return setLocalErro((prev) => ({ ...prev, cpf: mensagem }));
       }
       if (mensagem === "senha deve ser pelo menos 5 caracteres") {
-        setLocalErro((prev) => ({
+        return setLocalErro((prev) => ({
           ...prev,
           senha: "A senha deve ter no mínimo 5 caracteres",
         }));

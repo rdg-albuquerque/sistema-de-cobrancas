@@ -22,11 +22,15 @@ function Cadastro2() {
     senhaConfirmacao: "",
   });
 
+  const [localErro, setLocalErro] = useState("");
+
   function handleChangeSenha(e) {
+    setLocalErro("");
     setLocalSenha({ ...localSenha, senha: e.target.value });
   }
 
   function handleChangeSenhaConfirmacao(e) {
+    setLocalErro("");
     setLocalSenha({ ...localSenha, senhaConfirmacao: e.target.value });
   }
 
@@ -47,6 +51,9 @@ function Cadastro2() {
     } catch (error) {
       console.log(error.response);
       const { mensagem } = error.response.data;
+      if (mensagem === "senha deve ser pelo menos 5 caracteres") {
+        return setLocalErro("A senha deve ter pelo menos 5 catacteres");
+      }
       notificacaoErro(mensagem);
     }
   }
@@ -86,6 +93,7 @@ function Cadastro2() {
               placeholder="Digite sua senha"
               value={localSenha.senha}
               onChange={handleChangeSenha}
+              erro={localErro}
             />
           </div>
           <div className="repetir-senha">
@@ -97,6 +105,7 @@ function Cadastro2() {
               onChange={handleChangeSenhaConfirmacao}
               inputVerificacao
               senhaParaComparar={localSenha.senha}
+              erro={localErro}
             />
           </div>
           <div className="background-right--botoes">

@@ -74,8 +74,8 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
             return (
               <tr key={cliente.id} className="clientes-resumo--tr">
                 <td className="clientes-resumo--td">{cliente.nome}</td>
-                <td className="clientes-resumo--td">{cliente.data_venc}</td>
-                <td className="clientes-resumo--td">{`R$ ${cliente.valor},00`}</td>
+                <td className="clientes-resumo--td"></td>
+                <td className="clientes-resumo--td"></td>
               </tr>
             );
           })}
