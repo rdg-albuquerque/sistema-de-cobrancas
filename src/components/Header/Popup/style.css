@@ -1,6 +1,5 @@
 .popup {
-  width: 92px;
-  height: 51px;
+  padding: 6px 10px;
   background: #ffffff;
   border-radius: 8px;
 
@@ -8,11 +7,11 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  gap: 8px;
 
   position: absolute;
-  bottom: -45px;
-  right: -55px;
+  bottom: -52px;
+  right: -63px;
 }
 
 .popup-top {
@@ -27,8 +26,5 @@
 }
 
 .icone {
-  width: 22px;
-  height: 31px;
-
   cursor: pointer;
 }

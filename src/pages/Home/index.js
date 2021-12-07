@@ -6,17 +6,11 @@ import MenuLateral from "../../components/MenuLateral";
 import ModalEditarUsuario from "../../components/ModalEditarUsuario";
 import TabelaResumoClientes from "../../components/TabelaResumoClientes";
 import TabelaResumoCobrancas from "../../components/TabelaResumoCobrancas";
-import { useGlobal } from "../../hooks/useGlobal";
 import "./style.css";
 
 export default function Home() {
-  const { setAbrirPopup } = useGlobal();
-
-  function handleClosePopup() {
-    setAbrirPopup(false);
-  }
   return (
-    <div className="home" onClick={handleClosePopup}>
+    <div className="home">
       <MenuLateral />
       <Header />
       <section className="home-section">

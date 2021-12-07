@@ -9,7 +9,11 @@ import topSide from "../../../assets/popup-top-side.svg";
 const Popup = () => {
   const { removeUser } = useAuth();
   const { setOpenModalEditar, setAbrirPopup } = useGlobal();
+
   const navigate = useNavigate();
+
+  document.addEventListener("click", () => setAbrirPopup(false));
+
   function handleEditar() {
     setOpenModalEditar(true);
     setAbrirPopup(false);
@@ -18,6 +22,7 @@ const Popup = () => {
     removeUser();
     navigate("/login");
   }
+
   return (
     <div className="popup" onClick={(e) => e.stopPropagation()}>
       <div className="popup-top">

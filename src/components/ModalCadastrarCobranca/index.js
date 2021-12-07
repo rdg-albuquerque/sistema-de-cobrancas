@@ -3,6 +3,7 @@ import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import close from "../../assets/close.svg";
 import fileCinza from "../../assets/FileCinza.svg";
 import { useAuth } from "../../hooks/useAuth";
@@ -25,8 +26,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ModalCadastrarCobranca() {
   const classes = useStyles();
   const { token } = useAuth();
-  const { openCadastrarCobranca, setOpenCadastrarCobranca, clienteAtual } =
-    useGlobal();
+  const { user_id } = useParams();
+  const {
+    openCadastrarCobranca,
+    setOpenCadastrarCobranca,
+    clienteAtual,
+    atualizarCobrancasPorCliente,
+  } = useGlobal();
 
   const initialLocalInfo = {
     descricao: "",
@@ -65,6 +71,7 @@ export default function ModalCadastrarCobranca() {
     try {
       const body = { ...localInfo, cliente_id: clienteAtual.id };
       await post(`/cobrancas/${clienteAtual.id}`, body, token);
+      atualizarCobrancasPorCliente(user_id);
       handleClose();
       notificacaoSucesso("Cobrança cadastrada com sucesso");
       setLocalInfo(initialLocalInfo);

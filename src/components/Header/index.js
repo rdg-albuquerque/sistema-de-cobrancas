@@ -12,17 +12,18 @@ export function Header() {
 
   const userName = user.dados_usuario.nome;
   const firstName = userName.split(" ")[0];
+  const firstLetter = userName[0];
 
   function handleOpenPopup(e) {
     e.stopPropagation();
-    setAbrirPopup(!abrirPopup ? true : false);
+    setAbrirPopup(!abrirPopup);
   }
   return (
     <div className="header">
       <TituloHeader />
       <div></div>
       <div className="perfil" onClick={handleOpenPopup}>
-        <Avatar />
+        <Avatar style={{ backgroundColor: "green" }}>{firstLetter}</Avatar>
         <span className="nome-perfil">{firstName}</span>
         <img className="botao-down" src={down} alt="" />
         {abrirPopup && <Popup />}
