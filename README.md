@@ -14,6 +14,4 @@ Fique a vontade para testar !
 * Rotas protegidas por autenticação
 * Listagem de clientes e seus status. O status do cliente será "Em dia" ou "Inadimplente", caso haja alguma cobrança relacionada ao mesmo que esteja pendente e que a data de vencimento já tenha passado.
 * Validações dos dados de cadastro dos usuários/clientes
-* Filtragem dos clientes e cobranças por nome e cpf
-
-
+* Filtragem dos clientes e cobranças por nome e CPF.
