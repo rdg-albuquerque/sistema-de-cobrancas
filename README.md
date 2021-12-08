@@ -3,7 +3,7 @@
 ## Sistema de Cobranças 💲
 Sistema de controle de cobranças baseado em React.js que estou desenvolvendo juntamente com o meu grupo no desafio do último módulo do curso de programação web da Cubos Academy.
 
-Link da aplicação: desafio-m05-6codam.netlify.app/
+Link da aplicação: https://desafio-m05-6codam.netlify.app/
 
 **OBS:** Por se tratar de um projeto em andamento algumas melhorias e funcionalidades ainda serão implementadas.
 
