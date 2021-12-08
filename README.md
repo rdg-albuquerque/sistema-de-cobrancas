@@ -5,7 +5,7 @@ Sistema de controle de cobranças baseado em React.js que estou desenvolvendo ju
 
 Link da aplicação: https://desafio-m05-6codam.netlify.app/clientes
 
-**OBS:** Por se tratar de um projeto algumas melhorias e funcionalidades ainda serão implementadas.
+**OBS:** Por se tratar de um projeto em andamento algumas melhorias e funcionalidades ainda serão implementadas.
 
 Fique a vontade para testar !
 ## Features
