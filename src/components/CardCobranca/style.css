@@ -29,15 +29,3 @@
   font-weight: bold;
   font-size: 24px;
 }
-
-.resumo-pagas {
-  background-color: #eef6f6;
-}
-
-.resumo-vencidas {
-  background: #ffefef;
-}
-
-.resumo-previstas {
-  background: #fcf6dc;
-}

@@ -54,7 +54,7 @@ export default function ModalCadastrarCobranca() {
     setLocalInfo({ ...localInfo, data_vencimento: e.target.value });
   }
   function handleChangeValor(e) {
-    setLocalInfo({ ...localInfo, valor: e.target.value });
+    setLocalInfo({ ...localInfo, valor: Number(e.target.value) });
   }
 
   function isCamposIncorretos() {
