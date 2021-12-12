@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import novaCobranca from "../../assets/nova-cobranca.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
 import { useGlobal } from "../../hooks/useGlobal";
-import { clientes } from "../../objClientes";
 import { formatarCpf, formatarTel } from "../../utils/formatarCampos";
 import "./style.css";
 
@@ -41,7 +40,9 @@ function TabelaClientes() {
             return (
               <tr
                 style={
-                  index === clientes.length - 1 ? { borderBottom: "none" } : {}
+                  index === listaClientes.length - 1
+                    ? { borderBottom: "none" }
+                    : {}
                 }
                 key={cliente.id}
                 className="clientes--tr"

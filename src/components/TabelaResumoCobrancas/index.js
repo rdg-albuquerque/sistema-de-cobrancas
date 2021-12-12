@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import { useGlobal } from "../../hooks/useGlobal";
+import filtrarCobrancas from "../../utils/filtrarCobrancas";
 import { get } from "../../utils/requests";
 import "./style.css";
 
 function TabelaCobrancas({ pagas, vencidas, previstas }) {
   const { token } = useAuth();
+  const { setListaCobrancas } = useGlobal();
   const [localCobrancas, setLocalCobrancas] = useState([]);
-
-  function filtrarCobrancas(lista, status) {
-    return lista.filter((cobranca) => cobranca.status === status);
-  }
 
   useEffect(() => {
     async function getData() {
       try {
         const { data: cobrancasAtualizadas } = await get("/cobrancas", token);
+        setListaCobrancas(cobrancasAtualizadas);
         if (pagas) {
           const cobrancasPagas = filtrarCobrancas(cobrancasAtualizadas, "Paga");
           return setLocalCobrancas(cobrancasPagas);
