@@ -12,9 +12,12 @@ function useGlobalProvider() {
   const [openModalCliente, setOpenModalCliente] = useState(false);
   const [openCadastrarCobranca, setOpenCadastrarCobranca] = useState(false);
 
-  const [listaClientes, setListaClientes] = useState([]);
   const [clienteAtual, setClienteAtual] = useState({});
+  const [listaClientes, setListaClientes] = useState([]);
+  const [listaClientesFiltrados, setListaClientesFiltrados] = useState();
   const [listaCobrancas, setListaCobrancas] = useState([]);
+  const [listaCobrancasFiltradas, setListaCobrancasFiltradas] = useState();
+
   async function atualizarClientes() {
     try {
       const { data } = await get("/cliente", token);
@@ -77,6 +80,10 @@ function useGlobalProvider() {
     atualizarCobrancasPorCliente,
     clienteAtual,
     setClienteAtual,
+    listaCobrancasFiltradas,
+    setListaCobrancasFiltradas,
+    listaClientesFiltrados,
+    setListaClientesFiltrados,
   };
 }
 

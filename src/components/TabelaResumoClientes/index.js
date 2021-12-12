@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import { get } from "../../utils/requests";
 import { notificacaoErro } from "../../utils/notificacao";
 import { useAuth } from "../../hooks/useAuth";
+import { useGlobal } from "../../hooks/useGlobal";
+import { useNavigate } from "react-router-dom";
 
 function TabelaResumoClientes({ emDia, inadimplentes }) {
   const { token } = useAuth();
+  const { setListaClientesFiltrados } = useGlobal();
   const [localClientes, setLocalClientes] = useState([]);
+  const navigate = useNavigate();
 
   function filtrarClientes(lista, status) {
     return lista.filter((cliente) => cliente.status === status);
@@ -37,6 +41,11 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
     getData();
     //eslint-disable-next-line
   }, []);
+
+  function handleVerTodos() {
+    setListaClientesFiltrados(localClientes);
+    navigate("/clientes");
+  }
 
   return (
     <table className="clientes-resumo">
@@ -80,7 +89,9 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
             );
           })}
       </tbody>
-      <caption className="clientes-resumo--footer">Ver todos</caption>
+      <caption onClick={handleVerTodos} className="clientes-resumo--footer">
+        Ver todos
+      </caption>
     </table>
   );
 }

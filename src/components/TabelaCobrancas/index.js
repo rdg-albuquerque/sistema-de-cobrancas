@@ -10,11 +10,26 @@ import "./style.css";
 
 function TabelaCobrancas() {
   const { user_id } = useParams();
-  const { listaCobrancas, atualizarCobrancas, atualizarCobrancasPorCliente } =
-    useGlobal();
+  const {
+    listaCobrancas,
+    setListaCobrancas,
+    atualizarCobrancas,
+    atualizarCobrancasPorCliente,
+    listaCobrancasFiltradas,
+    setListaCobrancasFiltradas,
+  } = useGlobal();
 
   useEffect(() => {
-    !user_id ? atualizarCobrancas() : atualizarCobrancasPorCliente(user_id);
+    if (!user_id && listaCobrancasFiltradas) {
+      setListaCobrancas([...listaCobrancasFiltradas]);
+      setListaCobrancasFiltradas();
+      return;
+    }
+    if (!user_id) {
+      atualizarCobrancas();
+      return;
+    }
+    atualizarCobrancasPorCliente(user_id);
     //eslint-disable-next-line
   }, []);
 

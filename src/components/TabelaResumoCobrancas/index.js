@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import filtrarCobrancas from "../../utils/filtrarCobrancas";
@@ -7,8 +8,9 @@ import "./style.css";
 
 function TabelaCobrancas({ pagas, vencidas, previstas }) {
   const { token } = useAuth();
-  const { setListaCobrancas } = useGlobal();
+  const { setListaCobrancas, setListaCobrancasFiltradas } = useGlobal();
   const [localCobrancas, setLocalCobrancas] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
@@ -39,6 +41,18 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
 
     //eslint-disable-next-line
   }, []);
+
+  function handleVerTodos() {
+    if (pagas) {
+      setListaCobrancasFiltradas(localCobrancas);
+    } else if (vencidas) {
+      setListaCobrancasFiltradas(localCobrancas);
+    } else if (previstas) {
+      setListaCobrancasFiltradas(localCobrancas);
+    }
+
+    navigate("/cobrancas");
+  }
 
   return (
     <table className="cobrancas-resumo">
@@ -81,7 +95,9 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
           );
         })}
       </tbody>
-      <caption className="cobrancas-resumo--footer">Ver todos</caption>
+      <caption onClick={handleVerTodos} className="cobrancas-resumo--footer">
+        Ver todos
+      </caption>
     </table>
   );
 }

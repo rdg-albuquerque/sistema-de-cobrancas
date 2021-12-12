@@ -10,11 +10,19 @@ function TabelaClientes() {
   const {
     atualizarClientes,
     listaClientes,
+    setListaClientes,
     setClienteAtual,
     setOpenCadastrarCobranca,
+    listaClientesFiltrados,
+    setListaClientesFiltrados,
   } = useGlobal();
 
   useEffect(() => {
+    if (listaClientesFiltrados) {
+      setListaClientes([...listaClientesFiltrados]);
+      setListaClientesFiltrados();
+      return;
+    }
     atualizarClientes();
     //eslint-disable-next-line
   }, []);
