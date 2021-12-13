@@ -14,14 +14,18 @@ function useGlobalProvider() {
 
   const [clienteAtual, setClienteAtual] = useState({});
   const [listaClientes, setListaClientes] = useState([]);
+  const [listaClientesBase, setListaClientesBase] = useState([]);
   const [listaClientesFiltrados, setListaClientesFiltrados] = useState();
+
   const [listaCobrancas, setListaCobrancas] = useState([]);
+  const [listaCobrancasBase, setListaCobrancasBase] = useState([]);
   const [listaCobrancasFiltradas, setListaCobrancasFiltradas] = useState();
 
   async function atualizarClientes() {
     try {
       const { data } = await get("/cliente", token);
       setListaClientes(data);
+      setListaClientesBase(data);
     } catch (error) {
       console.log(error.response.data);
       notificacaoErro("Houve um erro ao atualizar os clientes");
@@ -41,6 +45,7 @@ function useGlobalProvider() {
     try {
       const { data } = await get("/cobrancas", token);
       setListaCobrancas(data);
+      setListaCobrancasBase(data);
     } catch (error) {
       console.log(error.response.data);
       notificacaoErro("Houve um erro ao atualizar as cobrancas");
@@ -84,6 +89,10 @@ function useGlobalProvider() {
     setListaCobrancasFiltradas,
     listaClientesFiltrados,
     setListaClientesFiltrados,
+    listaCobrancasBase,
+    setListaCobrancasBase,
+    listaClientesBase,
+    setListaClientesBase,
   };
 }
 

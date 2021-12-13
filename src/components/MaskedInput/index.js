@@ -1,11 +1,8 @@
 import { TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
+import onlyNumbers from "../../utils/onlyNumbers";
 import useStyles from "./style";
-
-function onlyNumbers(str) {
-  return str.replace(/[^0-9]/g, "");
-}
 
 export default function MaskedInput({
   onChange,

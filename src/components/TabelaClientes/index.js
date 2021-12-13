@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import novaCobranca from "../../assets/nova-cobranca.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
@@ -11,15 +11,19 @@ function TabelaClientes() {
     atualizarClientes,
     listaClientes,
     setListaClientes,
+    setListaClientesBase,
     setClienteAtual,
     setOpenCadastrarCobranca,
     listaClientesFiltrados,
     setListaClientesFiltrados,
   } = useGlobal();
 
+  const [ordenacao, setOrdenacao] = useState(null);
+
   useEffect(() => {
     if (listaClientesFiltrados) {
       setListaClientes([...listaClientesFiltrados]);
+      setListaClientesBase([...listaClientesFiltrados]);
       setListaClientesFiltrados();
       return;
     }
@@ -27,11 +31,30 @@ function TabelaClientes() {
     //eslint-disable-next-line
   }, []);
 
+  function handleOrdenacaoPorNome() {
+    const ordenacaoAtual = !ordenacao;
+    if (ordenacaoAtual === true) {
+      const menorParaMaior = listaClientes.sort((a, b) =>
+        a.nome.localeCompare(b.nome)
+      );
+      setListaClientes(menorParaMaior);
+    } else {
+      const maiorParamenor = listaClientes.sort((a, b) =>
+        b.nome.localeCompare(a.nome)
+      );
+      setListaClientes(maiorParamenor);
+    }
+    setOrdenacao(ordenacaoAtual);
+  }
+
   return (
     <table className="clientes-tabela">
       <thead>
         <tr className="clientes--tr">
-          <th className="clientes--th cliente--th">
+          <th
+            onClick={handleOrdenacaoPorNome}
+            className="clientes--th cliente--th"
+          >
             <img src={clienteOrdenacao} alt="" />
             <span>Cliente</span>
           </th>
