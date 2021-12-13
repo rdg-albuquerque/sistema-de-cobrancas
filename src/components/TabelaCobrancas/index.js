@@ -18,6 +18,9 @@ function TabelaCobrancas() {
     listaCobrancasFiltradas,
     setListaCobrancasFiltradas,
     setListaCobrancasBase,
+    openModalCobranca,
+    setOpenModalCobranca,
+    setCobrancaAtual,
   } = useGlobal();
   const [ordenacao, setOrdenacao] = useState({
     nome: null,
@@ -65,6 +68,14 @@ function TabelaCobrancas() {
       setListaCobrancas(maiorParamenor);
     }
     setOrdenacao(ordenacaoAtual);
+  }
+
+  function handleClickEditar(cobranca) {
+    setCobrancaAtual(cobranca);
+    setOpenModalCobranca({
+      ...openModalCobranca,
+      editar: true,
+    });
   }
 
   return (
@@ -139,7 +150,11 @@ function TabelaCobrancas() {
                 <td className="cobrancas--td">{cobranca.descricao}</td>
                 <td className="cobrancas--td-imgs">
                   <div>
-                    <img src={editar} alt="" />
+                    <img
+                      src={editar}
+                      alt=""
+                      onClick={() => handleClickEditar(cobranca)}
+                    />
                     <img src={excluir} alt="" />
                   </div>
                 </td>

@@ -13,7 +13,8 @@ function TabelaClientes() {
     setListaClientes,
     setListaClientesBase,
     setClienteAtual,
-    setOpenCadastrarCobranca,
+    openModalCobranca,
+    setOpenModalCobranca,
     listaClientesFiltrados,
     setListaClientesFiltrados,
   } = useGlobal();
@@ -101,7 +102,10 @@ function TabelaClientes() {
                   <img
                     onClick={() => {
                       setClienteAtual(cliente);
-                      setOpenCadastrarCobranca(true);
+                      setOpenModalCobranca({
+                        ...openModalCobranca,
+                        cadastrar: true,
+                      });
                     }}
                     style={{ display: "inline-block", cursor: "pointer" }}
                     src={novaCobranca}

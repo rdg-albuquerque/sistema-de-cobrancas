@@ -8,9 +8,12 @@ import TabelaCobrancas from "../../components/TabelaCobrancas";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useState } from "react";
 import TabelaErro from "../../components/TabelaErro";
+import ModalCobranca from "../../components/ModalCobranca";
 
 function Cobrancas() {
-  const { listaCobrancasBase, setListaCobrancas } = useGlobal();
+  const { listaCobrancasBase, setListaCobrancas, openModalCobranca } =
+    useGlobal();
+
   const [tabelaErro, setTabelaErro] = useState(false);
 
   function handlePesquisaChange(e) {
@@ -52,7 +55,7 @@ function Cobrancas() {
         </div>
         {!tabelaErro ? <TabelaCobrancas /> : <TabelaErro />}
       </section>
-      ;
+      {!!openModalCobranca.editar && <ModalCobranca />}
     </div>
   );
 }

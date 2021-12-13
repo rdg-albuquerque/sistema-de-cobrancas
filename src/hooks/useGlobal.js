@@ -10,13 +10,17 @@ function useGlobalProvider() {
   const [openModalEditar, setOpenModalEditar] = useState(false);
   const [abrirPopup, setAbrirPopup] = useState(false);
   const [openModalCliente, setOpenModalCliente] = useState(false);
-  const [openCadastrarCobranca, setOpenCadastrarCobranca] = useState(false);
+  const [openModalCobranca, setOpenModalCobranca] = useState({
+    cadastrar: false,
+    editar: false,
+  });
 
   const [clienteAtual, setClienteAtual] = useState({});
   const [listaClientes, setListaClientes] = useState([]);
   const [listaClientesBase, setListaClientesBase] = useState([]);
   const [listaClientesFiltrados, setListaClientesFiltrados] = useState();
 
+  const [cobrancaAtual, setCobrancaAtual] = useState({});
   const [listaCobrancas, setListaCobrancas] = useState([]);
   const [listaCobrancasBase, setListaCobrancasBase] = useState([]);
   const [listaCobrancasFiltradas, setListaCobrancasFiltradas] = useState();
@@ -73,8 +77,8 @@ function useGlobalProvider() {
     setAbrirPopup,
     openModalCliente,
     setOpenModalCliente,
-    openCadastrarCobranca,
-    setOpenCadastrarCobranca,
+    openModalCobranca,
+    setOpenModalCobranca,
     listaClientes,
     setListaClientes,
     listaCobrancas,
@@ -93,6 +97,8 @@ function useGlobalProvider() {
     setListaCobrancasBase,
     listaClientesBase,
     setListaClientesBase,
+    cobrancaAtual,
+    setCobrancaAtual,
   };
 }
 

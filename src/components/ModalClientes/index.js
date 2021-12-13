@@ -109,7 +109,7 @@ export default function ModalClientes() {
     );
   }
 
-  async function handleButtonClick() {
+  async function handleSubmit() {
     if (isCamposIncorretos()) return;
     if (isCpfOrTelRequiredInvalid(localInfo.cpf)) {
       return setLocalErro({ ...localErro, cpf: "CPF inválido" });
@@ -284,10 +284,7 @@ export default function ModalClientes() {
             <button className="btn-cancelar" onClick={handleClose}>
               Cancelar
             </button>
-            <BotaoRosa
-              disabled={isCamposIncorretos()}
-              onClick={handleButtonClick}
-            >
+            <BotaoRosa disabled={isCamposIncorretos()} onClick={handleSubmit}>
               Aplicar
             </BotaoRosa>
           </div>
