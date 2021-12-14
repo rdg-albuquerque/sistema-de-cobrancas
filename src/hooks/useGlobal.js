@@ -14,6 +14,8 @@ function useGlobalProvider() {
     cadastrar: false,
     editar: false,
   });
+  const [openModalExcluirCobranca, setOpenModalExcluirCobranca] =
+    useState(false);
 
   const [clienteAtual, setClienteAtual] = useState({});
   const [listaClientes, setListaClientes] = useState([]);
@@ -99,6 +101,8 @@ function useGlobalProvider() {
     setListaClientesBase,
     cobrancaAtual,
     setCobrancaAtual,
+    openModalExcluirCobranca,
+    setOpenModalExcluirCobranca,
   };
 }
 

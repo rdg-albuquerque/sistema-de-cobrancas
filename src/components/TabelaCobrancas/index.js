@@ -6,6 +6,7 @@ import excluir from "../../assets/excluir.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
 import { useGlobal } from "../../hooks/useGlobal";
 import { formatarData } from "../../utils/formatarCampos";
+import ModalExcluirCobranca from "../ModalExcluirCobranca";
 import "./style.css";
 
 function TabelaCobrancas() {
@@ -21,6 +22,8 @@ function TabelaCobrancas() {
     openModalCobranca,
     setOpenModalCobranca,
     setCobrancaAtual,
+    openModalExcluirCobranca,
+    setOpenModalExcluirCobranca,
   } = useGlobal();
   const [ordenacao, setOrdenacao] = useState({
     nome: null,
@@ -76,6 +79,11 @@ function TabelaCobrancas() {
       ...openModalCobranca,
       editar: true,
     });
+  }
+
+  function handleClickExcluir(cobranca) {
+    setCobrancaAtual(cobranca);
+    setOpenModalExcluirCobranca(true);
   }
 
   return (
@@ -155,13 +163,22 @@ function TabelaCobrancas() {
                       alt=""
                       onClick={() => handleClickEditar(cobranca)}
                     />
-                    <img src={excluir} alt="" />
+                    {cobranca.status === "Pendente" ? (
+                      <img
+                        src={excluir}
+                        alt=""
+                        onClick={() => handleClickExcluir(cobranca)}
+                      />
+                    ) : (
+                      <div style={{ width: "35px", height: "45px" }} />
+                    )}
                   </div>
                 </td>
               </tr>
             );
           })}
       </tbody>
+      {!!openModalExcluirCobranca && <ModalExcluirCobranca />}
     </table>
   );
 }
