@@ -1,14 +1,17 @@
 import TextField from "@material-ui/core/TextField";
 import { useEffect, useState } from "react";
+import { formatCurrencyInput } from "../../utils/formatCurrency";
+import onlyNumbers from "../../utils/onlyNumbers";
 import useStyles from "./style";
 
 export default function InputGeral({
+  name,
   value,
   placeholder,
   type,
   onChange,
   required,
-  emailErro,
+  localErro,
   isStatic,
 }) {
   const classes = useStyles();
@@ -16,14 +19,20 @@ export default function InputGeral({
   const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
-    if (emailErro) {
+    if (localErro) {
       setErro(true);
-      setHelperText(emailErro);
+      setHelperText(localErro);
       return;
     }
-  }, [emailErro]);
+  }, [localErro]);
 
   function handleChange(e) {
+    if (name === "currency") {
+      let value = e.target.value;
+      value = onlyNumbers(value);
+      value = formatCurrencyInput(value);
+      e.target.value = value;
+    }
     onChange(e);
 
     setErro(false);
