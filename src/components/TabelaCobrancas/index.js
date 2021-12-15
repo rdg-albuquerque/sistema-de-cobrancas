@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { span } from "react-router-dom";
 import editar from "../../assets/editar.svg";
 import excluir from "../../assets/excluir.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
 import { useGlobal } from "../../hooks/useGlobal";
 import { formatarData } from "../../utils/formatarCampos";
+import { formatCurrency } from "../../utils/formatCurrency";
+import ModalDetalhesCobranca from "../ModalDetalhesCobranca";
 import ModalExcluirCobranca from "../ModalExcluirCobranca";
 import "./style.css";
 
@@ -24,6 +26,7 @@ function TabelaCobrancas() {
     setCobrancaAtual,
     openModalExcluirCobranca,
     setOpenModalExcluirCobranca,
+    setOpenModalDetalheCobranca,
   } = useGlobal();
   const [ordenacao, setOrdenacao] = useState({
     nome: null,
@@ -86,6 +89,11 @@ function TabelaCobrancas() {
     setOpenModalExcluirCobranca(true);
   }
 
+  function handleClickNome(cobranca) {
+    setCobrancaAtual(cobranca);
+    setOpenModalDetalheCobranca(true);
+  }
+
   return (
     <table className="cobrancas-tabela">
       <thead>
@@ -138,11 +146,19 @@ function TabelaCobrancas() {
               >
                 {!user_id && (
                   <td className="cobrancas--td nome">
-                    <Link to="">{cobranca.cliente_nome}</Link>
+                    <span
+                      onClick={() => {
+                        handleClickNome(cobranca);
+                      }}
+                    >
+                      {cobranca.cliente_nome}
+                    </span>
                   </td>
                 )}
                 <td className="cobrancas--td">{cobranca.id}</td>
-                <td className="cobrancas--td">{cobranca.valor}</td>
+                <td className="cobrancas--td">
+                  {formatCurrency(cobranca.valor)}
+                </td>
                 <td className="cobrancas--td">
                   {formatarData(cobranca.data_vencimento)}
                 </td>
@@ -178,6 +194,7 @@ function TabelaCobrancas() {
             );
           })}
       </tbody>
+      {!!setOpenModalDetalheCobranca && <ModalDetalhesCobranca />}
       {!!openModalExcluirCobranca && <ModalExcluirCobranca />}
     </table>
   );
