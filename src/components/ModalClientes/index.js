@@ -79,6 +79,7 @@ export default function ModalClientes() {
   function handleChangeTelefone(e) {
     setLocalErro({ ...localErro, telefone: "" });
     setLocalInfo({ ...localInfo, telefone: e.target.value });
+    console.log(e.target.value);
   }
   function handleChangeEndereco(e) {
     setLocalInfo({ ...localInfo, endereco: e.target.value });
@@ -192,7 +193,7 @@ export default function ModalClientes() {
               placeholder="Digite o email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              emailErro={localErro.email}
+              localErro={localErro.email}
               required
             />
           </div>
