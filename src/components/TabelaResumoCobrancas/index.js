@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import filtrarCobrancas from "../../utils/filtrarCobrancas";
+import { formatCurrency } from "../../utils/formatCurrency";
 import { get } from "../../utils/requests";
 import "./style.css";
 
@@ -90,7 +91,9 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
             <tr key={index} className="cobrancas-resumo--tr">
               <td className="cobrancas-resumo--td">{cobranca.cliente_nome}</td>
               <td className="cobrancas-resumo--td">{cobranca.id}</td>
-              <td className="cobrancas-resumo--td">{`R$ ${cobranca.valor},00`}</td>
+              <td className="cobrancas-resumo--td">
+                {formatCurrency(cobranca.valor)}
+              </td>
             </tr>
           );
         })}

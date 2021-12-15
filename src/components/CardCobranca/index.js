@@ -5,6 +5,7 @@ import vencidasImg from "../../assets/resumo-vencidas-img.svg";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useEffect, useState } from "react";
 import filtrarCobrancas from "../../utils/filtrarCobrancas";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 function ResumoCobrancas({ previstas, pagas, vencidas, titulo }) {
   const { listaCobrancas } = useGlobal();
@@ -41,7 +42,7 @@ function ResumoCobrancas({ previstas, pagas, vencidas, titulo }) {
       />
       <div className="resumo--container">
         <h1 className="resumo--titulo">{titulo}</h1>
-        <span className="resumo--valor">{total}</span>
+        <span className="resumo--valor">{formatCurrency(total)}</span>
       </div>
     </div>
   );
