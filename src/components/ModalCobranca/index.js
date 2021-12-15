@@ -8,7 +8,9 @@ import close from "../../assets/close.svg";
 import fileCinza from "../../assets/FileCinza.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
+import { formatCurrencyInput } from "../../utils/formatCurrency";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
+import onlyNumbers from "../../utils/onlyNumbers";
 import { post, put } from "../../utils/requests";
 import BotaoRosa from "../BotaoRosa";
 import InputGeral from "../InputGeral";
@@ -37,11 +39,16 @@ export default function ModalCobranca() {
   } = useGlobal();
 
   const initialLocalInfo = {
+    nome: openModalCobranca.cadastrar
+      ? clienteAtual.nome
+      : cobrancaAtual.cliente_nome,
     descricao: openModalCobranca.cadastrar ? "" : cobrancaAtual.descricao,
     data_vencimento: openModalCobranca.cadastrar
       ? ""
       : cobrancaAtual.data_vencimento,
-    valor: openModalCobranca.cadastrar ? "" : cobrancaAtual.valor,
+    valor: openModalCobranca.cadastrar
+      ? ""
+      : formatCurrencyInput(cobrancaAtual.valor),
     paga: openModalCobranca.cadastrar ? null : cobrancaAtual.paga,
   };
   const [localInfo, setLocalInfo] = useState({ ...initialLocalInfo });
@@ -58,7 +65,8 @@ export default function ModalCobranca() {
     setLocalInfo({ ...localInfo, data_vencimento: e.target.value });
   }
   function handleChangeValor(e) {
-    setLocalInfo({ ...localInfo, valor: Number(e.target.value) });
+    setLocalInfo({ ...localInfo, valor: e.target.value });
+    console.log(e.target.value);
   }
 
   function isCamposIncorretos() {
@@ -66,6 +74,7 @@ export default function ModalCobranca() {
       !localInfo.descricao ||
       !localInfo.data_vencimento ||
       !localInfo.valor ||
+      localInfo.valor === "0,00" ||
       localInfo.paga === null
     );
   }
@@ -74,7 +83,11 @@ export default function ModalCobranca() {
     if (isCamposIncorretos()) return;
     try {
       if (openModalCobranca.cadastrar) {
-        const body = { ...localInfo, cliente_id: clienteAtual.id };
+        const body = {
+          ...localInfo,
+          cliente_id: clienteAtual.id,
+          valor: onlyNumbers(localInfo.valor),
+        };
         await post(`/cobrancas/${clienteAtual.id}`, body, token);
         notificacaoSucesso("Cobrança cadastrada com sucesso");
         handleClose();
@@ -82,11 +95,13 @@ export default function ModalCobranca() {
         return;
       }
       if (openModalCobranca.editar) {
-        await put(
-          `/cobrancas/${cobrancaAtual.id}`,
-          { ...localInfo, cliente_id: cobrancaAtual.cliente_id },
-          token
-        );
+        const body = {
+          ...localInfo,
+          cliente_id: cobrancaAtual.cliente_id,
+          valor: onlyNumbers(localInfo.valor),
+        };
+        console.log(body);
+        await put(`/cobrancas/${cobrancaAtual.id}`, body, token);
         notificacaoSucesso("Cobrança editada com sucesso");
         handleClose();
         if (user_id) {
@@ -131,7 +146,7 @@ export default function ModalCobranca() {
           </div>
           <div>
             <label>Nome*</label>
-            <InputGeral value={cobrancaAtual.cliente_nome} isStatic />
+            <InputGeral value={localInfo.nome} isStatic />
           </div>
           <div className="desc">
             <label>Descrição*</label>
@@ -156,8 +171,8 @@ export default function ModalCobranca() {
             <div>
               <label>Valor*</label>
               <InputGeral
+                name="currency"
                 placeholder="Digite o valor"
-                type="number"
                 value={localInfo.valor}
                 onChange={handleChangeValor}
                 required
