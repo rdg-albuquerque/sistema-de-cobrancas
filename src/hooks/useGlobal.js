@@ -16,6 +16,8 @@ function useGlobalProvider() {
   });
   const [openModalExcluirCobranca, setOpenModalExcluirCobranca] =
     useState(false);
+  const [openModalDetalheCobranca, setOpenModalDetalheCobranca] =
+    useState(false);
 
   const [clienteAtual, setClienteAtual] = useState({});
   const [listaClientes, setListaClientes] = useState([]);
@@ -103,6 +105,8 @@ function useGlobalProvider() {
     setCobrancaAtual,
     openModalExcluirCobranca,
     setOpenModalExcluirCobranca,
+    openModalDetalheCobranca,
+    setOpenModalDetalheCobranca,
   };
 }
 
