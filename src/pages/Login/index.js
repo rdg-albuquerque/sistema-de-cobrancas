@@ -72,7 +72,7 @@ function Login() {
               value={localInfo.email}
               placeholder="Digite seu e-mail"
               onChange={handleChangeEmail}
-              emailErro={localErro.email}
+              localErro={localErro.email}
             />
           </div>
           <div className="repetir-senha">

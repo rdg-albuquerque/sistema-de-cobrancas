@@ -19,14 +19,14 @@ function Cadastro1() {
     nome: "",
     email: "",
   });
-  const [emailErro, setEmailErro] = useState("");
+  const [localErro, setLocalErro] = useState("");
 
   function handleChangeNome(e) {
     setLocalInfo({ ...localInfo, nome: e.target.value });
   }
 
   function handleChangeEmail(e) {
-    setEmailErro("");
+    setLocalErro("");
     setLocalInfo({ ...localInfo, email: e.target.value });
   }
 
@@ -39,11 +39,11 @@ function Cadastro1() {
       console.log(error.response);
       const { mensagem } = error.response.data;
       if (mensagem === "O e-mail informado já está em uso") {
-        setEmailErro(mensagem);
+        setLocalErro(mensagem);
         return;
       }
       if (mensagem === "email deve ser um email válido") {
-        setEmailErro("O email deve ser um email válido");
+        setLocalErro("O email deve ser um email válido");
         return;
       }
       notificacaoErro(mensagem);
@@ -95,7 +95,7 @@ function Cadastro1() {
               value={localInfo.email}
               type="email"
               onChange={handleChangeEmail}
-              emailErro={emailErro}
+              localErro={localErro}
             />
           </div>
           <BotaoRosa
