@@ -5,6 +5,7 @@ import onlyNumbers from "../../utils/onlyNumbers";
 import useStyles from "./style";
 
 export default function MaskedInput({
+  currency,
   onChange,
   value,
   mask,
@@ -29,6 +30,7 @@ export default function MaskedInput({
       ...e,
       target: { ...e.target, value: onlyNumbers(e.target.value) },
     };
+
     onChange(eventFormatado);
 
     setLocalErro(false);
@@ -39,12 +41,12 @@ export default function MaskedInput({
       setHelperText("Este campo é obrigatório");
     }
   }
+
   return (
     <InputMask onChange={handleChange} value={value} mask={mask}>
       {() => (
         <TextField
           className={classes.root}
-          value={value}
           placeholder={placeholder}
           InputProps={{ className: classes.input }}
           size="small"
