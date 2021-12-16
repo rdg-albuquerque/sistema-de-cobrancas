@@ -7,7 +7,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import { get } from "../../utils/requests";
 import "./style.css";
 
-function TabelaCobrancas({ pagas, vencidas, previstas }) {
+function TabelaResumoCobrancas({ pagas, vencidas, previstas }) {
   const { token } = useAuth();
   const { setListaCobrancas, setListaCobrancasFiltradas } = useGlobal();
   const [localCobrancas, setLocalCobrancas] = useState([]);
@@ -105,4 +105,4 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
   );
 }
 
-export default TabelaCobrancas;
+export default TabelaResumoCobrancas;
