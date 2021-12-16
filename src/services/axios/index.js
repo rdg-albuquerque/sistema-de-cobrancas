@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instanceAxios = axios.create({
-  baseURL: "https://desafio-m05-6codam.herokuapp.com/",
+  baseURL: "https://desafio-final-6codam.herokuapp.com/",
   timeout: 1000,
 });
 
