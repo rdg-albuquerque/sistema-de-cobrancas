@@ -125,7 +125,7 @@ export default function ModalEditarUsuario() {
     }
     try {
       const { senhaConfirmacao, ...bodyReq } = localInfo;
-      await put("/usuario", bodyReq, token);
+      await put("/usuario", { ...bodyReq, cpf: bodyReq.cpf || null }, token);
       notificacaoSucesso("Editado com sucesso");
       getData();
       handleClose();
