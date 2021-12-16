@@ -7,10 +7,12 @@ import { notificacaoErro } from "../../utils/notificacao";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useNavigate } from "react-router-dom";
+import { formatarData } from "../../utils/formatarCampos";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 function TabelaResumoClientes({ emDia, inadimplentes }) {
   const { token } = useAuth();
-  const { setListaClientesFiltrados } = useGlobal();
+  const { setListaClientesFiltrados, listaCobrancas } = useGlobal();
   const [localClientes, setLocalClientes] = useState([]);
   const navigate = useNavigate();
 
@@ -41,6 +43,35 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
     getData();
     //eslint-disable-next-line
   }, []);
+
+  function getUltimaCobrancaDoCliente(cliente) {
+    let cobrancasFiltradas;
+    if (cliente.status === "Em dia") {
+      cobrancasFiltradas = listaCobrancas.filter(
+        (cobranca) =>
+          cobranca.cliente_id === cliente.id &&
+          (cobranca.status === "Paga" || cobranca.status === "Pendente")
+      );
+    }
+    if (cliente.status === "Inadimplente") {
+      cobrancasFiltradas = listaCobrancas.filter(
+        (cobranca) =>
+          cobranca.cliente_id === cliente.id && cobranca.status === "Vencida"
+      );
+    }
+    if (cobrancasFiltradas.length) {
+      const cobrancasOrdenadas = cobrancasFiltradas.sort(
+        (a, b) => +new Date(a.data_vencimento) - +new Date(b.data_vencimento)
+      );
+
+      const ultimaCobranca = cobrancasOrdenadas[cobrancasOrdenadas.length - 1];
+
+      cliente.data_vencimento = ultimaCobranca.data_vencimento;
+      cliente.valor = ultimaCobranca.valor;
+      return cliente;
+    }
+    return cliente;
+  }
 
   function handleVerTodos() {
     setListaClientesFiltrados(localClientes);
@@ -80,11 +111,18 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
       <tbody>
         {!!localClientes &&
           localClientes.map((cliente) => {
+            cliente = getUltimaCobrancaDoCliente(cliente);
             return (
               <tr key={cliente.id} className="clientes-resumo--tr">
                 <td className="clientes-resumo--td">{cliente.nome}</td>
-                <td className="clientes-resumo--td"></td>
-                <td className="clientes-resumo--td"></td>
+                <td className="clientes-resumo--td">
+                  {cliente.data_vencimento
+                    ? formatarData(cliente.data_vencimento)
+                    : "N/C"}
+                </td>
+                <td className="clientes-resumo--td">
+                  {cliente.valor ? formatCurrency(cliente.valor) : "N/C"}
+                </td>
               </tr>
             );
           })}
