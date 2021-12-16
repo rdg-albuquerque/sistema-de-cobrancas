@@ -8,8 +8,10 @@ import close from "../../assets/close.svg";
 import fileCinza from "../../assets/FileCinza.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
+import { formatCurrencyInput } from "../../utils/formatCurrency";
 import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
-import { post } from "../../utils/requests";
+import onlyNumbers from "../../utils/onlyNumbers";
+import { post, put } from "../../utils/requests";
 import BotaoRosa from "../BotaoRosa";
 import InputGeral from "../InputGeral";
 import InputStatus from "../InputStatus";
@@ -23,27 +25,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalCadastrarCobranca() {
+export default function ModalCobranca() {
   const classes = useStyles();
   const { token } = useAuth();
   const { user_id } = useParams();
   const {
-    openCadastrarCobranca,
-    setOpenCadastrarCobranca,
+    openModalCobranca,
+    setOpenModalCobranca,
     clienteAtual,
+    atualizarCobrancas,
     atualizarCobrancasPorCliente,
+    cobrancaAtual,
   } = useGlobal();
 
   const initialLocalInfo = {
-    descricao: "",
-    data_vencimento: "",
-    valor: "",
-    paga: null,
+    nome: openModalCobranca.cadastrar
+      ? clienteAtual.nome
+      : cobrancaAtual.cliente_nome,
+    descricao: openModalCobranca.cadastrar ? "" : cobrancaAtual.descricao,
+    data_vencimento: openModalCobranca.cadastrar
+      ? ""
+      : cobrancaAtual.data_vencimento,
+    valor: openModalCobranca.cadastrar
+      ? ""
+      : formatCurrencyInput(cobrancaAtual.valor),
+    paga: openModalCobranca.cadastrar ? null : cobrancaAtual.paga,
   };
   const [localInfo, setLocalInfo] = useState({ ...initialLocalInfo });
 
   function handleClose() {
-    setOpenCadastrarCobranca(false);
+    setOpenModalCobranca({ cadastrar: false, editar: false });
     setLocalInfo(initialLocalInfo);
   }
 
@@ -55,6 +66,7 @@ export default function ModalCadastrarCobranca() {
   }
   function handleChangeValor(e) {
     setLocalInfo({ ...localInfo, valor: e.target.value });
+    console.log(e.target.value);
   }
 
   function isCamposIncorretos() {
@@ -62,29 +74,53 @@ export default function ModalCadastrarCobranca() {
       !localInfo.descricao ||
       !localInfo.data_vencimento ||
       !localInfo.valor ||
+      localInfo.valor === "0,00" ||
       localInfo.paga === null
     );
   }
 
-  async function handleCadastrar() {
+  async function handleSubmit() {
     if (isCamposIncorretos()) return;
     try {
-      const body = { ...localInfo, cliente_id: clienteAtual.id };
-      await post(`/cobrancas/${clienteAtual.id}`, body, token);
-      atualizarCobrancasPorCliente(user_id);
-      handleClose();
-      notificacaoSucesso("Cobrança cadastrada com sucesso");
-      setLocalInfo(initialLocalInfo);
+      if (openModalCobranca.cadastrar) {
+        const body = {
+          ...localInfo,
+          cliente_id: clienteAtual.id,
+          valor: onlyNumbers(localInfo.valor),
+        };
+        await post(`/cobrancas/${clienteAtual.id}`, body, token);
+        notificacaoSucesso("Cobrança cadastrada com sucesso");
+        handleClose();
+        atualizarCobrancasPorCliente(user_id);
+        return;
+      }
+      if (openModalCobranca.editar) {
+        const body = {
+          ...localInfo,
+          cliente_id: cobrancaAtual.cliente_id,
+          valor: onlyNumbers(localInfo.valor),
+        };
+        console.log(body);
+        await put(`/cobrancas/${cobrancaAtual.id}`, body, token);
+        notificacaoSucesso("Cobrança editada com sucesso");
+        handleClose();
+        if (user_id) {
+          atualizarCobrancasPorCliente(user_id);
+        } else {
+          atualizarCobrancas();
+        }
+        return;
+      }
     } catch (error) {
       console.log(error.response);
-      notificacaoErro("Houve um erro ao cadastrar a Cobrança");
+      notificacaoErro("Algo de errado aconteceu");
     }
   }
 
   return (
     <Modal
       className={classes.modal}
-      open={openCadastrarCobranca}
+      open={openModalCobranca}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -92,7 +128,7 @@ export default function ModalCadastrarCobranca() {
         timeout: 500,
       }}
     >
-      <Fade in={openCadastrarCobranca}>
+      <Fade in={openModalCobranca}>
         <div className="modal-cadastrar-cobranca">
           <img
             className="editar--close"
@@ -103,12 +139,14 @@ export default function ModalCadastrarCobranca() {
           <div className="modal-cadastrar-cobranca--top">
             <img src={fileCinza} alt="" />
             <h1 className="modal-cadastrar-cobranca--h1">
-              Cadastro de Cobrança
+              {openModalCobranca.cadastrar
+                ? "Cadastro de Cobrança"
+                : "Edição de cobrança"}
             </h1>
           </div>
           <div>
             <label>Nome*</label>
-            <InputGeral value={clienteAtual.nome} isStatic />
+            <InputGeral value={localInfo.nome} isStatic />
           </div>
           <div className="desc">
             <label>Descrição*</label>
@@ -133,8 +171,8 @@ export default function ModalCadastrarCobranca() {
             <div>
               <label>Valor*</label>
               <InputGeral
+                name="currency"
                 placeholder="Digite o valor"
-                type="number"
                 value={localInfo.valor}
                 onChange={handleChangeValor}
                 required
@@ -151,10 +189,7 @@ export default function ModalCadastrarCobranca() {
             <button className="btn-cancelar" onClick={handleClose}>
               Cancelar
             </button>
-            <BotaoRosa
-              disabled={isCamposIncorretos()}
-              onClick={handleCadastrar}
-            >
+            <BotaoRosa disabled={isCamposIncorretos()} onClick={handleSubmit}>
               Aplicar
             </BotaoRosa>
           </div>

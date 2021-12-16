@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./style";
 
-export default function InputPesquisa({ value }) {
+export default function InputPesquisa({ onChange }) {
   const classes = useStyles();
 
   const handleMouseDownPassword = (event) => {
@@ -14,7 +14,7 @@ export default function InputPesquisa({ value }) {
   return (
     <TextField
       className={classes.root}
-      value={value}
+      onChange={onChange}
       placeholder="Pesquisar"
       variant="outlined"
       size="small"

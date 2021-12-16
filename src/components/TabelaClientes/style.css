@@ -18,6 +18,7 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 .clientes--tr {
   border-bottom: 1px solid #eff0f7;

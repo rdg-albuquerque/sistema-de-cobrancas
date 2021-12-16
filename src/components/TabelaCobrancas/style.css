@@ -32,12 +32,13 @@
   height: 48px;
 }
 
-.cobrancas--td a {
+.cobrancas--td.nome span {
   text-decoration: none;
   color: #6e6e85;
+  cursor: pointer;
 }
 
-.cobrancas--td.nome > a:hover {
+.cobrancas--td.nome > span:hover {
   display: inline-block;
   padding: 8px 10px;
   border-radius: 8px;

@@ -2,6 +2,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import avatarCliente from "../../assets/cadastro-cliente-avatar.svg";
@@ -79,6 +80,7 @@ export default function ModalClientes() {
   function handleChangeTelefone(e) {
     setLocalErro({ ...localErro, telefone: "" });
     setLocalInfo({ ...localInfo, telefone: e.target.value });
+    console.log(e.target.value);
   }
   function handleChangeEndereco(e) {
     setLocalInfo({ ...localInfo, endereco: e.target.value });
@@ -86,9 +88,21 @@ export default function ModalClientes() {
   function handleChangeComplemento(e) {
     setLocalInfo({ ...localInfo, complemento: e.target.value });
   }
-  function handleChangeCEP(e) {
+  async function handleChangeCEP(e) {
     setLocalErro({ ...localErro, cep: "" });
     setLocalInfo({ ...localInfo, cep: e.target.value });
+    if (e.target.value.length === 8) {
+      const { data } = await axios.get(
+        `https://viacep.com.br/ws/${e.target.value}/json/`
+      );
+      setLocalInfo((prev) => ({
+        ...prev,
+        endereco: data.logradouro,
+        cidade: data.localidade,
+        bairro: data.bairro,
+        uf: data.uf,
+      }));
+    }
   }
   function handleChangeBairro(e) {
     setLocalInfo({ ...localInfo, bairro: e.target.value });
@@ -109,7 +123,7 @@ export default function ModalClientes() {
     );
   }
 
-  async function handleButtonClick() {
+  async function handleSubmit() {
     if (isCamposIncorretos()) return;
     if (isCpfOrTelRequiredInvalid(localInfo.cpf)) {
       return setLocalErro({ ...localErro, cpf: "CPF inválido" });
@@ -192,7 +206,7 @@ export default function ModalClientes() {
               placeholder="Digite o email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              emailErro={localErro.email}
+              localErro={localErro.email}
               required
             />
           </div>
@@ -284,10 +298,7 @@ export default function ModalClientes() {
             <button className="btn-cancelar" onClick={handleClose}>
               Cancelar
             </button>
-            <BotaoRosa
-              disabled={isCamposIncorretos()}
-              onClick={handleButtonClick}
-            >
+            <BotaoRosa disabled={isCamposIncorretos()} onClick={handleSubmit}>
               Aplicar
             </BotaoRosa>
           </div>

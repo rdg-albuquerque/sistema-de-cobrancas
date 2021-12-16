@@ -190,7 +190,7 @@ export default function ModalEditarUsuario() {
               placeholder="Digite seu email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              emailErro={localErro.email}
+              localErro={localErro.email}
             />
           </div>
           <div className="modal-usuario--container">

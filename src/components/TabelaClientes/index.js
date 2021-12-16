@@ -1,9 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import novaCobranca from "../../assets/nova-cobranca.svg";
 import clienteOrdenacao from "../../assets/ordenacao.svg";
 import { useGlobal } from "../../hooks/useGlobal";
-import { clientes } from "../../objClientes";
 import { formatarCpf, formatarTel } from "../../utils/formatarCampos";
 import "./style.css";
 
@@ -11,20 +10,52 @@ function TabelaClientes() {
   const {
     atualizarClientes,
     listaClientes,
+    setListaClientes,
+    setListaClientesBase,
     setClienteAtual,
-    setOpenCadastrarCobranca,
+    openModalCobranca,
+    setOpenModalCobranca,
+    listaClientesFiltrados,
+    setListaClientesFiltrados,
   } = useGlobal();
 
+  const [ordenacao, setOrdenacao] = useState(null);
+
   useEffect(() => {
+    if (listaClientesFiltrados) {
+      setListaClientes([...listaClientesFiltrados]);
+      setListaClientesBase([...listaClientesFiltrados]);
+      setListaClientesFiltrados();
+      return;
+    }
     atualizarClientes();
     //eslint-disable-next-line
   }, []);
+
+  function handleOrdenacaoPorNome() {
+    const ordenacaoAtual = !ordenacao;
+    if (ordenacaoAtual === true) {
+      const menorParaMaior = listaClientes.sort((a, b) =>
+        a.nome.localeCompare(b.nome)
+      );
+      setListaClientes(menorParaMaior);
+    } else {
+      const maiorParamenor = listaClientes.sort((a, b) =>
+        b.nome.localeCompare(a.nome)
+      );
+      setListaClientes(maiorParamenor);
+    }
+    setOrdenacao(ordenacaoAtual);
+  }
 
   return (
     <table className="clientes-tabela">
       <thead>
         <tr className="clientes--tr">
-          <th className="clientes--th cliente--th">
+          <th
+            onClick={handleOrdenacaoPorNome}
+            className="clientes--th cliente--th"
+          >
             <img src={clienteOrdenacao} alt="" />
             <span>Cliente</span>
           </th>
@@ -41,7 +72,9 @@ function TabelaClientes() {
             return (
               <tr
                 style={
-                  index === clientes.length - 1 ? { borderBottom: "none" } : {}
+                  index === listaClientes.length - 1
+                    ? { borderBottom: "none" }
+                    : {}
                 }
                 key={cliente.id}
                 className="clientes--tr"
@@ -69,7 +102,10 @@ function TabelaClientes() {
                   <img
                     onClick={() => {
                       setClienteAtual(cliente);
-                      setOpenCadastrarCobranca(true);
+                      setOpenModalCobranca({
+                        ...openModalCobranca,
+                        cadastrar: true,
+                      });
                     }}
                     style={{ display: "inline-block", cursor: "pointer" }}
                     src={novaCobranca}
