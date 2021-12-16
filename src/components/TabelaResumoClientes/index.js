@@ -109,23 +109,22 @@ function TabelaResumoClientes({ emDia, inadimplentes }) {
         </tr>
       </thead>
       <tbody>
-        {!!localClientes &&
-          localClientes.map((cliente) => {
-            cliente = getUltimaCobrancaDoCliente(cliente);
-            return (
-              <tr key={cliente.id} className="clientes-resumo--tr">
-                <td className="clientes-resumo--td">{cliente.nome}</td>
-                <td className="clientes-resumo--td">
-                  {cliente.data_vencimento
-                    ? formatarData(cliente.data_vencimento)
-                    : "N/C"}
-                </td>
-                <td className="clientes-resumo--td">
-                  {cliente.valor ? formatCurrency(cliente.valor) : "N/C"}
-                </td>
-              </tr>
-            );
-          })}
+        {localClientes.slice(0, 5).map((cliente) => {
+          cliente = getUltimaCobrancaDoCliente(cliente);
+          return (
+            <tr key={cliente.id} className="clientes-resumo--tr">
+              <td className="clientes-resumo--td">{cliente.nome}</td>
+              <td className="clientes-resumo--td">
+                {cliente.data_vencimento
+                  ? formatarData(cliente.data_vencimento)
+                  : "N/C"}
+              </td>
+              <td className="clientes-resumo--td">
+                {cliente.valor ? formatCurrency(cliente.valor) : "N/C"}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
       <caption onClick={handleVerTodos} className="clientes-resumo--footer">
         Ver todos
