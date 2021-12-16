@@ -1,20 +1,14 @@
-import { Button } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import { useParams } from "react-router";
 import close from "../../assets/close.svg";
-import excluirAlert from "../../assets/excluirCobrancaAlert.svg";
-import { useAuth } from "../../hooks/useAuth";
-import { useGlobal } from "../../hooks/useGlobal";
-import { notificacaoErro, notificacaoSucesso } from "../../utils/notificacao";
-import { del } from "../../utils/requests";
 import avatar from "../../assets/cobranca-avatar.svg";
-import "./style.css";
+import { useGlobal } from "../../hooks/useGlobal";
 import { formatarData } from "../../utils/formatarCampos";
 import { formatCurrency } from "../../utils/formatCurrency";
+import "./style.css";
 
 const useStyles = makeStyles({
   modal: {
@@ -70,11 +64,16 @@ export default function ModalDetalhesCobranca() {
           <div className="detalhes-cobranca--container">
             <div className="detalhes-cobranca--campo">
               <h2>Vencimento</h2>
-              <span>{formatarData(cobrancaAtual.data_vencimento)}</span>
+              <span>
+                {!!cobrancaAtual.data_vencimento &&
+                  formatarData(cobrancaAtual.data_vencimento)}
+              </span>
             </div>
             <div className="detalhes-cobranca--campo">
               <h2>Valor</h2>
-              <span>{formatCurrency(cobrancaAtual.valor)}</span>
+              <span>
+                {!!cobrancaAtual.valor && formatCurrency(cobrancaAtual.valor)}
+              </span>
             </div>
           </div>
           <div className="detalhes-cobranca--container">
@@ -84,7 +83,17 @@ export default function ModalDetalhesCobranca() {
             </div>
             <div className="detalhes-cobranca--campo">
               <h2>Status</h2>
-              <span>{cobrancaAtual.status}</span>
+              <span
+                className={
+                  cobrancaAtual.status === "Vencida"
+                    ? "detalhes-cobranca--vencida-td"
+                    : cobrancaAtual.status === "Paga"
+                    ? "detalhes-cobranca--paga-td"
+                    : "detalhes-cobranca--pendente-td"
+                }
+              >
+                {cobrancaAtual.status}
+              </span>
             </div>
           </div>
         </div>

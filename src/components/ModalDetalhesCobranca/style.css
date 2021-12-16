@@ -58,3 +58,24 @@
   flex-direction: column;
   gap: 8px;
 }
+
+.detalhes-cobranca--vencida-td {
+  padding: 2px 8px;
+  color: #971d1d;
+  background: #ffefef;
+  border-radius: 8px;
+}
+
+.detalhes-cobranca--paga-td {
+  padding: 2px 10px;
+  color: #1fa7af;
+  background: #eef6f6;
+  border-radius: 8px;
+}
+
+.detalhes-cobranca--pendente-td {
+  padding: 2px 8px;
+  color: #c5a605;
+  background: #fcf6dc;
+  border-radius: 8px;
+}
