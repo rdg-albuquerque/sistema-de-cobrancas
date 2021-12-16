@@ -163,13 +163,17 @@ function TabelaCobrancas() {
                   {formatarData(cobranca.data_vencimento)}
                 </td>
                 <td className="cobrancas--td">
-                  {cobranca.status === "Vencida" ? (
-                    <span className="vencida--td">Vencida</span>
-                  ) : cobranca.status === "Paga" ? (
-                    <span className="cobrancas--td-emdia">Paga</span>
-                  ) : (
-                    <span className="pendente--td">Pendente</span>
-                  )}
+                  <span
+                    className={
+                      cobranca.status === "Vencida"
+                        ? "vencida--td"
+                        : cobranca.status === "Paga"
+                        ? "cobrancas--td-emdia"
+                        : "pendente--td"
+                    }
+                  >
+                    {cobranca.status}
+                  </span>
                 </td>
                 <td className="cobrancas--td">{cobranca.descricao}</td>
                 <td className="cobrancas--td-imgs">
