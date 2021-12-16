@@ -1,4 +1,5 @@
 function isCpfOrTelInvalid(str) {
+  if (!str) return;
   return str.length > 0 && str.length < 11;
 }
 
