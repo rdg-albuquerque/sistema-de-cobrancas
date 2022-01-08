@@ -1,33 +1,18 @@
 ![](https://i.imgur.com/xG74tOh.png)
 
-# Desafio Final Módulo 5 - FRONTEND
+## Sistema de Cobranças 💲
+Sistema de controle de cobranças baseado em React.js que estou desenvolvi juntamente com o meu grupo no desafio do último módulo do curso de programação web da Cubos Academy.
 
-Este repositório deverá servir de base para ser realizado o fork para desenvolvimento da parte de **FRONTEND** do desafio.
+Link da aplicação: https://desafio-m05-6codam.netlify.app/
 
-A URL deste repositório deverá ser entregue na plataforma de alunos da Cubos Academy na página da parte de FRONTEND do desafio.
+**OBS:** Algumas melhorias e funcionalidades ainda serão implementadas.
 
-A versão final do código de cada sprint deverá estar na branch principal do repositório e sim, a cada semana acumulará as alterações das sprints, portanto a segunda sobrescrevendo a primeira e assim por diante.
+Fique a vontade para testar !
+## Features
+* Login e autenticação
+* CRUD de usuários, clientes e cobranças
+* Rotas protegidas por autenticação
+* Listagem de clientes e seus status. O status do cliente será "Em dia" ou "Inadimplente", caso haja alguma cobrança relacionada ao mesmo que esteja pendente e que a data de vencimento já tenha passado.
+* Validações dos dados de cadastro dos usuários/clientes
+* Filtragem dos clientes e cobranças por nome e CPF.
 
----
-
-No fork de vocês, favor alterar este README para adicionar os links correspondentes para os seguintes itens:
-
-**Repositório de Backend**: https://github.com/LucasRocha2308/back-integral-m05-desafio
-
-**Repositório de Frontend**: https://github.com/LucasRocha2308/front-integral-m05-desafio
-
-**URL da aplicação funcionando**: https://desafio-m05-6codam.netlify.app/
-
----
-
-E os itens abaixo, que deverão ser preenchidos apenas após a finalização de todas as sprints do projeto: 
-
-**Pull Request (PR) de Backend**: https://github.com/cubos-academy/back-integral-m05-desafio/pull/14
-
-**Pull Request (PR) de Frontend**: https://github.com/cubos-academy/front-integral-m05-desafio/pull/16
-
-Estes Pull Requests (PRs) deverão ser criados a partir da branch principal do fork correspondente de vocês daquela stack tendo como destino o repositório base da stack do desafio.
-
-Ou seja, o Pull Request de **FRONTEND** deverá ser criado a partir do fork de vocês desse repositório aqui, com destino a este repositório aqui.
-
-E portanto o Pull Request de **BACKEND** deverá ser criado a partir do fork de vocês do repositório base de BACKEND desse desafio, com destino ao [repositório base de BACKEND desse desafio](https://github.com/cubos-academy/back-integral-m05-desafio).
