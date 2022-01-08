@@ -125,7 +125,7 @@ export default function ModalEditarUsuario() {
     }
     try {
       const { senhaConfirmacao, ...bodyReq } = localInfo;
-      await put("/usuario", bodyReq, token);
+      await put("/usuario", { ...bodyReq, cpf: bodyReq.cpf || null }, token);
       notificacaoSucesso("Editado com sucesso");
       getData();
       handleClose();
@@ -190,7 +190,7 @@ export default function ModalEditarUsuario() {
               placeholder="Digite seu email"
               value={localInfo.email}
               onChange={handleChangeEmail}
-              emailErro={localErro.email}
+              localErro={localErro.email}
             />
           </div>
           <div className="modal-usuario--container">

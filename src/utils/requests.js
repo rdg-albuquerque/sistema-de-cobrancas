@@ -23,3 +23,11 @@ export async function put(rota, body, token) {
     },
   });
 }
+
+export async function del(rota, token) {
+  return await instanceAxios.delete(rota, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+}

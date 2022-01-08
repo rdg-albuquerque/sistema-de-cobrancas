@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useGlobal } from "../../hooks/useGlobal";
+import filtrarCobrancas from "../../utils/filtrarCobrancas";
+import { formatCurrency } from "../../utils/formatCurrency";
 import { get } from "../../utils/requests";
 import "./style.css";
 
-function TabelaCobrancas({ pagas, vencidas, previstas }) {
+function TabelaResumoCobrancas({ pagas, vencidas, previstas }) {
   const { token } = useAuth();
+  const { setListaCobrancas, setListaCobrancasFiltradas } = useGlobal();
   const [localCobrancas, setLocalCobrancas] = useState([]);
-
-  function filtrarCobrancas(lista, status) {
-    return lista.filter((cobranca) => cobranca.status === status);
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
       try {
         const { data: cobrancasAtualizadas } = await get("/cobrancas", token);
+        setListaCobrancas(cobrancasAtualizadas);
         if (pagas) {
           const cobrancasPagas = filtrarCobrancas(cobrancasAtualizadas, "Paga");
           return setLocalCobrancas(cobrancasPagas);
@@ -39,6 +42,18 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
 
     //eslint-disable-next-line
   }, []);
+
+  function handleVerTodos() {
+    if (pagas) {
+      setListaCobrancasFiltradas(localCobrancas);
+    } else if (vencidas) {
+      setListaCobrancasFiltradas(localCobrancas);
+    } else if (previstas) {
+      setListaCobrancasFiltradas(localCobrancas);
+    }
+
+    navigate("/cobrancas");
+  }
 
   return (
     <table className="cobrancas-resumo">
@@ -76,14 +91,18 @@ function TabelaCobrancas({ pagas, vencidas, previstas }) {
             <tr key={index} className="cobrancas-resumo--tr">
               <td className="cobrancas-resumo--td">{cobranca.cliente_nome}</td>
               <td className="cobrancas-resumo--td">{cobranca.id}</td>
-              <td className="cobrancas-resumo--td">{`R$ ${cobranca.valor},00`}</td>
+              <td className="cobrancas-resumo--td">
+                {formatCurrency(cobranca.valor)}
+              </td>
             </tr>
           );
         })}
       </tbody>
-      <caption className="cobrancas-resumo--footer">Ver todos</caption>
+      <caption onClick={handleVerTodos} className="cobrancas-resumo--footer">
+        Ver todos
+      </caption>
     </table>
   );
 }
 
-export default TabelaCobrancas;
+export default TabelaResumoCobrancas;

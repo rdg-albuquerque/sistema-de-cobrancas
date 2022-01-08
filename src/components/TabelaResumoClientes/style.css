@@ -64,4 +64,6 @@
   box-shadow: 0px 4px 4px rgba(172, 217, 197, 0.25);
 
   text-decoration-line: underline;
+
+  cursor: pointer;
 }
